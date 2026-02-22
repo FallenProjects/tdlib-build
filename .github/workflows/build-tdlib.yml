@@ -1,0 +1,190 @@
+name: Build TDLib
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-linux:
+    name: Linux
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout TDLib
+        uses: actions/checkout@v4
+        with:
+          repository: tdlib/td
+          fetch-depth: 1
+          path: td
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Get TDLib Version
+        id: vars
+        run: |
+          cd td
+          COMMIT_HASH=$(git log -1 --pretty=%H)
+          VERSION=$(grep -oE 'project\(TDLib VERSION [0-9.]+' CMakeLists.txt | awk '{print $3}')
+          echo "commit=$COMMIT_HASH" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "TDLib Version: $VERSION ($COMMIT_HASH)"
+
+      - name: Generate tdlib.json
+        run: |
+          go run ./scripts/generate/ -src td/td/generate/scheme/td_api.tl -version "${{ steps.vars.outputs.version }}" -commit "${{ steps.vars.outputs.commit }}" -out tdlib.json
+
+      - name: Commit tdlib.json
+        run: |
+          git config --global user.name "AshokShau"
+          git config --global user.email "AshokShau@users.noreply.github.com"
+          git add tdlib.json
+          git commit -m "Update tdlib.json to version ${{ steps.vars.outputs.version }}" || echo "No changes to commit"
+          git push origin HEAD:${{ github.ref }} || echo "Push failed"
+
+      - name: Install Build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake gperf zlib1g-dev libssl-dev
+
+      - name: Build TDLib (Linux)
+        run: |
+          cmake -S td -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target tdjson -j$(nproc)
+
+      - name: Prepare Artifact
+        run: |
+          mkdir -p out
+          find build -type f -name "libtdjson.so*" -exec cp -P {} out/ \;
+          cd out
+          tar -czf ../TDLib-tdjson-linux-x86_64.tar.gz *
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.vars.outputs.version }}
+          name: TDLib v${{ steps.vars.outputs.version }}
+          body: |
+            TDLib Version: ${{ steps.vars.outputs.version }}
+            Commit: ${{ steps.vars.outputs.commit }}
+          files: TDLib-tdjson-linux-x86_64.tar.gz
+
+  build-macos:
+    name: macOS
+    runs-on: macos-14
+    steps:
+      - name: Checkout TDLib
+        uses: actions/checkout@v4
+        with:
+          repository: tdlib/td
+          fetch-depth: 1
+          path: td
+
+      - name: Get TDLib Version
+        id: vars
+        run: |
+          cd td
+          VERSION=$(grep -oE 'project\(TDLib VERSION [0-9.]+' CMakeLists.txt | awk '{print $3}')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Install Dependencies
+        run: |
+          brew install gperf cmake openssl
+
+      - name: Configure CMake
+        run: |
+          cmake -S td -B build -DCMAKE_BUILD_TYPE=Release -DOPENSSL_ROOT_DIR=$(brew --prefix openssl)
+
+      - name: Build TDLib (macOS)
+        run: |
+          cmake --build build --target tdjson -j$(sysctl -n hw.logicalcpu)
+
+      - name: Prepare Artifact
+        run: |
+          mkdir -p out
+          find build -type f -name "libtdjson.dylib" -exec cp {} out/ \;
+          find build -type f -name "libtdjson.*.dylib" -exec cp {} out/ \; || true
+          cd out
+          tar -czf ../TDLib-tdjson-macos.tar.gz *
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.vars.outputs.version }}
+          files: TDLib-tdjson-macos.tar.gz
+
+  build-windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout TDLib
+        uses: actions/checkout@v4
+        with:
+          repository: tdlib/td
+          fetch-depth: 1
+          path: td
+
+      - name: Get TDLib Version
+        id: vars
+        shell: bash
+        run: |
+          cd td
+          VERSION=$(grep -oE 'project\(TDLib VERSION [0-9.]+' CMakeLists.txt | awk '{print $3}')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Setup vcpkg
+        shell: powershell
+        run: |
+          if (!(Test-Path vcpkg)) {
+             git clone https://github.com/Microsoft/vcpkg.git
+             cd vcpkg
+             git checkout bc3512a509f9d29b37346a7e7e929f9a26e66c7e
+             .\bootstrap-vcpkg.bat
+          }
+
+      - name: Install Dependencies (vcpkg)
+        shell: powershell
+        run: |
+          cd vcpkg
+          .\vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
+
+      - name: Configure CMake
+        shell: powershell
+        run: |
+          if (Test-Path build) { Remove-Item build -Force -Recurse -ErrorAction SilentlyContinue }
+          mkdir build
+          cd build
+          $vcpkgRoot = Resolve-Path "..\vcpkg"
+          $gperfPath = Join-Path $vcpkgRoot "installed\x64-windows\tools\gperf\gperf.exe"
+          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" ../td
+
+      - name: Build TDLib (Windows)
+        shell: powershell
+        run: |
+          cd build
+          cmake --build . --target install --config Release
+
+      - name: Prepare Artifact
+        shell: powershell
+        run: |
+          mkdir out
+          if (Test-Path "td/tdlib/bin") {
+             Copy-Item "td/tdlib/bin/*.dll" -Destination "out"
+          }
+          cd out
+          Compress-Archive -Path * -DestinationPath ../TDLib-tdjson-windows-x64.zip
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.vars.outputs.version }}
+          files: TDLib-tdjson-windows-x64.zip
+
