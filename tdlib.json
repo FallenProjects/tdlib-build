@@ -18256,7 +18256,7 @@
                     "type": "MessageSender"
                 },
                 "sender_tag": {
-                    "description": "Tag of the sender of the message in the supergroup at the time the message was sent; may be empty if none or unknown. For messages sent in basic groups or supergroup administrators, the current custom title or tag must be used instead",
+                    "description": "Tag of the sender of the message in the supergroup at the time the message was sent; may be empty if none or unknown. For messages sent by basic groups or supergroup administrators, the current custom title or tag must be used instead",
                     "is_optional": true,
                     "type": "string"
                 },
@@ -31062,7 +31062,7 @@
             "type": "TextEntityType"
         },
         "textEntityTypeDateTime": {
-            "description": "A data and time",
+            "description": "A date and time",
             "args": {
                 "formatting_type": {
                     "description": "Date and time formatting type; may be null if none and the original text must not be changed",
