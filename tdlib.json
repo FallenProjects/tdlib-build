@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
-    "version": "1.8.61",
-    "commit": "6d509061574d684117f74133056aa43df89022fc",
+    "version": "1.8.62",
+    "commit": "e597838871547131ef92332fca601f5effba4e8a",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -352,6 +352,7 @@
                 "chatEventMemberLeft",
                 "chatEventMemberPromoted",
                 "chatEventMemberRestricted",
+                "chatEventMemberTagChanged",
                 "chatEventMemberSubscriptionExtended",
                 "chatEventAvailableReactionsChanged",
                 "chatEventBackgroundChanged",
@@ -547,6 +548,23 @@
             "functions": [
                 "craftGift"
             ]
+        },
+        "DateTimeFormattingType": {
+            "description": "Describes date and time formatting",
+            "types": [
+                "dateTimeFormattingTypeRelative",
+                "dateTimeFormattingTypeAbsolute"
+            ],
+            "functions": []
+        },
+        "DateTimePartPrecision": {
+            "description": "Describes precision with which to show a date or a time",
+            "types": [
+                "dateTimePartPrecisionNone",
+                "dateTimePartPrecisionShort",
+                "dateTimePartPrecisionLong"
+            ],
+            "functions": []
         },
         "DeviceToken": {
             "description": "Represents a data needed to subscribe for push notifications through registerDevice method.",
@@ -795,6 +813,14 @@
             ],
             "functions": []
         },
+        "InputCall": {
+            "description": "Describes a call",
+            "types": [
+                "inputCallDiscarded",
+                "inputCallFromMessage"
+            ],
+            "functions": []
+        },
         "InputChatPhoto": {
             "description": "Describes a photo to be set as a user profile or chat photo",
             "types": [
@@ -1002,6 +1028,7 @@
                 "internalLinkTypeNewGroupChat",
                 "internalLinkTypeNewPrivateChat",
                 "internalLinkTypeNewStory",
+                "internalLinkTypeOauth",
                 "internalLinkTypePassportDataRequest",
                 "internalLinkTypePhoneNumberConfirmation",
                 "internalLinkTypePremiumFeaturesPage",
@@ -1154,7 +1181,7 @@
             ]
         },
         "LoginUrlInfo": {
-            "description": "Contains information about an inline button of type inlineKeyboardButtonTypeLoginUrl",
+            "description": "Contains information about an inline button of type inlineKeyboardButtonTypeLoginUrl or an external link",
             "types": [
                 "loginUrlInfoOpen",
                 "loginUrlInfoRequestConfirmation"
@@ -1215,6 +1242,8 @@
                 "messageChatDeletePhoto",
                 "messageChatOwnerLeft",
                 "messageChatOwnerChanged",
+                "messageChatHasProtectedContentToggled",
+                "messageChatHasProtectedContentDisableRequested",
                 "messageChatAddMembers",
                 "messageChatJoinByLink",
                 "messageChatJoinByRequest",
@@ -1646,7 +1675,8 @@
                 "premiumFeatureBusiness",
                 "premiumFeatureMessageEffects",
                 "premiumFeatureChecklists",
-                "premiumFeaturePaidMessages"
+                "premiumFeaturePaidMessages",
+                "premiumFeatureProtectPrivateChatContent"
             ],
             "functions": []
         },
@@ -2362,7 +2392,8 @@
                 "textEntityTypeTextUrl",
                 "textEntityTypeMentionName",
                 "textEntityTypeCustomEmoji",
-                "textEntityTypeMediaTimestamp"
+                "textEntityTypeMediaTimestamp",
+                "textEntityTypeDateTime"
             ],
             "functions": []
         },
@@ -2506,6 +2537,7 @@
                 "updateBasicGroupFullInfo",
                 "updateSupergroupFullInfo",
                 "updateServiceNotification",
+                "updateNewOauthRequest",
                 "updateFile",
                 "updateFileGenerationStart",
                 "updateFileGenerationStop",
@@ -6121,7 +6153,7 @@
                     "type": "int64"
                 },
                 "reply_markup_message_id": {
-                    "description": "Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat",
+                    "description": "Identifier of the message from which reply markup needs to be used; 0 if there is no reply markup in the chat",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -6444,6 +6476,11 @@
                 },
                 "can_manage_direct_messages": {
                     "description": "True, if the administrator can answer to channel direct messages; applicable to channels only",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_manage_tags": {
+                    "description": "True, if the administrator can change tags of other users; applicable to basic groups and supergroups only",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -7303,6 +7340,11 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "member_tag_changes": {
+                    "description": "True, if member tag and custom title change events need to be returned",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "message_deletions": {
                     "description": "True, if message deletions need to be returned",
                     "is_optional": false,
@@ -7448,6 +7490,27 @@
                     "description": "",
                     "is_optional": false,
                     "type": "ChatMemberStatus"
+                },
+                "user_id": {
+                    "description": "",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "ChatEventAction"
+        },
+        "chatEventMemberTagChanged": {
+            "description": "A chat member tag has been changed @user_id Affected chat member user identifier @old_tag Previous tag of the chat member @new_tag New tag of the chat member",
+            "args": {
+                "new_tag": {
+                    "description": "",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "old_tag": {
+                    "description": "",
+                    "is_optional": false,
+                    "type": "string"
                 },
                 "user_id": {
                     "description": "",
@@ -8336,6 +8399,11 @@
                     "description": "Status of the member in the chat",
                     "is_optional": false,
                     "type": "ChatMemberStatus"
+                },
+                "tag": {
+                    "description": "Tag of the chat member or its custom title if the member is an administrator of the chat; 0-16 characters without emoji; applicable to basic groups and supergroups only",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "ChatMember"
@@ -8347,11 +8415,6 @@
                     "description": "True, if the current user can edit the administrator privileges for the called user",
                     "is_optional": false,
                     "type": "Bool"
-                },
-                "custom_title": {
-                    "description": "A custom title of the administrator; 0-16 characters without emoji; applicable to supergroups only",
-                    "is_optional": false,
-                    "type": "string"
                 },
                 "rights": {
                     "description": "Rights of the administrator",
@@ -8375,11 +8438,6 @@
         "chatMemberStatusCreator": {
             "description": "The user is the owner of the chat and has all the administrator privileges",
             "args": {
-                "custom_title": {
-                    "description": "A custom title of the owner; 0-16 characters without emoji; applicable to supergroups only",
-                    "is_optional": false,
-                    "type": "string"
-                },
                 "is_anonymous": {
                     "description": "True, if the creator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only",
                     "is_optional": false,
@@ -8615,6 +8673,11 @@
                 },
                 "can_create_topics": {
                     "description": "True, if the user can create topics",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_edit_tag": {
+                    "description": "True, if the user may change the tag of self",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -9980,6 +10043,47 @@
                 }
             },
             "type": "DateRange"
+        },
+        "dateTimeFormattingTypeAbsolute": {
+            "description": "The date and time must be shown as absolute timestamps",
+            "args": {
+                "date_precision": {
+                    "description": "The precision with which the date is shown",
+                    "is_optional": false,
+                    "type": "DateTimePartPrecision"
+                },
+                "show_day_of_week": {
+                    "description": "True, if the day of week must be shown",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "time_precision": {
+                    "description": "The precision with which hours, minutes and seconds are shown",
+                    "is_optional": false,
+                    "type": "DateTimePartPrecision"
+                }
+            },
+            "type": "DateTimeFormattingType"
+        },
+        "dateTimeFormattingTypeRelative": {
+            "description": "The time must be shown relative to the current time ([in ] X seconds, minutes, hours, days, months, years [ago])",
+            "args": {},
+            "type": "DateTimeFormattingType"
+        },
+        "dateTimePartPrecisionLong": {
+            "description": "Show the date or time in a long way (March 17, 2022 or 22:45:00)",
+            "args": {},
+            "type": "DateTimePartPrecision"
+        },
+        "dateTimePartPrecisionNone": {
+            "description": "Don't show the date or time",
+            "args": {},
+            "type": "DateTimePartPrecision"
+        },
+        "dateTimePartPrecisionShort": {
+            "description": "Show the date or time in a short way (17.03.22 or 22:45)",
+            "args": {},
+            "type": "DateTimePartPrecision"
         },
         "datedFile": {
             "description": "File with the date it was uploaded @file The file @date Point in time (Unix timestamp) when the file was uploaded",
@@ -13502,6 +13606,33 @@
             },
             "type": "InputBusinessStartPage"
         },
+        "inputCallDiscarded": {
+            "description": "A just ended call @call_id Identifier of the call",
+            "args": {
+                "call_id": {
+                    "description": "",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InputCall"
+        },
+        "inputCallFromMessage": {
+            "description": "A call from a message of the type messageCall with non-zero messageCall.unique_id",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier of the message",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "message_id": {
+                    "description": "Message identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "InputCall"
+        },
         "inputChatPhotoAnimation": {
             "description": "An animation in MPEG4 format; must be square, at most 10 seconds long, have width between 160 and 1280 and be at most 2MB in size",
             "args": {
@@ -16114,6 +16245,17 @@
             },
             "type": "InternalLinkType"
         },
+        "internalLinkTypeOauth": {
+            "description": "The link is an OAuth link. Call getOauthLinkInfo with the given URL to process the link if the link was received from outside of the application; otherwise, ignore it.",
+            "args": {
+                "url": {
+                    "description": "URL to be passed to getOauthLinkInfo",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InternalLinkType"
+        },
         "internalLinkTypePassportDataRequest": {
             "description": "The link contains a request of Telegram passport data. Call getPassportAuthorizationForm with the given parameters to process the link if the link was received from outside of the application; otherwise, ignore it",
             "args": {
@@ -17249,6 +17391,11 @@
         "linkPreviewTypeEmbeddedAnimationPlayer": {
             "description": "The link is a link to an animation player",
             "args": {
+                "animation": {
+                    "description": "The cached animation; may be null if unknown",
+                    "is_optional": true,
+                    "type": "animation"
+                },
                 "duration": {
                     "description": "Duration of the animation, in seconds",
                     "is_optional": false,
@@ -17280,6 +17427,11 @@
         "linkPreviewTypeEmbeddedAudioPlayer": {
             "description": "The link is a link to an audio player",
             "args": {
+                "audio": {
+                    "description": "The cached audio; may be null if unknown",
+                    "is_optional": true,
+                    "type": "audio"
+                },
                 "duration": {
                     "description": "Duration of the audio, in seconds",
                     "is_optional": false,
@@ -17330,6 +17482,11 @@
                     "description": "URL of the external video player",
                     "is_optional": false,
                     "type": "string"
+                },
+                "video": {
+                    "description": "The cached video; may be null if unknown",
+                    "is_optional": true,
+                    "type": "video"
                 },
                 "width": {
                     "description": "Expected width of the embedded player",
@@ -17855,35 +18012,10 @@
                     "is_optional": false,
                     "type": "int53"
                 },
-                "browser": {
-                    "description": "The version of a browser used for the authorization; may be empty if irrelevant",
-                    "is_optional": true,
-                    "type": "string"
-                },
                 "domain": {
                     "description": "A domain of the URL",
                     "is_optional": false,
                     "type": "string"
-                },
-                "ip_address": {
-                    "description": "IP address from which the authorization is performed, in human-readable format; may be empty if irrelevant",
-                    "is_optional": true,
-                    "type": "string"
-                },
-                "location": {
-                    "description": "Human-readable description of a country and a region from which the authorization is performed, based on the IP address; may be empty if irrelevant",
-                    "is_optional": true,
-                    "type": "string"
-                },
-                "platform": {
-                    "description": "Operating system the browser is running on; may be empty if irrelevant",
-                    "is_optional": true,
-                    "type": "string"
-                },
-                "request_phone_number_access": {
-                    "description": "True, if the user must be asked for the permission to share their phone number",
-                    "is_optional": false,
-                    "type": "Bool"
                 },
                 "request_write_access": {
                     "description": "True, if the user must be asked for the permission to the bot to send them messages",
@@ -18123,6 +18255,11 @@
                     "is_optional": false,
                     "type": "MessageSender"
                 },
+                "sender_tag": {
+                    "description": "Tag of the sender of the message in the supergroup at the time the message was sent; may be empty if none or unknown. For messages sent in basic groups or supergroup administrators, the current custom title or tag must be used instead",
+                    "is_optional": true,
+                    "type": "string"
+                },
                 "sending_state": {
                     "description": "The sending state of the message; may be null if the message isn't being sent and didn't fail to be sent",
                     "is_optional": true,
@@ -18290,22 +18427,27 @@
             "type": "MessageCalendarDay"
         },
         "messageCall": {
-            "description": "A message with information about an ended call @is_video True, if the call was a video call @discard_reason Reason why the call was discarded @duration Call duration, in seconds",
+            "description": "A message with information about an ended call",
             "args": {
                 "discard_reason": {
-                    "description": "",
+                    "description": "Reason why the call was discarded",
                     "is_optional": false,
                     "type": "CallDiscardReason"
                 },
                 "duration": {
-                    "description": "",
+                    "description": "Call duration, in seconds",
                     "is_optional": false,
                     "type": "int32"
                 },
                 "is_video": {
-                    "description": "",
+                    "description": "True, if the call was a video call",
                     "is_optional": false,
                     "type": "Bool"
+                },
+                "unique_id": {
+                    "description": "Persistent unique call identifier; 0 for calls from other devices, which can't be passed as inputCallFromMessage",
+                    "is_optional": false,
+                    "type": "int64"
                 }
             },
             "type": "MessageContent"
@@ -18368,6 +18510,38 @@
         "messageChatDeletePhoto": {
             "description": "A deleted chat photo",
             "args": {},
+            "type": "MessageContent"
+        },
+        "messageChatHasProtectedContentDisableRequested": {
+            "description": "Chat has_protected_content setting was requested to be disabled @is_expired True, if the request has expired",
+            "args": {
+                "is_expired": {
+                    "description": "",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "MessageContent"
+        },
+        "messageChatHasProtectedContentToggled": {
+            "description": "Chat has_protected_content setting was changed or request to change it was rejected",
+            "args": {
+                "new_has_protected_content": {
+                    "description": "New value of the setting",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "old_has_protected_content": {
+                    "description": "Previous value of the setting",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "request_message_id": {
+                    "description": "Identifier of the message with the request to change the setting; can be an identifier of a deleted message or 0",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
             "type": "MessageContent"
         },
         "messageChatJoinByLink": {
@@ -20117,6 +20291,16 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "has_protected_content_by_current_user": {
+                    "description": "True, if content of the message can't be saved locally, because it is protected by the current user; if true, then can_be_saved is false",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "has_protected_content_by_other_user": {
+                    "description": "True, if content of the message can't be saved locally, because it is protected by the other user; if true, then can_be_saved is false",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "need_show_statistics": {
                     "description": "True, if message statistics must be available from context menu of the message",
                     "is_optional": false,
@@ -20485,7 +20669,7 @@
             "type": "MessageSender"
         },
         "messageSenders": {
-            "description": "Represents a list of message senders @total_count Approximate total number of messages senders found @senders List of message senders",
+            "description": "Represents a list of message senders @total_count Approximate total number of message senders found @senders List of message senders",
             "args": {
                 "senders": {
                     "description": "",
@@ -21607,6 +21791,72 @@
             "description": "New secret chat was created",
             "args": {},
             "type": "NotificationType"
+        },
+        "oauthLinkInfo": {
+            "description": "Information about the OAuth authorization",
+            "args": {
+                "bot_user_id": {
+                    "description": "User identifier of a bot linked with the website",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "browser": {
+                    "description": "The version of a browser used for the authorization",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "domain": {
+                    "description": "A domain of the URL",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "ip_address": {
+                    "description": "IP address from which the authorization is performed, in human-readable format",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "location": {
+                    "description": "Human-readable description of a country and a region from which the authorization is performed, based on the IP address",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "match_code_first": {
+                    "description": "True, if code matching dialog must be shown first and checkOauthRequestMatchCode must be called before acceptOauthRequest. Otherwise, checkOauthRequestMatchCode must not be called",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "match_codes": {
+                    "description": "The list of codes to match; may be empty if irrelevant",
+                    "is_optional": true,
+                    "type": "vector\u003cstring\u003e"
+                },
+                "platform": {
+                    "description": "Operating system the browser is running on",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "request_phone_number_access": {
+                    "description": "True, if the user must be asked for the permission to share their phone number",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "request_write_access": {
+                    "description": "True, if the user must be asked for the permission to the bot to send them messages",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "url": {
+                    "description": "An HTTP URL where the user authorizes",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "user_id": {
+                    "description": "Identifier of the user for which the link was generated; may be 0 if unknown. The corresponding user may be unknown.",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "OauthLinkInfo"
         },
         "ok": {
             "description": "An object of this type is returned on a successful function call for certain functions",
@@ -23509,6 +23759,38 @@
             },
             "type": "PollType"
         },
+        "pollVoter": {
+            "description": "Represents a poll voter",
+            "args": {
+                "date": {
+                    "description": "Point in time (Unix timestamp) when the vote was added",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "voter_id": {
+                    "description": "The voter identifier",
+                    "is_optional": false,
+                    "type": "MessageSender"
+                }
+            },
+            "type": "PollVoter"
+        },
+        "pollVoters": {
+            "description": "Represents a list of poll voters @total_count Approximate total number of poll voters found @voters List of poll voters",
+            "args": {
+                "total_count": {
+                    "description": "",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "voters": {
+                    "description": "",
+                    "is_optional": false,
+                    "type": "vector\u003cpollVoter\u003e"
+                }
+            },
+            "type": "PollVoters"
+        },
         "premiumFeatureAccentColor": {
             "description": "The ability to choose accent color for replies and user profile",
             "args": {},
@@ -23624,6 +23906,11 @@
                 }
             },
             "type": "PremiumFeaturePromotionAnimation"
+        },
+        "premiumFeatureProtectPrivateChatContent": {
+            "description": "The ability to enable content protection in private chats",
+            "args": {},
+            "type": "PremiumFeature"
         },
         "premiumFeatureRealTimeChatTranslation": {
             "description": "Allowed to translate chat messages real-time",
@@ -25548,7 +25835,7 @@
             "type": "ReplyMarkup"
         },
         "replyMarkupRemoveKeyboard": {
-            "description": "Instructs application to remove the keyboard once this message has been received. This kind of keyboard can't be received in an incoming message; instead, updateChatReplyMarkup with message_id == 0 will be sent",
+            "description": "Instructs application to remove the keyboard once this message has been received. This kind of keyboard can't be received in an incoming message; instead, updateChatReplyMarkup with reply_markup_message == null will be sent",
             "args": {
                 "is_personal": {
                     "description": "True, if the keyboard is removed only for the mentioned users or the target user of a reply",
@@ -29962,7 +30249,7 @@
                     "type": "Bool"
                 },
                 "status": {
-                    "description": "Status of the current user in the supergroup or channel; custom title will always be empty",
+                    "description": "Status of the current user in the supergroup or channel",
                     "is_optional": false,
                     "type": "ChatMemberStatus"
                 },
@@ -30770,6 +31057,22 @@
                     "description": "",
                     "is_optional": false,
                     "type": "int64"
+                }
+            },
+            "type": "TextEntityType"
+        },
+        "textEntityTypeDateTime": {
+            "description": "A data and time @unix_time Point in time (Unix timestamp) representing the data and time @formatting_type Date and time formatting type; may be null if none and the original text must not be changed",
+            "args": {
+                "formatting_type": {
+                    "description": "",
+                    "is_optional": false,
+                    "type": "DateTimeFormattingType"
+                },
+                "unix_time": {
+                    "description": "",
+                    "is_optional": false,
+                    "type": "int32"
                 }
             },
             "type": "TextEntityType"
@@ -34131,17 +34434,17 @@
             "type": "Update"
         },
         "updateChatReplyMarkup": {
-            "description": "The default chat reply markup was changed. Can occur because new messages with reply markup were received or because an old reply markup was hidden by the user",
+            "description": "The chat reply markup was changed @chat_id Chat identifier @reply_markup_message The message from which the reply markup must be used; may be null if there is no default reply markup in the chat",
             "args": {
                 "chat_id": {
-                    "description": "Chat identifier",
+                    "description": "",
                     "is_optional": false,
                     "type": "int53"
                 },
-                "reply_markup_message_id": {
-                    "description": "Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat",
+                "reply_markup_message": {
+                    "description": "",
                     "is_optional": false,
-                    "type": "int53"
+                    "type": "message"
                 }
             },
             "type": "Update"
@@ -35439,6 +35742,27 @@
             },
             "type": "Update"
         },
+        "updateNewOauthRequest": {
+            "description": "An OAuth authorization request was received",
+            "args": {
+                "domain": {
+                    "description": "A domain of the URL where the user authorizes",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "location": {
+                    "description": "Human-readable description of a country and a region from which the authorization is performed, based on the IP address",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "url": {
+                    "description": "The URL to pass to getOauthLinkInfo; the link is valid for 60 seconds",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Update"
+        },
         "updateNewPreCheckoutQuery": {
             "description": "A new incoming pre-checkout query; for bots only. Contains full information about a checkout",
             "args": {
@@ -36346,6 +36670,32 @@
                 }
             },
             "type": "Ok"
+        },
+        "acceptOauthRequest": {
+            "description": "Accepts an OAuth authorization request. Returns an HTTP URL to open after successful authorization.",
+            "args": {
+                "allow_phone_number_access": {
+                    "description": "Pass true if the current user allowed the bot that was returned in getOauthLinkInfo, to access their phone number",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "allow_write_access": {
+                    "description": "Pass true if the current user allowed the bot that was returned in getOauthLinkInfo, to send them messages",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "match_code": {
+                    "description": "The matching code chosen by the user",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "url": {
+                    "description": "URL of the OAuth deep link",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "HttpUrl"
         },
         "acceptTermsOfService": {
             "description": "Accepts Telegram terms of services @terms_of_service_id Terms of service identifier",
@@ -37546,6 +37896,22 @@
             },
             "type": "Ok"
         },
+        "checkOauthRequestMatchCode": {
+            "description": "Checks a match-code for an OAuth authorization request. If fails, then the authorization request has failed. Otherwise,",
+            "args": {
+                "match_code": {
+                    "description": "The matching code chosen by the user",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "url": {
+                    "description": "URL of the OAuth deep link",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
         "checkPasswordRecoveryCode": {
             "description": "Checks whether a 2-step verification password recovery code sent to an email address is valid @recovery_code Recovery code to check",
             "args": {
@@ -37894,7 +38260,7 @@
             "description": "Crafts a new gift from other gifts that will be permanently lost",
             "args": {
                 "received_gift_ids": {
-                    "description": "Identifier of the gifts to use for crafting",
+                    "description": "Identifier of the gifts to use for crafting. In the case of a successful craft, the resulting gift will have the number of the first gift.",
                     "is_optional": false,
                     "type": "vector\u003cstring\u003e"
                 }
@@ -38302,7 +38668,7 @@
             "type": "TemporaryPasswordState"
         },
         "createVideoChat": {
-            "description": "Creates a video chat (a group call bound to a chat). Available only for basic groups, supergroups and channels; requires can_manage_video_chats administrator right",
+            "description": "Creates a video chat (a group call bound to a chat); for basic groups, supergroups and channels only; requires can_manage_video_chats administrator right",
             "args": {
                 "chat_id": {
                     "description": "Identifier of a chat in which the video chat will be created",
@@ -38339,6 +38705,17 @@
                     "description": "Identifier of the message of the type messageGroupCall",
                     "is_optional": false,
                     "type": "int53"
+                }
+            },
+            "type": "Ok"
+        },
+        "declineOauthRequest": {
+            "description": "Declines an OAuth authorization request",
+            "args": {
+                "url": {
+                    "description": "URL of the OAuth deep link",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "Ok"
@@ -41080,7 +41457,7 @@
             "type": "Chats"
         },
         "getChatOwnerAfterLeaving": {
-            "description": "Returns the user who will become the owner of the chat after 7 days if the current user does not return to the chat during that period; requires owner privileges in the chat.",
+            "description": "Returns the user who will become the owner of the chat after 7 days if the current user does not return to the supergroup or channel during that period or immediately for basic groups; requires owner privileges in the chat.",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
@@ -41664,11 +42041,6 @@
         "getExternalLink": {
             "description": "Returns an HTTP URL which can be used to automatically authorize the current user on a website after clicking an HTTP link.",
             "args": {
-                "allow_phone_number_access": {
-                    "description": "Pass true if the current user allowed the bot that was returned in getExternalLinkInfo, to access their phone number",
-                    "is_optional": false,
-                    "type": "Bool"
-                },
                 "allow_write_access": {
                     "description": "Pass true if the current user allowed the bot that was returned in getExternalLinkInfo, to send them messages",
                     "is_optional": false,
@@ -42885,6 +43257,22 @@
             "args": {},
             "type": "NewChatPrivacySettings"
         },
+        "getOauthLinkInfo": {
+            "description": "Returns information about an OAuth deep link. Use checkOauthRequestMatchCode, acceptOauthRequest or declineOauthRequest to process the link",
+            "args": {
+                "in_app_origin": {
+                    "description": "Origin of the OAuth request if the request was received from the in-app browser; pass an empty string otherwise",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "url": {
+                    "description": "URL of the link",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OauthLinkInfo"
+        },
         "getOption": {
             "description": "Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options \"version\" and \"commit_hash\"",
             "args": {
@@ -43084,7 +43472,7 @@
                     "type": "int32"
                 }
             },
-            "type": "MessageSenders"
+            "type": "PollVoters"
         },
         "getPreferredCountryLanguage": {
             "description": "Returns an IETF language tag of the language preferred in the country, which must be used to fill native fields in Telegram Passport personal details. Returns a 404 error if unknown @country_code A two-letter ISO 3166-1 alpha-2 country code",
@@ -45223,6 +45611,27 @@
                     "description": "",
                     "is_optional": false,
                     "type": "int32"
+                }
+            },
+            "type": "Ok"
+        },
+        "processChatHasProtectedContentDisableRequest": {
+            "description": "Processes request to disable has_protected_content in a chat",
+            "args": {
+                "approve": {
+                    "description": "Pass true to approve the request; pass false to reject the request",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "request_message_id": {
+                    "description": "Identifier of the message with the request. The message must be incoming and has content of the type messageChatHasProtectedContentDisableRequested",
+                    "is_optional": false,
+                    "type": "int53"
                 }
             },
             "type": "Ok"
@@ -47479,7 +47888,7 @@
                 "call_id": {
                     "description": "",
                     "is_optional": false,
-                    "type": "int32"
+                    "type": "InputCall"
                 },
                 "debug_information": {
                     "description": "",
@@ -47495,7 +47904,7 @@
                 "call_id": {
                     "description": "",
                     "is_optional": false,
-                    "type": "int32"
+                    "type": "InputCall"
                 },
                 "log_file": {
                     "description": "",
@@ -47511,7 +47920,7 @@
                 "call_id": {
                     "description": "Call identifier",
                     "is_optional": false,
-                    "type": "int32"
+                    "type": "InputCall"
                 },
                 "comment": {
                     "description": "An optional user comment if the rating is less than 5",
@@ -48673,6 +49082,27 @@
                     "description": "The new status of the member in the chat",
                     "is_optional": false,
                     "type": "ChatMemberStatus"
+                }
+            },
+            "type": "Ok"
+        },
+        "setChatMemberTag": {
+            "description": "Changes the tag or custom title of a chat member; requires can_manage_tags administrator right to change tag of other users; for basic groups and supergroups only",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "tag": {
+                    "description": "The new tag of the member in the chat; 0-16 characters without emoji",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "user_id": {
+                    "description": "Identifier of the user, which tag is changed. Chats can't have member tags",
+                    "is_optional": false,
+                    "type": "int53"
                 }
             },
             "type": "Ok"
@@ -50822,7 +51252,7 @@
             "type": "Ok"
         },
         "toggleChatHasProtectedContent": {
-            "description": "Changes the ability of users to save, forward, or copy chat content. Supported only for basic groups, supergroups and channels. Requires owner privileges",
+            "description": "Changes the ability of users to save, forward, or copy chat content. Requires owner privileges in basic groups, supergroups and channels.",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
@@ -51459,7 +51889,7 @@
             "type": "Ok"
         },
         "transferChatOwnership": {
-            "description": "Changes the owner of a chat; requires owner privileges in the chat. Use the method canTransferOwnership to check whether the ownership can be transferred from the current session. Available only for supergroups and channel chats",
+            "description": "Changes the owner of a chat; for basic groups, supergroups and channel chats only; requires owner privileges in the chat. Use the method canTransferOwnership to check whether the ownership can be transferred from the current session",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
