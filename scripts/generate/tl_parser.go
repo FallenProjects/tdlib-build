@@ -12,8 +12,6 @@ import (
 )
 
 var (
-	classRegex       = regexp.MustCompile(`^//@class\s+(?P<name>\w+)\s+@description\s+(?P<description>.*)`)
-	paramRegex       = regexp.MustCompile(`^//@(?P<name>\w+)\s+(?P<description>.*)`)
 	tlDefRegex       = regexp.MustCompile(`^(?P<name>\w+)\s+(?P<params>.*)=\s+(?P<type>\w+);$`)
 	paramDetailRegex = regexp.MustCompile(`(?P<name>\w+):(?P<type>[\w<>]+)`)
 )
@@ -68,26 +66,52 @@ func parseTLFromReader(r io.Reader) (*TDLibJSON, error) {
 
 		if strings.HasPrefix(line, "//") {
 			start = true
-			if strings.HasPrefix(line, "//@class") {
-				matches := classRegex.FindStringSubmatch(line)
-				if len(matches) > 0 {
-					name := matches[1]
-					desc := matches[2]
-					data.Classes[name] = &ClassDef{
-						Description: desc,
-						Types:       []string{},
-						Functions:   []string{},
+			if strings.HasPrefix(line, "//@") {
+				lineContent := strings.TrimPrefix(line, "//@")
+				parts := strings.Split(" "+lineContent, " @")
+
+				var currentClass string
+				for _, part := range parts {
+					if part == "" || part == " " {
+						continue
 					}
-				}
-			} else if strings.HasPrefix(line, "//@description") {
-				currentDescription = strings.TrimPrefix(line, "//@description ")
-			} else if strings.HasPrefix(line, "//@") {
-				matches := paramRegex.FindStringSubmatch(line)
-				if len(matches) > 0 {
-					name := matches[1]
-					desc := matches[2]
-					cleanName := strings.TrimPrefix(name, "param_")
-					currentParams[cleanName] = desc
+
+					part = strings.TrimSpace(part)
+					subParts := strings.SplitN(part, " ", 2)
+					if len(subParts) >= 1 {
+						tagName := subParts[0]
+						tagText := ""
+						if len(subParts) == 2 {
+							tagText = strings.TrimSpace(subParts[1])
+						}
+
+						switch tagName {
+						case "class":
+							currentClass = tagText
+						case "description":
+							if currentClass != "" {
+								data.Classes[currentClass] = &ClassDef{
+									Description: tagText,
+									Types:       []string{},
+									Functions:   []string{},
+								}
+								currentClass = ""
+							} else {
+								if currentDescription != "" {
+									currentDescription += " " + tagText
+								} else {
+									currentDescription = tagText
+								}
+							}
+						default:
+							cleanName := strings.TrimPrefix(tagName, "param_")
+							if existing, ok := currentParams[cleanName]; ok {
+								currentParams[cleanName] = existing + " " + tagText
+							} else {
+								currentParams[cleanName] = tagText
+							}
+						}
+					}
 				}
 			}
 			continue
