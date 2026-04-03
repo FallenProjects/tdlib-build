@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
-    "version": "1.8.62",
-    "commit": "af0cb1d30a1e5cb1a10cd83b48998ca9ea9ce249",
+    "version": "1.8.63",
+    "commit": "f06b0bac65278b03d26414c096080e7bfecfef52",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -136,7 +136,7 @@
             "functions": []
         },
         "BuiltInTheme": {
-            "description": "Describes a built-in theme of an official app",
+            "description": "Describes a built-in theme of an official application",
             "types": [
                 "builtInThemeClassic",
                 "builtInThemeDay",
@@ -504,7 +504,8 @@
                 "checkChatUsernameResultPublicGroupsUnavailable"
             ],
             "functions": [
-                "checkChatUsername"
+                "checkChatUsername",
+                "checkBotUsername"
             ]
         },
         "CheckStickerSetNameResult": {
@@ -592,6 +593,15 @@
             ],
             "functions": []
         },
+        "DiffEntityType": {
+            "description": "Represents a change of a text",
+            "types": [
+                "diffEntityTypeInsert",
+                "diffEntityTypeReplace",
+                "diffEntityTypeDelete"
+            ],
+            "functions": []
+        },
         "EmailAddressAuthentication": {
             "description": "Contains authentication data for an email address",
             "types": [
@@ -642,6 +652,7 @@
                 "fileTypeAnimation",
                 "fileTypeAudio",
                 "fileTypeDocument",
+                "fileTypeLivePhotoVideo",
                 "fileTypeNotificationSound",
                 "fileTypePhoto",
                 "fileTypePhotoStory",
@@ -649,6 +660,7 @@
                 "fileTypeSecret",
                 "fileTypeSecretThumbnail",
                 "fileTypeSecure",
+                "fileTypeSelfDestructingLivePhotoVideo",
                 "fileTypeSelfDestructingPhoto",
                 "fileTypeSelfDestructingVideo",
                 "fileTypeSelfDestructingVideoNote",
@@ -972,6 +984,14 @@
             ],
             "functions": []
         },
+        "InputPollType": {
+            "description": "Describes the type of poll to send",
+            "types": [
+                "inputPollTypeRegular",
+                "inputPollTypeQuiz"
+            ],
+            "functions": []
+        },
         "InputStoryAreaType": {
             "description": "Describes type of clickable area on a story media to be added",
             "types": [
@@ -1037,6 +1057,7 @@
                 "internalLinkTypeProxy",
                 "internalLinkTypePublicChat",
                 "internalLinkTypeQrCodeAuthentication",
+                "internalLinkTypeRequestManagedBot",
                 "internalLinkTypeRestorePurchases",
                 "internalLinkTypeSavedMessages",
                 "internalLinkTypeSearch",
@@ -1093,6 +1114,14 @@
                 "getApplicationConfig"
             ]
         },
+        "KeyboardButtonSource": {
+            "description": "Describes source of a keyboard button",
+            "types": [
+                "keyboardButtonSourceMessage",
+                "keyboardButtonSourceWebApp"
+            ],
+            "functions": []
+        },
         "KeyboardButtonType": {
             "description": "Describes a keyboard button type",
             "types": [
@@ -1102,6 +1131,7 @@
                 "keyboardButtonTypeRequestPoll",
                 "keyboardButtonTypeRequestUsers",
                 "keyboardButtonTypeRequestChat",
+                "keyboardButtonTypeRequestManagedBot",
                 "keyboardButtonTypeWebApp"
             ],
             "functions": []
@@ -1151,6 +1181,7 @@
                 "linkPreviewTypeMessage",
                 "linkPreviewTypePhoto",
                 "linkPreviewTypePremiumGiftCode",
+                "linkPreviewTypeRequestManagedBot",
                 "linkPreviewTypeShareableChatFolder",
                 "linkPreviewTypeSticker",
                 "linkPreviewTypeStickerSet",
@@ -1235,6 +1266,8 @@
                 "messageVideoChatStarted",
                 "messageVideoChatEnded",
                 "messageInviteVideoChatParticipants",
+                "messagePollOptionAdded",
+                "messagePollOptionDeleted",
                 "messageBasicGroupChatCreate",
                 "messageSupergroupChatCreate",
                 "messageChatChangeTitle",
@@ -1264,6 +1297,7 @@
                 "messageSuggestBirthdate",
                 "messageCustomServiceAction",
                 "messageGameScore",
+                "messageManagedBotCreated",
                 "messagePaymentSuccessful",
                 "messagePaymentSuccessfulBot",
                 "messagePaymentRefunded",
@@ -1676,7 +1710,8 @@
                 "premiumFeatureMessageEffects",
                 "premiumFeatureChecklists",
                 "premiumFeaturePaidMessages",
-                "premiumFeatureProtectPrivateChatContent"
+                "premiumFeatureProtectPrivateChatContent",
+                "premiumFeatureTextComposition"
             ],
             "functions": []
         },
@@ -1701,7 +1736,8 @@
                 "premiumLimitTypeMonthlyPostedStoryCount",
                 "premiumLimitTypeStoryCaptionLength",
                 "premiumLimitTypeStorySuggestedReactionAreaCount",
-                "premiumLimitTypeSimilarChatCount"
+                "premiumLimitTypeSimilarChatCount",
+                "premiumLimitTypeOwnedBotCount"
             ],
             "functions": []
         },
@@ -1815,6 +1851,7 @@
                 "pushMessageContentProximityAlertTriggered",
                 "pushMessageContentChecklistTasksAdded",
                 "pushMessageContentChecklistTasksDone",
+                "pushMessageContentPollOptionAdded",
                 "pushMessageContentMessageForwards",
                 "pushMessageContentMediaAlbum"
             ],
@@ -1987,6 +2024,7 @@
                 "searchMessagesFilterAudio",
                 "searchMessagesFilterDocument",
                 "searchMessagesFilterPhoto",
+                "searchMessagesFilterPoll",
                 "searchMessagesFilterVideo",
                 "searchMessagesFilterVoiceNote",
                 "searchMessagesFilterPhotoAndVideo",
@@ -1997,6 +2035,7 @@
                 "searchMessagesFilterMention",
                 "searchMessagesFilterUnreadMention",
                 "searchMessagesFilterUnreadReaction",
+                "searchMessagesFilterUnreadPollVote",
                 "searchMessagesFilterFailedToSend",
                 "searchMessagesFilterPinned"
             ],
@@ -2499,6 +2538,7 @@
                 "updateChatTheme",
                 "updateChatUnreadMentionCount",
                 "updateChatUnreadReactionCount",
+                "updateChatUnreadPollVoteCount",
                 "updateChatVideoChat",
                 "updateChatDefaultDisableNotification",
                 "updateChatHasProtectedContent",
@@ -2608,6 +2648,7 @@
                 "updateStakeDiceState",
                 "updateAnimatedEmojiMessageClicked",
                 "updateAnimationSearchParameters",
+                "updateTextCompositionStyles",
                 "updateSuggestedActions",
                 "updateSpeedLimitNotification",
                 "updateContactCloseBirthdays",
@@ -2627,6 +2668,7 @@
                 "updateNewCustomQuery",
                 "updatePoll",
                 "updatePollAnswer",
+                "updateManagedBot",
                 "updateChatMember",
                 "updateNewChatJoinRequest",
                 "updateChatBoost",
@@ -4675,6 +4717,11 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "manager_bot_user_id": {
+                    "description": "Identifier of the bot, which manages the bot; 0 if none or unknown; for owner of the bot only",
+                    "is_optional": false,
+                    "type": "int53"
+                },
                 "menu_button": {
                     "description": "Information about a button to show instead of the bot commands menu button; may be null if ordinary bot commands menu must be shown",
                     "is_optional": true,
@@ -6182,6 +6229,11 @@
                     "is_optional": false,
                     "type": "int32"
                 },
+                "unread_poll_vote_count": {
+                    "description": "Number of messages with unread poll votes in the chat",
+                    "is_optional": false,
+                    "type": "int32"
+                },
                 "unread_reaction_count": {
                     "description": "Number of messages with unread reactions in the chat",
                     "is_optional": false,
@@ -6418,6 +6470,11 @@
         "chatAdministrator": {
             "description": "Contains information about a chat administrator",
             "args": {
+                "can_be_edited": {
+                    "description": "True, if the current user can edit the administrator privileges for the administrator",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "custom_title": {
                     "description": "Custom title of the administrator",
                     "is_optional": false,
@@ -9554,7 +9611,7 @@
                     "type": "vector\u003cchecklistTask\u003e"
                 },
                 "title": {
-                    "description": "Title of the checklist; may contain only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities",
+                    "description": "Title of the checklist; may contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities",
                     "is_optional": false,
                     "type": "formattedText"
                 }
@@ -9580,7 +9637,7 @@
                     "type": "int32"
                 },
                 "text": {
-                    "description": "Text of the task; may contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Url, EmailAddress, Mention, Hashtag, Cashtag and PhoneNumber entities",
+                    "description": "Text of the task; may contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, DateTime and automatically found entities",
                     "is_optional": false,
                     "type": "formattedText"
                 }
@@ -10326,6 +10383,64 @@
             },
             "type": "DiceStickers"
         },
+        "diffEntity": {
+            "description": "Represents a change of a text",
+            "args": {
+                "length": {
+                    "description": "Length of the entity, in UTF-16 code units",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "offset": {
+                    "description": "Offset of the entity, in UTF-16 code units",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "type": {
+                    "description": "Type of the entity",
+                    "is_optional": false,
+                    "type": "DiffEntityType"
+                }
+            },
+            "type": "DiffEntity"
+        },
+        "diffEntityTypeDelete": {
+            "description": "Removal of some text",
+            "args": {},
+            "type": "DiffEntityType"
+        },
+        "diffEntityTypeInsert": {
+            "description": "Addition of some text",
+            "args": {},
+            "type": "DiffEntityType"
+        },
+        "diffEntityTypeReplace": {
+            "description": "Change of some text",
+            "args": {
+                "old_text": {
+                    "description": "The old text",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "DiffEntityType"
+        },
+        "diffText": {
+            "description": "A text with some changes highlighted",
+            "args": {
+                "entities": {
+                    "description": "Entities describing changes in the text. Entities doesn't mutually intersect with each other",
+                    "is_optional": false,
+                    "type": "vector\u003cdiffEntity\u003e"
+                },
+                "text": {
+                    "description": "The text",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "DiffText"
+        },
         "directMessagesChatTopic": {
             "description": "Contains information about a topic in a channel direct messages chat administered by the current user",
             "args": {
@@ -11043,6 +11158,11 @@
             "args": {},
             "type": "FileType"
         },
+        "fileTypeLivePhotoVideo": {
+            "description": "The file is a video for a live photo",
+            "args": {},
+            "type": "FileType"
+        },
         "fileTypeNone": {
             "description": "The data is not a file",
             "args": {},
@@ -11080,6 +11200,11 @@
         },
         "fileTypeSecure": {
             "description": "The file is a file from Secure storage used for storing Telegram Passport files",
+            "args": {},
+            "type": "FileType"
+        },
+        "fileTypeSelfDestructingLivePhotoVideo": {
+            "description": "The file is a seld-destructing video for a live photo in a private chat",
             "args": {},
             "type": "FileType"
         },
@@ -11191,6 +11316,22 @@
             },
             "type": "FirebaseDeviceVerificationParameters"
         },
+        "fixedText": {
+            "description": "A text fixed using fixTextWithAi",
+            "args": {
+                "diff_text": {
+                    "description": "Changes made to the original text",
+                    "is_optional": false,
+                    "type": "diffText"
+                },
+                "text": {
+                    "description": "The resulting text",
+                    "is_optional": false,
+                    "type": "formattedText"
+                }
+            },
+            "type": "FixedText"
+        },
         "formattedText": {
             "description": "A text with some entities",
             "args": {
@@ -11257,6 +11398,11 @@
                 },
                 "unread_mention_count": {
                     "description": "Number of unread messages with a mention/reply in the topic",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "unread_poll_vote_count": {
+                    "description": "Number of messages with unread poll votes in the topic",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -13038,7 +13184,7 @@
                     "type": "string"
                 },
                 "note": {
-                    "description": "Note to add about the user; 0-getOption(\"user_note_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed;",
+                    "description": "Note to add about the user; 0-getOption(\"user_note_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed;",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -13723,7 +13869,7 @@
                     "type": "vector\u003cinputChecklistTask\u003e"
                 },
                 "title": {
-                    "description": "Title of the checklist; 1-getOption(\"checklist_title_length_max\") characters. May contain only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities",
+                    "description": "Title of the checklist; 1-getOption(\"checklist_title_length_max\") characters. May contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities",
                     "is_optional": false,
                     "type": "formattedText"
                 }
@@ -13739,7 +13885,7 @@
                     "type": "int32"
                 },
                 "text": {
-                    "description": "Text of the task; 1-getOption(\"checklist_task_text_length_max\") characters without line feeds. May contain only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities",
+                    "description": "Text of the task; 1-getOption(\"checklist_task_text_length_max\") characters without line feeds. May contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities",
                     "is_optional": false,
                     "type": "formattedText"
                 }
@@ -14876,6 +15022,11 @@
                     "is_optional": true,
                     "type": "inputThumbnail"
                 },
+                "video": {
+                    "description": "Video of the live photo; not supported in secret chats; pass null if the photo isn't a live photo",
+                    "is_optional": true,
+                    "type": "InputFile"
+                },
                 "width": {
                     "description": "Photo width",
                     "is_optional": false,
@@ -14887,10 +15038,30 @@
         "inputMessagePoll": {
             "description": "A message with a poll. Polls can't be sent to secret chats and channel direct messages chats. Polls can be sent to a private chat only if the chat is a chat with a bot or the Saved Messages chat",
             "args": {
+                "allows_multiple_answers": {
+                    "description": "True, if multiple answer options can be chosen simultaneously",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "allows_revoting": {
+                    "description": "True, if the poll can be answered multiple times",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "close_date": {
-                    "description": "Point in time (Unix timestamp) when the poll will automatically be closed; for bots only",
+                    "description": "Point in time (Unix timestamp) when the poll will automatically be closed; must be 0-getOption(\"poll_open_period_max\") seconds in the future; pass 0 if not specified",
                     "is_optional": false,
                     "type": "int32"
+                },
+                "description": {
+                    "description": "Poll description; pass null to use an empty description; 0-getOption(\"message_caption_length_max\") characters",
+                    "is_optional": true,
+                    "type": "formattedText"
+                },
+                "hide_results_until_closes": {
+                    "description": "True, if the poll results will appear only after the poll closes",
+                    "is_optional": false,
+                    "type": "Bool"
                 },
                 "is_anonymous": {
                     "description": "True, if the poll voters are anonymous. Non-anonymous polls can't be sent or forwarded to channels",
@@ -14903,24 +15074,29 @@
                     "type": "Bool"
                 },
                 "open_period": {
-                    "description": "Amount of time the poll will be active after creation, in seconds; for bots only",
+                    "description": "Amount of time the poll will be active after creation, in seconds; 0-getOption(\"poll_open_period_max\"); pass 0 if not specified",
                     "is_optional": false,
                     "type": "int32"
                 },
                 "options": {
-                    "description": "List of poll answer options, 2-getOption(\"poll_answer_count_max\") strings 1-100 characters each. Only custom emoji entities are allowed to be added and only by Premium users",
+                    "description": "List of poll answer options; 2-getOption(\"poll_answer_count_max\") options",
                     "is_optional": false,
-                    "type": "vector\u003cformattedText\u003e"
+                    "type": "vector\u003cinputPollOption\u003e"
                 },
                 "question": {
                     "description": "Poll question; 1-255 characters (up to 300 characters for bots). Only custom emoji entities are allowed to be added and only by Premium users",
                     "is_optional": false,
                     "type": "formattedText"
                 },
+                "shuffle_options": {
+                    "description": "True, if poll options must be shown in a fixed random order",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "type": {
                     "description": "Type of the poll",
                     "is_optional": false,
-                    "type": "PollType"
+                    "type": "InputPollType"
                 }
             },
             "type": "InputMessageContent"
@@ -14943,6 +15119,11 @@
                     "is_optional": false,
                     "type": "int53"
                 },
+                "poll_option_id": {
+                    "description": "Identifier of the poll option in the message to be replied; pass an empty string if none",
+                    "is_optional": false,
+                    "type": "string"
+                },
                 "quote": {
                     "description": "Quote from the message to be replied; pass null if none",
                     "is_optional": true,
@@ -14963,6 +15144,11 @@
                     "description": "The identifier of the message to be replied in the same chat and forum topic. A message can be replied in the same chat and forum topic only if messageProperties.can_be_replied",
                     "is_optional": false,
                     "type": "int53"
+                },
+                "poll_option_id": {
+                    "description": "Identifier of the poll option in the message to be replied; pass an empty string if none",
+                    "is_optional": false,
+                    "type": "string"
                 },
                 "quote": {
                     "description": "Quote from the message to be replied; pass null if none. Must always be null for replies in secret chats",
@@ -15259,7 +15445,13 @@
         },
         "inputPaidMediaTypePhoto": {
             "description": "The media is a photo. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20",
-            "args": {},
+            "args": {
+                "video": {
+                    "description": "Video of the live photo; pass null if the photo isn't a live photo",
+                    "is_optional": true,
+                    "type": "InputFile"
+                }
+            },
             "type": "InputPaidMediaType"
         },
         "inputPaidMediaTypeVideo": {
@@ -15572,6 +15764,44 @@
             },
             "type": "InputPersonalDocument"
         },
+        "inputPollOption": {
+            "description": "Describes one answer option of a poll to be created",
+            "args": {
+                "text": {
+                    "description": "Option text; 1-100 characters. Only custom emoji entities are allowed to be added and only by Premium users",
+                    "is_optional": false,
+                    "type": "formattedText"
+                }
+            },
+            "type": "InputPollOption"
+        },
+        "inputPollTypeQuiz": {
+            "description": "A poll in quiz mode, which has predefined correct answers",
+            "args": {
+                "correct_option_ids": {
+                    "description": "Increasing list of 0-based identifiers of the correct answer options; must be non-empty",
+                    "is_optional": false,
+                    "type": "vector\u003cint32\u003e"
+                },
+                "explanation": {
+                    "description": "Text that is shown when the user chooses an incorrect answer or taps on the lamp icon; 0-200 characters with at most 2 line feeds",
+                    "is_optional": false,
+                    "type": "formattedText"
+                }
+            },
+            "type": "InputPollType"
+        },
+        "inputPollTypeRegular": {
+            "description": "A regular poll",
+            "args": {
+                "allow_adding_options": {
+                    "description": "True, if answer options can be added to the poll after creation; not supported in channel chats and for anonymous polls",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "InputPollType"
+        },
         "inputSticker": {
             "description": "A sticker to be added to a sticker set",
             "args": {
@@ -15830,7 +16060,7 @@
                     "type": "int32"
                 },
                 "text": {
-                    "description": "Text of the quote; 0-getOption(\"message_reply_quote_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed to be kept and must be kept in the quote",
+                    "description": "Text of the quote; 0-getOption(\"message_reply_quote_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed to be kept and must be kept in the quote",
                     "is_optional": false,
                     "type": "formattedText"
                 }
@@ -16373,6 +16603,27 @@
             "args": {},
             "type": "InternalLinkType"
         },
+        "internalLinkTypeRequestManagedBot": {
+            "description": "The link is a link to a dialog for creating of a managed bot. Call searchPublicChat with the given manager bot username.",
+            "args": {
+                "manager_bot_username": {
+                    "description": "Username of the bot which will manage the new bot",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "suggested_bot_name": {
+                    "description": "Suggested name for the bot; may be empty if not specified",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "suggested_bot_username": {
+                    "description": "Suggested username for the bot",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InternalLinkType"
+        },
         "internalLinkTypeRestorePurchases": {
             "description": "The link forces restore of App Store purchases when opened. For official iOS application only",
             "args": {},
@@ -16804,6 +17055,38 @@
             },
             "type": "KeyboardButton"
         },
+        "keyboardButtonSourceMessage": {
+            "description": "The button is from a bot's message",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the chat with the message",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "message_id": {
+                    "description": "Identifier of the message with the button",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "KeyboardButtonSource"
+        },
+        "keyboardButtonSourceWebApp": {
+            "description": "The button is a prepared keyboard button from a Mini App received via getPreparedKeyboardButton",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the bot that created the button",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "prepared_button_id": {
+                    "description": "Identifier of the prepared button",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "KeyboardButtonSource"
+        },
         "keyboardButtonTypeRequestChat": {
             "description": "A button that requests a chat to be shared by the current user; available only in private chats. Use the method shareChatWithBot to complete the request",
             "args": {
@@ -16878,6 +17161,27 @@
         "keyboardButtonTypeRequestLocation": {
             "description": "A button that sends the user's location when pressed; available only in private chats",
             "args": {},
+            "type": "KeyboardButtonType"
+        },
+        "keyboardButtonTypeRequestManagedBot": {
+            "description": "A button that requests creation of a managed bot by the current user; available only in private chats. Use the method createBot to complete the request",
+            "args": {
+                "id": {
+                    "description": "Unique button identifier",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "suggested_name": {
+                    "description": "Suggested name for the bot; may be empty if not specified",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "suggested_username": {
+                    "description": "Suggested username for the bot; may be empty if not specified",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
             "type": "KeyboardButtonType"
         },
         "keyboardButtonTypeRequestPhoneNumber": {
@@ -17619,6 +17923,11 @@
         },
         "linkPreviewTypePremiumGiftCode": {
             "description": "The link is a link to a Telegram Premium gift code",
+            "args": {},
+            "type": "LinkPreviewType"
+        },
+        "linkPreviewTypeRequestManagedBot": {
+            "description": "The link is a link to a dialog for creating of a managed bot",
             "args": {},
             "type": "LinkPreviewType"
         },
@@ -19626,6 +19935,11 @@
                     "is_optional": false,
                     "type": "int53"
                 },
+                "checklist_task_id": {
+                    "description": "Identifier of the checklist task that is linked; 0 if none",
+                    "is_optional": false,
+                    "type": "int32"
+                },
                 "for_album": {
                     "description": "True, if the whole media album to which the message belongs is linked",
                     "is_optional": false,
@@ -19645,6 +19959,11 @@
                     "description": "If found, the linked message; may be null",
                     "is_optional": true,
                     "type": "message"
+                },
+                "poll_option_id": {
+                    "description": "Identifier of the poll option that is linked; empty if none",
+                    "is_optional": false,
+                    "type": "string"
                 },
                 "topic_id": {
                     "description": "Identifier of the specific topic in which the message must be opened, or a topic to open if the message is missing; may be null if none",
@@ -19681,6 +20000,17 @@
                     "description": "For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). 0 if the notification is disabled. Available only to the message sender",
                     "is_optional": false,
                     "type": "int32"
+                }
+            },
+            "type": "MessageContent"
+        },
+        "messageManagedBotCreated": {
+            "description": "A bot managed by another bot was created by the user",
+            "args": {
+                "bot_user_id": {
+                    "description": "User identifier of the created bot",
+                    "is_optional": false,
+                    "type": "int53"
                 }
             },
             "type": "MessageContent"
@@ -19989,6 +20319,11 @@
                     "description": "True, if the caption must be shown above the photo; otherwise, the caption must be shown below the photo",
                     "is_optional": false,
                     "type": "Bool"
+                },
+                "video": {
+                    "description": "The video representing the live photo; may be null if the photo is static",
+                    "is_optional": true,
+                    "type": "video"
                 }
             },
             "type": "MessageContent"
@@ -20007,10 +20342,67 @@
         "messagePoll": {
             "description": "A message with a poll",
             "args": {
+                "can_add_option": {
+                    "description": "True, if an option can be added to the poll using addPollOption",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "description": {
+                    "description": "Description of the poll",
+                    "is_optional": false,
+                    "type": "formattedText"
+                },
+                "media": {
+                    "description": "Media attached to the poll. Currently, can be only of the types messageAnimation, messageAudio, messageDocument, messageLocation, messagePhoto, messageVenue, or messageVideo without caption",
+                    "is_optional": false,
+                    "type": "MessageContent"
+                },
                 "poll": {
-                    "description": "The poll description",
+                    "description": "Information about the poll",
                     "is_optional": false,
                     "type": "poll"
+                }
+            },
+            "type": "MessageContent"
+        },
+        "messagePollOptionAdded": {
+            "description": "A message with information about an added poll option",
+            "args": {
+                "option_id": {
+                    "description": "Identifier of the added option in the poll",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "poll_message_id": {
+                    "description": "Identifier of the message with the poll; can be an identifier of a deleted message or 0",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "text": {
+                    "description": "Text of the option; 1-100 characters; may contain only custom emoji entities",
+                    "is_optional": false,
+                    "type": "formattedText"
+                }
+            },
+            "type": "MessageContent"
+        },
+        "messagePollOptionDeleted": {
+            "description": "A message with information about a deleted poll option",
+            "args": {
+                "option_id": {
+                    "description": "Identifier of the deleted option in the poll",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "poll_message_id": {
+                    "description": "Identifier of the message with the poll; can be an identifier of a deleted message or 0",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "text": {
+                    "description": "Text of the option; 1-100 characters; may contain only custom emoji entities",
+                    "is_optional": false,
+                    "type": "formattedText"
                 }
             },
             "type": "MessageContent"
@@ -20507,6 +20899,11 @@
                     "description": "Point in time (Unix timestamp) when the message was sent if the message was from another chat or topic; 0 for messages from the same chat",
                     "is_optional": false,
                     "type": "int32"
+                },
+                "poll_option_id": {
+                    "description": "Identifier of the poll option in the original message that was replied; empty if none",
+                    "is_optional": false,
+                    "type": "string"
                 },
                 "quote": {
                     "description": "Chosen quote from the replied message; may be null if none",
@@ -21810,6 +22207,11 @@
                     "is_optional": false,
                     "type": "string"
                 },
+                "from_app": {
+                    "description": "True, if the authorization originates from an application",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "ip_address": {
                     "description": "IP address from which the authorization is performed, in human-readable format",
                     "is_optional": false,
@@ -21854,6 +22256,11 @@
                     "description": "Identifier of the user for which the link was generated; may be 0 if unknown. The corresponding user may be unknown.",
                     "is_optional": false,
                     "type": "int53"
+                },
+                "verified_app_name": {
+                    "description": "Verified name of the application; if empty, then \"Unverified App\" must be shown instead",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "OauthLinkInfo"
@@ -22592,6 +22999,11 @@
                     "description": "The photo",
                     "is_optional": false,
                     "type": "photo"
+                },
+                "video": {
+                    "description": "The video representing the live photo; may be null if the photo is static",
+                    "is_optional": true,
+                    "type": "video"
                 }
             },
             "type": "PaidMedia"
@@ -23648,6 +24060,21 @@
         "poll": {
             "description": "Describes a poll",
             "args": {
+                "allows_multiple_answers": {
+                    "description": "True, if multiple answer options can be chosen simultaneously",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "allows_revoting": {
+                    "description": "True, if the poll can be answered multiple times",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_get_voters": {
+                    "description": "True, if the current user can get voters in the poll",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "close_date": {
                     "description": "Point in time (Unix timestamp) when the poll will automatically be closed",
                     "is_optional": false,
@@ -23673,18 +24100,23 @@
                     "is_optional": false,
                     "type": "int32"
                 },
+                "option_order": {
+                    "description": "The list of 0-based poll identifiers in which the options of the poll must be shown; empty if the order of options must not be changed",
+                    "is_optional": false,
+                    "type": "vector\u003cint32\u003e"
+                },
                 "options": {
                     "description": "List of poll answer options",
                     "is_optional": false,
                     "type": "vector\u003cpollOption\u003e"
                 },
                 "question": {
-                    "description": "Poll question; 1-300 characters. Only custom emoji entities are allowed",
+                    "description": "Poll question; 1-300 characters; may contain only custom emoji entities",
                     "is_optional": false,
                     "type": "formattedText"
                 },
                 "recent_voter_ids": {
-                    "description": "Identifiers of recent voters, if the poll is non-anonymous",
+                    "description": "Identifiers of recent voters, if the poll is non-anonymous and poll results are available",
                     "is_optional": false,
                     "type": "vector\u003cMessageSender\u003e"
                 },
@@ -23704,6 +24136,21 @@
         "pollOption": {
             "description": "Describes one answer option of a poll",
             "args": {
+                "addition_date": {
+                    "description": "Point in time (Unix timestamp) when the option was added; 0 if the option existed from creation of the poll",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "author": {
+                    "description": "Identifier of the user or chat who added the option; may be null if the option existed from creation of the poll",
+                    "is_optional": true,
+                    "type": "MessageSender"
+                },
+                "id": {
+                    "description": "Unique identifier of the option in the poll",
+                    "is_optional": false,
+                    "type": "string"
+                },
                 "is_being_chosen": {
                     "description": "True, if the option is being chosen by a pending setPollAnswer request",
                     "is_optional": false,
@@ -23714,8 +24161,18 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "media": {
+                    "description": "Option media. Currently, can be only of the types messageAnimation, messageLocation, messagePhoto, messageSticker, messageVenue, or messageVideo without caption",
+                    "is_optional": false,
+                    "type": "MessageContent"
+                },
+                "recent_voter_ids": {
+                    "description": "Identifiers of recent voters for the option, if the poll is non-anonymous and poll results are available",
+                    "is_optional": false,
+                    "type": "vector\u003cMessageSender\u003e"
+                },
                 "text": {
-                    "description": "Option text; 1-100 characters. Only custom emoji entities are allowed",
+                    "description": "Option text; 1-100 characters; may contain only custom emoji entities",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -23725,38 +24182,63 @@
                     "type": "int32"
                 },
                 "voter_count": {
-                    "description": "Number of voters for this option, available only for closed or voted polls",
+                    "description": "Number of voters for this option, available only for closed or voted polls, or if the current user is the creator of the poll",
                     "is_optional": false,
                     "type": "int32"
                 }
             },
             "type": "PollOption"
         },
-        "pollTypeQuiz": {
-            "description": "A poll in quiz mode, which has exactly one correct answer option and can be answered only once",
+        "pollOptionProperties": {
+            "description": "Contains properties of a poll option and describes actions that can be done with the option right now",
             "args": {
-                "correct_option_id": {
-                    "description": "0-based identifier of the correct answer option; -1 for a yet unanswered poll",
+                "can_be_deleted": {
+                    "description": "True, if the option can be deleted using deletePollOption",
                     "is_optional": false,
-                    "type": "int32"
+                    "type": "Bool"
+                },
+                "can_be_replied": {
+                    "description": "True, if the poll option can be replied in the same chat and forum topic using inputMessageReplyToMessage",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_be_replied_in_another_chat": {
+                    "description": "True, if the poll option can be replied in another chat or forum topic using inputMessageReplyToExternalMessage",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_get_link": {
+                    "description": "True, if a link can be generated for the poll option using getMessageLink",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "PollOptionProperties"
+        },
+        "pollTypeQuiz": {
+            "description": "A poll in quiz mode, which has predefined correct answers",
+            "args": {
+                "correct_option_ids": {
+                    "description": "Increasing list of 0-based identifiers of the correct answer options; empty for a yet unanswered poll",
+                    "is_optional": false,
+                    "type": "vector\u003cint32\u003e"
                 },
                 "explanation": {
-                    "description": "Text that is shown when the user chooses an incorrect answer or taps on the lamp icon; 0-200 characters with at most 2 line feeds; empty for a yet unanswered poll",
+                    "description": "Text that is shown when the user chooses an incorrect answer or taps on the lamp icon; empty for a yet unanswered poll",
                     "is_optional": false,
                     "type": "formattedText"
+                },
+                "explanation_media": {
+                    "description": "Media that is shown when the user chooses an incorrect answer or taps on the lamp icon; may be null if none or the poll is unanswered yet.",
+                    "is_optional": true,
+                    "type": "MessageContent"
                 }
             },
             "type": "PollType"
         },
         "pollTypeRegular": {
             "description": "A regular poll",
-            "args": {
-                "allow_multiple_answers": {
-                    "description": "True, if multiple answer options can be chosen simultaneously",
-                    "is_optional": false,
-                    "type": "Bool"
-                }
-            },
+            "args": {},
             "type": "PollType"
         },
         "pollVoter": {
@@ -23919,6 +24401,11 @@
         },
         "premiumFeatureSavedMessagesTags": {
             "description": "The ability to use tags in Saved Messages",
+            "args": {},
+            "type": "PremiumFeature"
+        },
+        "premiumFeatureTextComposition": {
+            "description": "The ability to compose text with AI",
             "args": {},
             "type": "PremiumFeature"
         },
@@ -24171,6 +24658,11 @@
         },
         "premiumLimitTypeMonthlyPostedStoryCount": {
             "description": "The maximum number of stories posted per month",
+            "args": {},
+            "type": "PremiumLimitType"
+        },
+        "premiumLimitTypeOwnedBotCount": {
+            "description": "The maximum number of owned bots",
             "args": {},
             "type": "PremiumLimitType"
         },
@@ -25223,6 +25715,17 @@
             },
             "type": "PushMessageContent"
         },
+        "pushMessageContentPollOptionAdded": {
+            "description": "An option was added to a poll",
+            "args": {
+                "text": {
+                    "description": "Text of the option",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "PushMessageContent"
+        },
         "pushMessageContentPremiumGiftCode": {
             "description": "A message with a Telegram Premium gift code created for the user",
             "args": {
@@ -25503,10 +26006,15 @@
             "type": "QuickReplyShortcut"
         },
         "reactionNotificationSettings": {
-            "description": "Contains information about notification settings for reactions",
+            "description": "Contains information about notification settings for reactions and poll votes",
             "args": {
                 "message_reaction_source": {
                     "description": "Source of message reactions for which notifications are shown",
+                    "is_optional": false,
+                    "type": "ReactionNotificationSource"
+                },
+                "poll_vote_source": {
+                    "description": "Source of poll votes for which notifications are shown",
                     "is_optional": false,
                     "type": "ReactionNotificationSource"
                 },
@@ -26642,13 +27150,23 @@
             "args": {},
             "type": "SearchMessagesFilter"
         },
+        "searchMessagesFilterPoll": {
+            "description": "Returns only poll messages",
+            "args": {},
+            "type": "SearchMessagesFilter"
+        },
         "searchMessagesFilterUnreadMention": {
-            "description": "Returns only messages with unread mentions of the current user, or messages that are replies to their messages. When using this filter the results can't be additionally filtered by a query, a message thread or by the sending user",
+            "description": "Returns only messages with unread mentions of the current user, or messages that are replies to their messages. When using this filter the results can't be additionally filtered by a query or by the sending user",
+            "args": {},
+            "type": "SearchMessagesFilter"
+        },
+        "searchMessagesFilterUnreadPollVote": {
+            "description": "Returns only messages with unread poll votes for the current user. When using this filter the results can't be additionally filtered by a query or by the sending user",
             "args": {},
             "type": "SearchMessagesFilter"
         },
         "searchMessagesFilterUnreadReaction": {
-            "description": "Returns only messages with unread reactions for the current user. When using this filter the results can't be additionally filtered by a query, a message thread or by the sending user",
+            "description": "Returns only messages with unread reactions for the current user. When using this filter the results can't be additionally filtered by a query or by the sending user",
             "args": {},
             "type": "SearchMessagesFilter"
         },
@@ -27335,7 +27853,7 @@
                     "type": "Bool"
                 },
                 "content": {
-                    "description": "Content of the message. Currently, can be only of the types messageText, messageAnimation, messagePhoto, or messageVideo. Video messages can be viewed fullscreen",
+                    "description": "Content of the message. Currently, can be only of the types messageText, messageAnimation, messagePhoto, or messageVideo. Video messages can be viewed fullscreen.",
                     "is_optional": false,
                     "type": "MessageContent"
                 },
@@ -29006,7 +29524,7 @@
                     "type": "string"
                 },
                 "text": {
-                    "description": "Text to show along with the gift codes; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed",
+                    "description": "Text to show along with the gift codes; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -29037,7 +29555,7 @@
                     "type": "string"
                 },
                 "text": {
-                    "description": "Text to show along with the gift codes; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed",
+                    "description": "Text to show along with the gift codes; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -30019,7 +30537,7 @@
             "description": "Suggests the user to add login email address. Call isLoginEmailAddressRequired, and then setLoginEmailAddress or checkLoginEmailAddressCode to change the login email address",
             "args": {
                 "can_be_hidden": {
-                    "description": "True, if the suggested action can be hidden using hideSuggestedAction. Otherwise, the user must not be able to use the app without setting up the email address",
+                    "description": "True, if the suggested action can be hidden using hideSuggestedAction. Otherwise, the user must not be able to use the application without setting up the email address",
                     "is_optional": false,
                     "type": "Bool"
                 }
@@ -30727,7 +31245,7 @@
                     "type": "int32"
                 },
                 "text": {
-                    "description": "Text to show to the user receiving Telegram Premium; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed",
+                    "description": "Text to show to the user receiving Telegram Premium; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -30763,7 +31281,7 @@
                     "type": "int32"
                 },
                 "text": {
-                    "description": "Text to show along with the gift codes; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed",
+                    "description": "Text to show along with the gift codes; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -30988,6 +31506,27 @@
             },
             "type": "Text"
         },
+        "textCompositionStyle": {
+            "description": "Describes a style that can be used to compose a text",
+            "args": {
+                "custom_emoji_id": {
+                    "description": "Identifier of the custom emoji corresponding to the style",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "name": {
+                    "description": "Name of the style",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Title of the style in the user application's language",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TextCompositionStyle"
+        },
         "textEntities": {
             "description": "Contains a list of text entities",
             "args": {
@@ -31206,7 +31745,7 @@
                     "type": "int32"
                 },
                 "text": {
-                    "description": "Text of the quote. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities can be present in the text",
+                    "description": "Text of the quote. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities can be present in the text",
                     "is_optional": false,
                     "type": "formattedText"
                 }
@@ -32684,6 +33223,11 @@
                     "description": "True, if a video call can be created with the user",
                     "is_optional": false,
                     "type": "Bool"
+                },
+                "uses_unofficial_app": {
+                    "description": "True, if the user uses an unofficial application that poses a security risk",
+                    "is_optional": false,
+                    "type": "Bool"
                 }
             },
             "type": "UserFullInfo"
@@ -33006,6 +33550,11 @@
                 },
                 "can_join_groups": {
                     "description": "True, if the bot can be invited to basic group and supergroup chats",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_manage_bots": {
+                    "description": "True, if the bot can manage other bots",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -34513,6 +35062,22 @@
             },
             "type": "Update"
         },
+        "updateChatUnreadPollVoteCount": {
+            "description": "The chat unread_poll_vote_count has changed",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "unread_poll_vote_count": {
+                    "description": "The number of messages with unread poll votes left in the chat",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "Update"
+        },
         "updateChatUnreadReactionCount": {
             "description": "The chat unread_reaction_count has changed",
             "args": {
@@ -34861,6 +35426,11 @@
                     "is_optional": false,
                     "type": "int32"
                 },
+                "unread_poll_vote_count": {
+                    "description": "Number of messages with unread poll votes in the topic",
+                    "is_optional": false,
+                    "type": "int32"
+                },
                 "unread_reaction_count": {
                     "description": "Number of messages with unread reactions in the topic",
                     "is_optional": false,
@@ -35094,6 +35664,22 @@
                     "description": "Identifier of the group call",
                     "is_optional": false,
                     "type": "int32"
+                }
+            },
+            "type": "Update"
+        },
+        "updateManagedBot": {
+            "description": "A bot that can be managed by the current bot was created or updated; for bots only",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the created managed bot",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "user_id": {
+                    "description": "Identifier of the user who created the bot",
+                    "is_optional": false,
+                    "type": "int53"
                 }
             },
             "type": "Update"
@@ -35987,7 +36573,12 @@
             "description": "A user changed the answer to a poll; for bots only",
             "args": {
                 "option_ids": {
-                    "description": "0-based identifiers of answer options, chosen by the user",
+                    "description": "Unique identifiers of answer options, that were chosen by the user",
+                    "is_optional": false,
+                    "type": "vector\u003cstring\u003e"
+                },
+                "option_positions": {
+                    "description": "0-based identifiers of answer options, that were chosen by the user",
                     "is_optional": false,
                     "type": "vector\u003cint32\u003e"
                 },
@@ -36425,6 +37016,17 @@
                     "description": "Identifier of the terms of service",
                     "is_optional": false,
                     "type": "string"
+                }
+            },
+            "type": "Update"
+        },
+        "updateTextCompositionStyles": {
+            "description": "The styles supported for text composition have changed",
+            "args": {
+                "styles": {
+                    "description": "The new list of supported styles",
+                    "is_optional": false,
+                    "type": "vector\u003ctextCompositionStyle\u003e"
                 }
             },
             "type": "Update"
@@ -37078,6 +37680,27 @@
                     "description": "Type of the paid reaction; pass null if the user didn't choose reaction type explicitly, for example, the reaction is set from the message bubble",
                     "is_optional": true,
                     "type": "PaidReactionType"
+                }
+            },
+            "type": "Ok"
+        },
+        "addPollOption": {
+            "description": "Adds an option to a poll",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the chat to which the poll belongs",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "message_id": {
+                    "description": "Identifier of the message containing the poll. Use messagePoll.can_add_option to check whether an option can be added",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "option": {
+                    "description": "The new option",
+                    "is_optional": false,
+                    "type": "inputPollOption"
                 }
             },
             "type": "Ok"
@@ -37825,6 +38448,17 @@
             },
             "type": "Ok"
         },
+        "checkBotUsername": {
+            "description": "Checks whether a username can be set for a new bot. Use checkChatUsername to check username for other chat types",
+            "args": {
+                "username": {
+                    "description": "Username to be checked",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "CheckChatUsernameResult"
+        },
         "checkChatFolderInviteLink": {
             "description": "Checks the validity of an invite link for a chat folder and returns information about the corresponding chat folder",
             "args": {
@@ -38218,6 +38852,32 @@
             },
             "type": "Ok"
         },
+        "composeTextWithAi": {
+            "description": "Changes text using an AI model; must not be used in secret chats. May return an error with a message \"AICOMPOSE_FLOOD_PREMIUM\" if Telegram Premium is required to send further requests",
+            "args": {
+                "add_emojis": {
+                    "description": "Pass true to add emoji to the text",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "style_name": {
+                    "description": "Name of the style of the resulted text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "text": {
+                    "description": "The original text",
+                    "is_optional": false,
+                    "type": "formattedText"
+                },
+                "translate_to_language_code": {
+                    "description": "Pass a language code to which the text will be translated; pass an empty string if translation isn't needed. See translateText.to_language_code for the list of supported values",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "FormattedText"
+        },
         "confirmQrCodeAuthentication": {
             "description": "Confirms QR code authentication on another device. Returns created session on success",
             "args": {
@@ -38282,6 +38942,32 @@
                 }
             },
             "type": "Chat"
+        },
+        "createBot": {
+            "description": "Creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message \"BOT_CREATE_LIMIT_EXCEEDED\"",
+            "args": {
+                "manager_bot_user_id": {
+                    "description": "Identifier of the bot that will manage the created bot",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "name": {
+                    "description": "Name of the bot; 1-64 characters",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "username": {
+                    "description": "Username of the bot. The username must end with \"bot\". Use checkBotUsername to find whether the name is suitable",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "via_link": {
+                    "description": "Pass true if the bot is created from an internalLinkTypeRequestManagedBot link",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "User"
         },
         "createBusinessChatLink": {
             "description": "Creates a business chat link for the current account. Requires Telegram Business subscription. There can be up to getOption(\"business_chat_link_count_max\") links created. Returns the created link",
@@ -39216,6 +39902,27 @@
                     "description": "Element type",
                     "is_optional": false,
                     "type": "PassportElementType"
+                }
+            },
+            "type": "Ok"
+        },
+        "deletePollOption": {
+            "description": "Adds an option to a poll",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the chat to which the poll belongs",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "message_id": {
+                    "description": "Identifier of the message containing the poll",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "option_id": {
+                    "description": "Unique identifier of the option. Use pollOptionProperties.can_be_deleted to check whether the option can be deleted by the user",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "Ok"
@@ -40444,6 +41151,17 @@
             },
             "type": "Ok"
         },
+        "fixTextWithAi": {
+            "description": "Fixes text using an AI model; must not be used in secret chats. May return an error with a message \"AICOMPOSE_FLOOD_PREMIUM\" if Telegram Premium is required to send further requests",
+            "args": {
+                "text": {
+                    "description": "The original text",
+                    "is_optional": false,
+                    "type": "formattedText"
+                }
+            },
+            "type": "FixedText"
+        },
         "forwardMessages": {
             "description": "Forwards previously sent messages. Returns the forwarded messages in the same order as the message identifiers passed in message_ids. If a message can't be forwarded, null will be returned instead of the message",
             "args": {
@@ -40802,6 +41520,22 @@
                 }
             },
             "type": "Users"
+        },
+        "getBotToken": {
+            "description": "Returns token of a created bot; for bots only",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the created bot",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "revoke": {
+                    "description": "Pass true to revoke the current token and create a new one",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "Text"
         },
         "getBusinessAccountStarAmount": {
             "description": "Returns the Telegram Star amount owned by a business account; for bots only",
@@ -41371,7 +42105,7 @@
                     "type": "int53"
                 },
                 "filter": {
-                    "description": "Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function",
+                    "description": "Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction,",
                     "is_optional": false,
                     "type": "SearchMessagesFilter"
                 },
@@ -41423,7 +42157,7 @@
                     "type": "int53"
                 },
                 "filter": {
-                    "description": "Filter for message content; searchMessagesFilterEmpty, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction, and searchMessagesFilterFailedToSend are unsupported in this function",
+                    "description": "Filter for message content; searchMessagesFilterEmpty, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction, searchMessagesFilterUnreadPollVote,",
                     "is_optional": false,
                     "type": "SearchMessagesFilter"
                 },
@@ -41599,7 +42333,7 @@
                     "type": "int53"
                 },
                 "filter": {
-                    "description": "Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function",
+                    "description": "Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction,",
                     "is_optional": false,
                     "type": "SearchMessagesFilter"
                 },
@@ -43033,6 +43767,11 @@
                     "is_optional": false,
                     "type": "int53"
                 },
+                "checklist_task_id": {
+                    "description": "If not 0, identifier of the checklist task in the message to be linked",
+                    "is_optional": false,
+                    "type": "int32"
+                },
                 "for_album": {
                     "description": "Pass true to create a link for the whole media album",
                     "is_optional": false,
@@ -43052,6 +43791,11 @@
                     "description": "Identifier of the message",
                     "is_optional": false,
                     "type": "int53"
+                },
+                "poll_option_id": {
+                    "description": "If not empty, identifier of the poll option in the message to be linked",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "MessageLink"
@@ -43443,8 +44187,29 @@
             },
             "type": "PhoneNumberInfo"
         },
+        "getPollOptionProperties": {
+            "description": "Returns properties of a poll option. This is an offline method",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "message_id": {
+                    "description": "Identifier of the message",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "poll_option_id": {
+                    "description": "Unique identifier of the answer option, which properties will be returned",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "PollOptionProperties"
+        },
         "getPollVoters": {
-            "description": "Returns message senders voted for the specified option in a non-anonymous polls. For optimal performance, the number of returned users is chosen by TDLib",
+            "description": "Returns message senders voted for the specified option in a poll; use poll.can_get_voters to check whether the method can be used.",
             "args": {
                 "chat_id": {
                     "description": "Identifier of the chat to which the poll belongs",
@@ -43570,6 +44335,22 @@
                 }
             },
             "type": "PreparedInlineMessage"
+        },
+        "getPreparedKeyboardButton": {
+            "description": "Returns a keyboard button prepared by the bot for the user. The button will be of the type keyboardButtonTypeRequestUsers, keyboardButtonTypeRequestChat, or keyboardButtonTypeRequestManagedBot",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the bot that created the button",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "prepared_button_id": {
+                    "description": "Identifier of the prepared button",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "KeyboardButton"
         },
         "getProxies": {
             "description": "Returns the list of proxies that are currently set up. Can be called before authorization",
@@ -44869,7 +45650,7 @@
                     "type": "int53"
                 },
                 "text": {
-                    "description": "Text to show to the user receiving Telegram Premium; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed",
+                    "description": "Text to show to the user receiving Telegram Premium; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -44909,7 +45690,7 @@
             "type": "ImportedContacts"
         },
         "importMessages": {
-            "description": "Imports messages exported from another app",
+            "description": "Imports messages exported from another application",
             "args": {
                 "attached_files": {
                     "description": "Files used in the imported messages. Only inputFileLocal and inputFileGenerated are supported. The files must not be previously uploaded",
@@ -45120,6 +45901,22 @@
             "args": {
                 "group_call_id": {
                     "description": "Group call identifier",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "Ok"
+        },
+        "listenToAudio": {
+            "description": "Informs TDLib that an audio was listened by the user",
+            "args": {
+                "audio_file_id": {
+                    "description": "Identifier of the file with an audio",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "duration": {
+                    "description": "Duration of the listening to the audio, in seconds",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -45439,7 +46236,7 @@
             "type": "FormattedText"
         },
         "parseTextEntities": {
-            "description": "Parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, BlockQuote, ExpandableBlockQuote, Code, Pre, PreCode, TextUrl",
+            "description": "Parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, BlockQuote, ExpandableBlockQuote, Code, Pre, PreCode, TextUrl,",
             "args": {
                 "parse_mode": {
                     "description": "Text parse mode",
@@ -45510,7 +46307,7 @@
                     "type": "int53"
                 },
                 "text": {
-                    "description": "Text to show along with the gift; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.",
+                    "description": "Text to show along with the gift; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -45737,6 +46534,17 @@
             },
             "type": "Ok"
         },
+        "readAllChatPollVotes": {
+            "description": "Marks all poll votes in a chat as read",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "Ok"
+        },
         "readAllChatReactions": {
             "description": "Marks all reactions in a chat as read",
             "args": {
@@ -45774,6 +46582,22 @@
                 },
                 "forum_topic_id": {
                     "description": "Forum topic identifier in which mentions are marked as read",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "Ok"
+        },
+        "readAllForumTopicPollVotes": {
+            "description": "Marks all poll votes in a topic in a forum supergroup chat as read",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "forum_topic_id": {
+                    "description": "Forum topic identifier in which poll votes are marked as read",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -46972,6 +47796,22 @@
             },
             "type": "PreparedInlineMessageId"
         },
+        "savePreparedKeyboardButton": {
+            "description": "Saves a keyboard button to be shown to the given user; for bots only",
+            "args": {
+                "button": {
+                    "description": "The button; must be of the type keyboardButtonTypeRequestUsers, keyboardButtonTypeRequestChat, or keyboardButtonTypeRequestManagedBot",
+                    "is_optional": false,
+                    "type": "keyboardButton"
+                },
+                "user_id": {
+                    "description": "Identifier of the user",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "Text"
+        },
         "searchAffiliatePrograms": {
             "description": "Searches affiliate programs that can be connected to the given affiliate",
             "args": {
@@ -47242,6 +48082,11 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "for_stars": {
+                    "description": "Pass true to get only gifts that can be bought using Telegram Stars",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "gift_id": {
                     "description": "Identifier of the regular gift that was upgraded to a unique gift",
                     "is_optional": false,
@@ -47316,7 +48161,7 @@
                     "type": "SearchMessagesChatTypeFilter"
                 },
                 "filter": {
-                    "description": "Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction, searchMessagesFilterFailedToSend, and searchMessagesFilterPinned are unsupported in this function",
+                    "description": "Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction,",
                     "is_optional": true,
                     "type": "SearchMessagesFilter"
                 },
@@ -48033,7 +48878,7 @@
                     "type": "Bool"
                 },
                 "text": {
-                    "description": "Text to show along with the gift; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.",
+                    "description": "Text to show along with the gift; 0-getOption(\"gift_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.",
                     "is_optional": false,
                     "type": "formattedText"
                 }
@@ -48199,6 +49044,42 @@
                 }
             },
             "type": "Messages"
+        },
+        "sendMessageViewMetrics": {
+            "description": "Informs TDLib about details of a message view by the user from a chat, a message thread or a forum topic history. The method must be called if",
+            "args": {
+                "active_time_in_view_ms": {
+                    "description": "The amount of time the message was seen by at least 1 pixel within 15 seconds after any action from the user; in milliseconds",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "height_to_viewport_ratio_per_mille": {
+                    "description": "The ratio of the post height to the viewport height in 1/1000 fractions",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "message_id": {
+                    "description": "The identifier of the message being viewed",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "seen_range_ratio_per_mille": {
+                    "description": "The ratio of the viewed post height to the full post height in 1/1000 fractions; 0-1000",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "time_in_view_ms": {
+                    "description": "The amount of time the message was seen by at least 1 pixel; in milliseconds",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "Ok"
         },
         "sendPassportAuthorizationForm": {
             "description": "Sends a Telegram Passport authorization form, effectively sharing data with the service. This method must be called after getPassportAuthorizationFormAvailableElements if some previously available elements are going to be reused",
@@ -50087,7 +50968,7 @@
             "type": "Ok"
         },
         "setPollAnswer": {
-            "description": "Changes the user answer to a poll. A poll in quiz mode can be answered only once",
+            "description": "Changes the user answer to a poll",
             "args": {
                 "chat_id": {
                     "description": "Identifier of the chat to which the poll belongs",
@@ -50597,7 +51478,7 @@
             "description": "Changes a note of a contact user",
             "args": {
                 "note": {
-                    "description": "Note to set for the user; 0-getOption(\"user_note_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed",
+                    "description": "Note to set for the user; 0-getOption(\"user_note_text_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -50708,16 +51589,6 @@
                     "is_optional": false,
                     "type": "int32"
                 },
-                "chat_id": {
-                    "description": "Identifier of the chat with the bot",
-                    "is_optional": false,
-                    "type": "int53"
-                },
-                "message_id": {
-                    "description": "Identifier of the message with the button",
-                    "is_optional": false,
-                    "type": "int53"
-                },
                 "only_check": {
                     "description": "Pass true to check that the chat can be shared by the button instead of actually sharing it. Doesn't check bot_is_member and bot_administrator_rights restrictions.",
                     "is_optional": false,
@@ -50727,6 +51598,11 @@
                     "description": "Identifier of the shared chat",
                     "is_optional": false,
                     "type": "int53"
+                },
+                "source": {
+                    "description": "Source of the button",
+                    "is_optional": false,
+                    "type": "KeyboardButtonSource"
                 }
             },
             "type": "Ok"
@@ -50750,16 +51626,6 @@
                     "is_optional": false,
                     "type": "int32"
                 },
-                "chat_id": {
-                    "description": "Identifier of the chat with the bot",
-                    "is_optional": false,
-                    "type": "int53"
-                },
-                "message_id": {
-                    "description": "Identifier of the message with the button",
-                    "is_optional": false,
-                    "type": "int53"
-                },
                 "only_check": {
                     "description": "Pass true to check that the users can be shared by the button instead of actually sharing them",
                     "is_optional": false,
@@ -50769,6 +51635,11 @@
                     "description": "Identifiers of the shared users",
                     "is_optional": false,
                     "type": "vector\u003cint53\u003e"
+                },
+                "source": {
+                    "description": "Source of the button",
+                    "is_optional": false,
+                    "type": "KeyboardButtonSource"
                 }
             },
             "type": "Ok"
@@ -50959,9 +51830,14 @@
                     "is_optional": false,
                     "type": "int53"
                 },
+                "tone": {
+                    "description": "Tone of the summarization; see translateText.tone for the list of supported values",
+                    "is_optional": false,
+                    "type": "string"
+                },
                 "translate_to_language_code": {
-                    "description": "Pass a language code to which the summary will be translated; may be empty if translation isn't needed. See translateText.to_language_code for the list of supported values",
-                    "is_optional": true,
+                    "description": "Pass a language code to which the summary will be translated; pass an empty string if translation isn't needed. See translateText.to_language_code for the list of supported values",
+                    "is_optional": false,
                     "type": "string"
                 }
             },
@@ -51936,7 +52812,7 @@
             "type": "Ok"
         },
         "translateMessageText": {
-            "description": "Extracts text or caption of the given message and translates it to the given language. If the current user is a Telegram Premium user, then text formatting is preserved",
+            "description": "Extracts text or caption of the given message and translates it to the given language; must not be used in secret chats. If the current user is a Telegram Premium user, then text formatting is preserved",
             "args": {
                 "chat_id": {
                     "description": "Identifier of the chat to which the message belongs",
@@ -51952,12 +52828,17 @@
                     "description": "Language code of the language to which the message is translated. See translateText.to_language_code for the list of supported values",
                     "is_optional": false,
                     "type": "string"
+                },
+                "tone": {
+                    "description": "Tone of the translation; see translateText.tone for the list of supported values",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "FormattedText"
         },
         "translateText": {
-            "description": "Translates a text to the given language. If the current user is a Telegram Premium user, then text formatting is preserved",
+            "description": "Translates a text to the given language; must not be used in secret chats. If the current user is a Telegram Premium user, then text formatting is preserved",
             "args": {
                 "text": {
                     "description": "Text to translate",
@@ -51966,6 +52847,11 @@
                 },
                 "to_language_code": {
                     "description": "Language code of the language to which the message is translated. Must be one of",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "tone": {
+                    "description": "Tone of the translation; must be one of \"\", \"formal\", \"neutral\", \"casual\"; defaults to \"neutral\"",
                     "is_optional": false,
                     "type": "string"
                 }
