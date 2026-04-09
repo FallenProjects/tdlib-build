@@ -31,6 +31,15 @@ func main() {
 	data.Version = *version
 	data.Commit = *commit
 
+	log.Println("TDLib options...")
+	options, err := getOptions()
+	if err != nil {
+		log.Printf("Warning: Failed to get options: %v", err)
+	} else {
+		data.Options = options
+		log.Printf("Fetched %d options.", len(options))
+	}
+
 	log.Printf("Saving JSON to %s...", *out)
 	if err := SaveTDLibJSON(data, *out); err != nil {
 		log.Fatalf("Failed to save JSON: %v", err)
