@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
-    "version": "1.8.63",
-    "commit": "f06b0bac65278b03d26414c096080e7bfecfef52",
+    "version": "1.8.64",
+    "commit": "49b3bcbb6bfebf2ed44dd9f25102d2e1a94a58c4",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -1066,6 +1066,7 @@
                 "internalLinkTypeStickerSet",
                 "internalLinkTypeStory",
                 "internalLinkTypeStoryAlbum",
+                "internalLinkTypeTextCompositionStyle",
                 "internalLinkTypeTheme",
                 "internalLinkTypeUnknownDeepLink",
                 "internalLinkTypeUpgradedGift",
@@ -1188,6 +1189,7 @@
                 "linkPreviewTypeStory",
                 "linkPreviewTypeStoryAlbum",
                 "linkPreviewTypeSupergroupBoost",
+                "linkPreviewTypeTextCompositionStyle",
                 "linkPreviewTypeTheme",
                 "linkPreviewTypeUnsupported",
                 "linkPreviewTypeUpgradedGift",
@@ -1681,6 +1683,18 @@
             ],
             "functions": []
         },
+        "PollVoteRestrictionReason": {
+            "description": "Reason of vote restriction in the poll for the current user",
+            "types": [
+                "pollVoteRestrictionReasonClosed",
+                "pollVoteRestrictionReasonYetUnsent",
+                "pollVoteRestrictionReasonScheduled",
+                "pollVoteRestrictionReasonCountryRestricted",
+                "pollVoteRestrictionReasonMembershipRequired",
+                "pollVoteRestrictionReasonOther"
+            ],
+            "functions": []
+        },
         "PremiumFeature": {
             "description": "Describes a feature available to Premium users",
             "types": [
@@ -1737,7 +1751,8 @@
                 "premiumLimitTypeStoryCaptionLength",
                 "premiumLimitTypeStorySuggestedReactionAreaCount",
                 "premiumLimitTypeSimilarChatCount",
-                "premiumLimitTypeOwnedBotCount"
+                "premiumLimitTypeOwnedBotCount",
+                "premiumLimitTypeCustomTextCompositionStyleCount"
             ],
             "functions": []
         },
@@ -1879,7 +1894,8 @@
             "description": "Describes why the current user can't add reactions to the message, despite some other users can",
             "types": [
                 "reactionUnavailabilityReasonAnonymousAdministrator",
-                "reactionUnavailabilityReasonGuest"
+                "reactionUnavailabilityReasonGuest",
+                "reactionUnavailabilityReasonRestricted"
             ],
             "functions": []
         },
@@ -2480,6 +2496,7 @@
                 "topChatCategoryGroups",
                 "topChatCategoryChannels",
                 "topChatCategoryInlineBots",
+                "topChatCategoryGuestBots",
                 "topChatCategoryWebAppBots",
                 "topChatCategoryCalls",
                 "topChatCategoryForwardChats"
@@ -2509,6 +2526,7 @@
                 "updateMessageContentOpened",
                 "updateMessageMentionRead",
                 "updateMessageUnreadReactions",
+                "updateMessageContainsUnreadPollVotes",
                 "updateMessageFactCheck",
                 "updateMessageSuggestedPostInfo",
                 "updateMessageLiveLocationViewed",
@@ -2659,6 +2677,7 @@
                 "updateBusinessMessagesDeleted",
                 "updateNewInlineQuery",
                 "updateNewChosenInlineResult",
+                "updateNewGuestQuery",
                 "updateNewCallbackQuery",
                 "updateNewInlineCallbackQuery",
                 "updateNewBusinessCallbackQuery",
@@ -2930,6 +2949,11 @@
         "addedProxy": {
             "description": "Contains information about a proxy server added to the list of proxies",
             "args": {
+                "comment": {
+                    "description": "Comment for the proxy added by the user",
+                    "is_optional": false,
+                    "type": "string"
+                },
                 "id": {
                     "description": "Unique identifier of the proxy",
                     "is_optional": false,
@@ -4002,6 +4026,11 @@
         "authorizationStateWaitPremiumPurchase": {
             "description": "The user must buy Telegram Premium as an in-store purchase to log in. Call checkAuthenticationPremiumPurchase and then setAuthenticationPremiumPurchaseTransaction",
             "args": {
+                "premium_day_count": {
+                    "description": "Duration of the Telegram Premium subscription after the purchase; may be 0 if Telegram Premium subscription will not be granted",
+                    "is_optional": false,
+                    "type": "int32"
+                },
                 "store_product_id": {
                     "description": "Identifier of the store product that must be bought",
                     "is_optional": false,
@@ -4021,7 +4050,7 @@
             "type": "AuthorizationState"
         },
         "authorizationStateWaitRegistration": {
-            "description": "The user is unregistered and need to accept terms of service and enter their first name and last name to finish registration. Call registerUser to accept the terms of service and provide the data",
+            "description": "The user is unregistered and needs to accept terms of service and enter their first name and last name to finish registration. Call registerUser to accept the terms of service and provide the data",
             "args": {
                 "terms_of_service": {
                     "description": "Telegram terms of service",
@@ -4558,6 +4587,22 @@
             "description": "The block list that disallows viewing of stories of the current user",
             "args": {},
             "type": "BlockList"
+        },
+        "botAccessSettings": {
+            "description": "Describes users that have access to a bot",
+            "args": {
+                "added_user_ids": {
+                    "description": "Identifiers of the users who can use the bot additionally to the owner of the bot",
+                    "is_optional": false,
+                    "type": "vector\u003cint53\u003e"
+                },
+                "is_restricted": {
+                    "description": "True, if access to the bot is restricted to its owner and selected users",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "BotAccessSettings"
         },
         "botCommand": {
             "description": "Represents a command supported by a bot",
@@ -6455,7 +6500,7 @@
                     "type": "int32"
                 },
                 "order": {
-                    "description": "A parameter used to determine order of the stories in the story list; 0 if the stories doesn't need to be shown in the story list. Stories must be sorted by the pair (order, story_poster_chat_id) in descending order",
+                    "description": "A parameter used to determine order of the stories in the story list; 0 if the stories don't need to be shown in the story list. Stories must be sorted by the pair (order, story_poster_chat_id) in descending order",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -8748,6 +8793,11 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "can_react_to_messages": {
+                    "description": "True, if the user can react to messages",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "can_send_audios": {
                     "description": "True, if the user can send music files",
                     "is_optional": false,
@@ -10429,7 +10479,7 @@
             "description": "A text with some changes highlighted",
             "args": {
                 "entities": {
-                    "description": "Entities describing changes in the text. Entities doesn't mutually intersect with each other",
+                    "description": "Entities describing changes in the text. Entities don't mutually intersect with each other",
                     "is_optional": false,
                     "type": "vector\u003cdiffEntity\u003e"
                 },
@@ -11204,7 +11254,7 @@
             "type": "FileType"
         },
         "fileTypeSelfDestructingLivePhotoVideo": {
-            "description": "The file is a seld-destructing video for a live photo in a private chat",
+            "description": "The file is a self-destructing video for a live photo in a private chat",
             "args": {},
             "type": "FileType"
         },
@@ -13351,6 +13401,17 @@
             },
             "type": "InlineKeyboardButtonType"
         },
+        "inlineMessageId": {
+            "description": "Contains identifier of a sent guest message",
+            "args": {
+                "id": {
+                    "description": "Unique identifier for the message",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InlineMessageId"
+        },
         "inlineQueryResultAnimation": {
             "description": "Represents an animation file",
             "args": {
@@ -15053,6 +15114,11 @@
                     "is_optional": false,
                     "type": "int32"
                 },
+                "country_codes": {
+                    "description": "The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be able to vote; for channel chats only. If empty, then all users can participate in the poll.",
+                    "is_optional": false,
+                    "type": "vector\u003cstring\u003e"
+                },
                 "description": {
                     "description": "Poll description; pass null to use an empty description; 0-getOption(\"message_caption_length_max\") characters",
                     "is_optional": true,
@@ -15073,13 +15139,23 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "media": {
+                    "description": "Media attached to the poll; pass null if none. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, non-live inputMessageLocation,",
+                    "is_optional": true,
+                    "type": "InputMessageContent"
+                },
+                "members_only": {
+                    "description": "True, if only the users that are members of the chat for more than a day will be able to vote; for channel chats only",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "open_period": {
                     "description": "Amount of time the poll will be active after creation, in seconds; 0-getOption(\"poll_open_period_max\"); pass 0 if not specified",
                     "is_optional": false,
                     "type": "int32"
                 },
                 "options": {
-                    "description": "List of poll answer options; 2-getOption(\"poll_answer_count_max\") options",
+                    "description": "List of poll answer options; 1-getOption(\"poll_answer_count_max\") options",
                     "is_optional": false,
                     "type": "vector\u003cinputPollOption\u003e"
                 },
@@ -15767,6 +15843,11 @@
         "inputPollOption": {
             "description": "Describes one answer option of a poll to be created",
             "args": {
+                "media": {
+                    "description": "Option media; pass null if none; ignored in addPollOption. Must be one of the following types:",
+                    "is_optional": true,
+                    "type": "InputMessageContent"
+                },
                 "text": {
                     "description": "Option text; 1-100 characters. Only custom emoji entities are allowed to be added and only by Premium users",
                     "is_optional": false,
@@ -15787,6 +15868,11 @@
                     "description": "Text that is shown when the user chooses an incorrect answer or taps on the lamp icon; 0-200 characters with at most 2 line feeds",
                     "is_optional": false,
                     "type": "formattedText"
+                },
+                "explanation_media": {
+                    "description": "Media that is shown when the user chooses an incorrect answer or taps on the lamp icon; pass null if none. Must be one of the following types:",
+                    "is_optional": true,
+                    "type": "InputMessageContent"
                 }
             },
             "type": "InputPollType"
@@ -16617,7 +16703,7 @@
                     "type": "string"
                 },
                 "suggested_bot_username": {
-                    "description": "Suggested username for the bot",
+                    "description": "Suggested username for the bot; always ends with \"bot\" case-insensitive",
                     "is_optional": false,
                     "type": "string"
                 }
@@ -16708,6 +16794,17 @@
                 },
                 "story_album_owner_username": {
                     "description": "Username of the owner of the story album",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InternalLinkType"
+        },
+        "internalLinkTypeTextCompositionStyle": {
+            "description": "The link is a link to a text composition style. Call searchTextCompositionStyle with the given style name to get information about the style.",
+            "args": {
+                "style_name": {
+                    "description": "Name of the style",
                     "is_optional": false,
                     "type": "string"
                 }
@@ -18001,6 +18098,17 @@
             },
             "type": "LinkPreviewType"
         },
+        "linkPreviewTypeTextCompositionStyle": {
+            "description": "The link is a link to a text composition style",
+            "args": {
+                "custom_emoji_id": {
+                    "description": "Identifier of the custom emoji corresponding to the style; 0 if none",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
+            "type": "LinkPreviewType"
+        },
         "linkPreviewTypeTheme": {
             "description": "The link is a link to a cloud theme. TDLib has no theme support yet",
             "args": {
@@ -18429,6 +18537,11 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "contains_unread_poll_votes": {
+                    "description": "True, if the message is a poll message with unread votes",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "content": {
                     "description": "Content of the message",
                     "is_optional": false,
@@ -18458,6 +18571,11 @@
                     "description": "Information about the initial message sender; may be null if none or unknown",
                     "is_optional": true,
                     "type": "messageForwardInfo"
+                },
+                "guest_bot_caller_id": {
+                    "description": "The identifier of the user or chat which used a guest bot to send the message; may be null if none",
+                    "is_optional": true,
+                    "type": "MessageSender"
                 },
                 "has_timestamped_media": {
                     "description": "True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message",
@@ -20353,8 +20471,8 @@
                     "type": "formattedText"
                 },
                 "media": {
-                    "description": "Media attached to the poll. Currently, can be only of the types messageAnimation, messageAudio, messageDocument, messageLocation, messagePhoto, messageVenue, or messageVideo without caption",
-                    "is_optional": false,
+                    "description": "Media attached to the poll; may be null if none. If present, currently, can be only of the types messageAnimation, messageAudio, messageDocument, messageLocation, messagePhoto, messageVenue, or messageVideo without caption",
+                    "is_optional": true,
                     "type": "MessageContent"
                 },
                 "poll": {
@@ -20593,6 +20711,11 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "can_delete_reactions": {
+                    "description": "True, if the user can delete reactions of other users in the message using the method deleteMessageReactionsFromSender",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "can_edit_media": {
                     "description": "True, if the message can be edited using the method editMessageMedia",
                     "is_optional": false,
@@ -20633,6 +20756,11 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "can_get_poll_vote_statistics": {
+                    "description": "True, if the message is a poll and vote statistics are available through getPollVoteStatistics",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "can_get_read_date": {
                     "description": "True, if read date of the message can be received through getMessageReadDate",
                     "is_optional": false,
@@ -20644,7 +20772,7 @@
                     "type": "Bool"
                 },
                 "can_get_video_advertisements": {
-                    "description": "True, if advertisements for video of the message can be received though getVideoMessageAdvertisements",
+                    "description": "True, if advertisements for video of the message can be received through getVideoMessageAdvertisements",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -24071,7 +24199,7 @@
                     "type": "Bool"
                 },
                 "can_get_voters": {
-                    "description": "True, if the current user can get voters in the poll",
+                    "description": "True, if the current user can get voters in the poll using getPollVoters",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -24079,6 +24207,11 @@
                     "description": "Point in time (Unix timestamp) when the poll will automatically be closed",
                     "is_optional": false,
                     "type": "int32"
+                },
+                "country_codes": {
+                    "description": "The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be able to vote. If empty, then all users can participate in the poll",
+                    "is_optional": false,
+                    "type": "vector\u003cstring\u003e"
                 },
                 "id": {
                     "description": "Unique poll identifier",
@@ -24092,6 +24225,11 @@
                 },
                 "is_closed": {
                     "description": "True, if the poll is closed",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "members_only": {
+                    "description": "True, if only the users that are members of the chat for more than a day will be able to vote",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -24129,6 +24267,11 @@
                     "description": "Type of the poll",
                     "is_optional": false,
                     "type": "PollType"
+                },
+                "vote_restriction_reason": {
+                    "description": "The reason describing, why the current user can't vote in the poll; may be null if the user can vote in the poll",
+                    "is_optional": true,
+                    "type": "PollVoteRestrictionReason"
                 }
             },
             "type": "Poll"
@@ -24147,8 +24290,8 @@
                     "type": "MessageSender"
                 },
                 "id": {
-                    "description": "Unique identifier of the option in the poll",
-                    "is_optional": false,
+                    "description": "Unique identifier of the option in the poll; may be empty if yet unassigned",
+                    "is_optional": true,
                     "type": "string"
                 },
                 "is_being_chosen": {
@@ -24162,8 +24305,8 @@
                     "type": "Bool"
                 },
                 "media": {
-                    "description": "Option media. Currently, can be only of the types messageAnimation, messageLocation, messagePhoto, messageSticker, messageVenue, or messageVideo without caption",
-                    "is_optional": false,
+                    "description": "Option media; may be null if none. If present, currently, can be only of the types messageAnimation, messageLocation, messagePhoto, messageSticker, messageVenue, or messageVideo without caption",
+                    "is_optional": true,
                     "type": "MessageContent"
                 },
                 "recent_voter_ids": {
@@ -24240,6 +24383,59 @@
             "description": "A regular poll",
             "args": {},
             "type": "PollType"
+        },
+        "pollVoteRestrictionReasonClosed": {
+            "description": "The poll is closed",
+            "args": {},
+            "type": "PollVoteRestrictionReason"
+        },
+        "pollVoteRestrictionReasonCountryRestricted": {
+            "description": "The user is from a country, users from which aren't allowed to vote",
+            "args": {
+                "country_code": {
+                    "description": "Two-letter ISO 3166-1 alpha-2 code of the current user's country",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "PollVoteRestrictionReason"
+        },
+        "pollVoteRestrictionReasonMembershipRequired": {
+            "description": "The user must be a member of the chat for at least a day to vote",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the chat which must be joined for at least a day before the user can vote",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "PollVoteRestrictionReason"
+        },
+        "pollVoteRestrictionReasonOther": {
+            "description": "The poll can't be voted by the user due to some other reason",
+            "args": {},
+            "type": "PollVoteRestrictionReason"
+        },
+        "pollVoteRestrictionReasonScheduled": {
+            "description": "The poll is from a scheduled message",
+            "args": {},
+            "type": "PollVoteRestrictionReason"
+        },
+        "pollVoteRestrictionReasonYetUnsent": {
+            "description": "The poll isn't sent yet",
+            "args": {},
+            "type": "PollVoteRestrictionReason"
+        },
+        "pollVoteStatistics": {
+            "description": "A detailed statistics about poll votes",
+            "args": {
+                "vote_graph": {
+                    "description": "A graph containing distribution of votes in the poll",
+                    "is_optional": false,
+                    "type": "StatisticalGraph"
+                }
+            },
+            "type": "PollVoteStatistics"
         },
         "pollVoter": {
             "description": "Represents a poll voter",
@@ -24648,6 +24844,11 @@
         },
         "premiumLimitTypeCreatedPublicChatCount": {
             "description": "The maximum number of created public chats",
+            "args": {},
+            "type": "PremiumLimitType"
+        },
+        "premiumLimitTypeCustomTextCompositionStyleCount": {
+            "description": "The maximum number of added text composition styles",
             "args": {},
             "type": "PremiumLimitType"
         },
@@ -26024,7 +26225,7 @@
                     "type": "Bool"
                 },
                 "sound_id": {
-                    "description": "Identifier of the notification sound to be played; 0 if sound is disabled",
+                    "description": "Identifier of the notification sound to be played; 0 if sound is disabled; pass -1 to use the app-dependent default sound",
                     "is_optional": false,
                     "type": "int64"
                 },
@@ -26085,6 +26286,11 @@
         },
         "reactionUnavailabilityReasonGuest": {
             "description": "The user isn't a member of the supergroup and can't send messages and reactions there without joining",
+            "args": {},
+            "type": "ReactionUnavailabilityReason"
+        },
+        "reactionUnavailabilityReasonRestricted": {
+            "description": "The user is restricted in the chat",
             "args": {},
             "type": "ReactionUnavailabilityReason"
         },
@@ -27068,12 +27274,12 @@
                     "type": "Bool"
                 },
                 "sound_id": {
-                    "description": "Identifier of the notification sound to be played; 0 if sound is disabled",
+                    "description": "Identifier of the notification sound to be played; 0 if sound is disabled; pass -1 to use the app-dependent default sound",
                     "is_optional": false,
                     "type": "int64"
                 },
                 "story_sound_id": {
-                    "description": "Identifier of the notification sound to be played for stories; 0 if sound is disabled",
+                    "description": "Identifier of the notification sound to be played for stories; 0 if sound is disabled; pass -1 to use the app-dependent default sound",
                     "is_optional": false,
                     "type": "int64"
                 },
@@ -27278,17 +27484,6 @@
                 }
             },
             "type": "SentGift"
-        },
-        "sentWebAppMessage": {
-            "description": "Information about the message sent by answerWebAppQuery",
-            "args": {
-                "inline_message_id": {
-                    "description": "Identifier of the sent inline message, if known",
-                    "is_optional": false,
-                    "type": "string"
-                }
-            },
-            "type": "SentWebAppMessage"
         },
         "session": {
             "description": "Contains information about one session in a Telegram application used by the current user. Sessions must be shown to the user in the returned order",
@@ -31509,13 +31704,43 @@
         "textCompositionStyle": {
             "description": "Describes a style that can be used to compose a text",
             "args": {
+                "creator_user_id": {
+                    "description": "User identifier of the creator of the style; 0 if none of unknown",
+                    "is_optional": false,
+                    "type": "int53"
+                },
                 "custom_emoji_id": {
-                    "description": "Identifier of the custom emoji corresponding to the style",
+                    "description": "Identifier of the custom emoji corresponding to the style; 0 if none",
                     "is_optional": false,
                     "type": "int64"
                 },
+                "english_example": {
+                    "description": "Example of the style usage in English; may be null if unknown",
+                    "is_optional": true,
+                    "type": "textCompositionStyleExample"
+                },
+                "install_count": {
+                    "description": "Number of users that installed the style; for created custom styles only; 0 if unknown",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "is_creator": {
+                    "description": "True, if the user is creator of the style",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_custom": {
+                    "description": "True, if the style is created by a user",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "name": {
                     "description": "Name of the style",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "prompt": {
+                    "description": "Prompt of the style; for created custom styles only",
                     "is_optional": false,
                     "type": "string"
                 },
@@ -31526,6 +31751,22 @@
                 }
             },
             "type": "TextCompositionStyle"
+        },
+        "textCompositionStyleExample": {
+            "description": "Contains an example of text composition style usage",
+            "args": {
+                "result_text": {
+                    "description": "The text after the style was applied to the source text",
+                    "is_optional": false,
+                    "type": "formattedText"
+                },
+                "source_text": {
+                    "description": "Source text",
+                    "is_optional": false,
+                    "type": "formattedText"
+                }
+            },
+            "type": "TextCompositionStyleExample"
         },
         "textEntities": {
             "description": "Contains a list of text entities",
@@ -32197,6 +32438,11 @@
             "args": {},
             "type": "TopChatCategory"
         },
+        "topChatCategoryGuestBots": {
+            "description": "A category containing frequently used chats with bots, which were used as guest bots",
+            "args": {},
+            "type": "TopChatCategory"
+        },
         "topChatCategoryInlineBots": {
             "description": "A category containing frequently used chats with inline bots sorted by their usage in inline mode",
             "args": {},
@@ -32536,7 +32782,7 @@
             "type": "UpgradedGiftAttributeRarity"
         },
         "upgradedGiftAttributeRarityPerMille": {
-            "description": "The rarity is represented as the numeric frequence of the model",
+            "description": "The rarity is represented as the numeric frequency of the model",
             "args": {
                 "per_mille": {
                     "description": "The number of upgraded gifts that receive this attribute for each 1000 gifts upgraded; if 0, then it can be shown as \"\u003c0.1%\"",
@@ -33544,7 +33790,7 @@
                     "type": "Bool"
                 },
                 "can_connect_to_business": {
-                    "description": "True, if the bot supports connection to Telegram Business accounts",
+                    "description": "True, if the bot supports connection to user accounts for chat automation",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -33585,6 +33831,11 @@
                 },
                 "need_location": {
                     "description": "True, if the location of the user is expected to be sent with every inline query to this bot",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "supports_guest_queries": {
+                    "description": "True, if the bot can be queried by username from any non-secret chat",
                     "is_optional": false,
                     "type": "Bool"
                 }
@@ -33836,7 +34087,7 @@
             "type": "VideoChat"
         },
         "videoMessageAdvertisement": {
-            "description": "Describes an advertisent to be shown while a video from a message is watched",
+            "description": "Describes an advertisement to be shown while a video from a message is watched",
             "args": {
                 "additional_info": {
                     "description": "If non-empty, additional information about the sponsored message to be shown along with the message",
@@ -35684,6 +35935,32 @@
             },
             "type": "Update"
         },
+        "updateMessageContainsUnreadPollVotes": {
+            "description": "Unread votes were added or removed from a poll message",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "contains_unread_poll_votes": {
+                    "description": "True, if the message is a poll message with unread votes",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "message_id": {
+                    "description": "Message identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "unread_poll_vote_count": {
+                    "description": "The new number of messages with unread poll votes in the chat",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "Update"
+        },
         "updateMessageContent": {
             "description": "The message content has changed",
             "args": {
@@ -35997,7 +36274,7 @@
                     "type": "int53"
                 },
                 "unread_reaction_count": {
-                    "description": "The new number of messages with unread reactions left in the chat",
+                    "description": "The new number of messages with unread reactions in the chat",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -36246,6 +36523,27 @@
                     "description": "The number of Telegram Stars that were paid to send the reaction",
                     "is_optional": false,
                     "type": "int53"
+                }
+            },
+            "type": "Update"
+        },
+        "updateNewGuestQuery": {
+            "description": "A new incoming guest query; for bots only",
+            "args": {
+                "id": {
+                    "description": "Unique query identifier",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "message": {
+                    "description": "The message with the query",
+                    "is_optional": false,
+                    "type": "message"
+                },
+                "reference_messages": {
+                    "description": "The list of reference messages",
+                    "is_optional": false,
+                    "type": "vector\u003cmessage\u003e"
                 }
             },
             "type": "Update"
@@ -37708,10 +38006,25 @@
         "addProfileAudio": {
             "description": "Adds an audio file to the beginning of the profile audio files of the current user",
             "args": {
-                "file_id": {
-                    "description": "Identifier of the audio file to be added. The file must have been uploaded to the server",
+                "audio": {
+                    "description": "The audio file to be added",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "duration": {
+                    "description": "Duration of the audio, in seconds; may be replaced by the server; ignored for already uploaded files",
                     "is_optional": false,
                     "type": "int32"
+                },
+                "performer": {
+                    "description": "Performer of the audio; 0-64 characters, may be replaced by the server; ignored for already uploaded files",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Title of the audio; 0-64 characters; may be replaced by the server; ignored for already uploaded files",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "Ok"
@@ -37719,6 +38032,11 @@
         "addProxy": {
             "description": "Adds a proxy server for network requests. Can be called before authorization",
             "args": {
+                "comment": {
+                    "description": "Comment to set for the proxy",
+                    "is_optional": false,
+                    "type": "string"
+                },
                 "enable": {
                     "description": "Pass true to immediately enable the proxy",
                     "is_optional": false,
@@ -37896,6 +38214,17 @@
             },
             "type": "StoryAlbum"
         },
+        "addTextCompositionStyle": {
+            "description": "Adds a custom text composition style to the list of used by the user styles. May return an error with a message \"TONES_SAVED_TOO_MANY\" if the maximum number of added custom styles has been reached",
+            "args": {
+                "name": {
+                    "description": "Name of the style",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
         "allowBotToSendMessages": {
             "description": "Allows the specified bot to send messages to the user",
             "args": {
@@ -37969,6 +38298,22 @@
                 }
             },
             "type": "Ok"
+        },
+        "answerGuestQuery": {
+            "description": "Sets the result of a guest query; for bots only",
+            "args": {
+                "guest_query_id": {
+                    "description": "Identifier of the guest query",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "result": {
+                    "description": "The result of the query",
+                    "is_optional": false,
+                    "type": "InputInlineQueryResult"
+                }
+            },
+            "type": "InlineMessageId"
         },
         "answerInlineQuery": {
             "description": "Sets the result of an inline query; for bots only",
@@ -38057,7 +38402,7 @@
                     "type": "string"
                 }
             },
-            "type": "SentWebAppMessage"
+            "type": "InlineMessageId"
         },
         "applyPremiumGiftCode": {
             "description": "Applies a Telegram Premium gift code",
@@ -38444,6 +38789,11 @@
                     "description": "ISO 4217 currency code of the payment currency",
                     "is_optional": false,
                     "type": "string"
+                },
+                "premium_day_count": {
+                    "description": "The number of days for which the Telegram Premium subscription will be granted",
+                    "is_optional": false,
+                    "type": "int32"
                 }
             },
             "type": "Ok"
@@ -39353,6 +39703,32 @@
             },
             "type": "TemporaryPasswordState"
         },
+        "createTextCompositionStyle": {
+            "description": "Creates a custom text composition style. May return an error with a message \"TONES_SAVED_TOO_MANY\" if the maximum number of added custom styles has been reached",
+            "args": {
+                "custom_emoji_id": {
+                    "description": "Identifier of the custom emoji corresponding to the style",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "prompt": {
+                    "description": "Prompt that will be used for text composition; 1-getOption(\"text_composition_style_prompt_length_max\") characters",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "show_creator": {
+                    "description": "Pass true if the current user must be shown as the creator of the style",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "title": {
+                    "description": "Title of the style; 1-getOption(\"text_composition_style_title_length_max\") characters",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TextCompositionStyle"
+        },
         "createVideoChat": {
             "description": "Creates a video chat (a group call bound to a chat); for basic groups, supergroups and channels only; requires can_manage_video_chats administrator right",
             "args": {
@@ -39476,6 +39852,22 @@
                     "description": "Pass true to delete the messages for all users",
                     "is_optional": false,
                     "type": "Bool"
+                }
+            },
+            "type": "Ok"
+        },
+        "deleteAllRecentMessageReactionsFromSender": {
+            "description": "Deletes all recent reactions added by the specified sender in a chat. Supported only for basic groups and supergroups; requires can_delete_messages administrator right",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "sender_id": {
+                    "description": "Identifier of the sender of reactions to delete",
+                    "is_optional": false,
+                    "type": "MessageSender"
                 }
             },
             "type": "Ok"
@@ -39874,6 +40266,27 @@
             },
             "type": "Ok"
         },
+        "deleteMessageReactionsFromSender": {
+            "description": "Deletes all reactions added by the specified sender on a message",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "message_id": {
+                    "description": "Identifier of the message containing the reactions. Use messageProperties.can_delete_reactions to check whether the method can be used for a message",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "sender_id": {
+                    "description": "Identifier of the sender of reactions to delete",
+                    "is_optional": false,
+                    "type": "MessageSender"
+                }
+            },
+            "type": "Ok"
+        },
         "deleteMessages": {
             "description": "Deletes messages",
             "args": {
@@ -40062,6 +40475,17 @@
                     "description": "Identifier of the story album",
                     "is_optional": false,
                     "type": "int32"
+                }
+            },
+            "type": "Ok"
+        },
+        "deleteTextCompositionStyle": {
+            "description": "Deletes a custom text composition style that was created by the current user",
+            "args": {
+                "name": {
+                    "description": "Name of the style",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "Ok"
@@ -40937,6 +41361,11 @@
         "editProxy": {
             "description": "Edits an existing proxy server for network requests. Can be called before authorization",
             "args": {
+                "comment": {
+                    "description": "New comment for the proxy",
+                    "is_optional": false,
+                    "type": "string"
+                },
                 "enable": {
                     "description": "Pass true to immediately enable the proxy",
                     "is_optional": false,
@@ -41043,6 +41472,37 @@
                 }
             },
             "type": "Ok"
+        },
+        "editTextCompositionStyle": {
+            "description": "Edits a custom text composition style that was created by the current user",
+            "args": {
+                "custom_emoji_id": {
+                    "description": "Identifier of the custom emoji corresponding to the style",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "name": {
+                    "description": "Name of the style",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "prompt": {
+                    "description": "Prompt that will be used for text composition; 1-getOption(\"text_composition_style_prompt_length_max\") characters",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "show_creator": {
+                    "description": "Pass true if the current user must be shown as the creator of the style",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "title": {
+                    "description": "Title of the style; 1-getOption(\"text_composition_style_title_length_max\") characters",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TextCompositionStyle"
         },
         "editUserStarSubscription": {
             "description": "Cancels or re-enables Telegram Star subscription for a user; for bots only",
@@ -41520,22 +41980,6 @@
                 }
             },
             "type": "Users"
-        },
-        "getBotToken": {
-            "description": "Returns token of a created bot; for bots only",
-            "args": {
-                "bot_user_id": {
-                    "description": "Identifier of the created bot",
-                    "is_optional": false,
-                    "type": "int53"
-                },
-                "revoke": {
-                    "description": "Pass true to revoke the current token and create a new one",
-                    "is_optional": false,
-                    "type": "Bool"
-                }
-            },
-            "type": "Text"
         },
         "getBusinessAccountStarAmount": {
             "description": "Returns the Telegram Star amount owned by a business account; for bots only",
@@ -43558,6 +44002,33 @@
             },
             "type": "MainWebApp"
         },
+        "getManagedBotAccessSettings": {
+            "description": "Returns access settings of a managed bot; for bots only",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the managed bot",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "BotAccessSettings"
+        },
+        "getManagedBotToken": {
+            "description": "Returns token of a managed bot; for bots only",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the managed bot",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "revoke": {
+                    "description": "Pass true to revoke the current token and create a new one",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "Text"
+        },
         "getMapThumbnailFile": {
             "description": "Returns information about a file with a map thumbnail in PNG format. Only map thumbnail files with size less than 1MB can be downloaded",
             "args": {
@@ -44160,6 +44631,22 @@
             },
             "type": "PaymentReceipt"
         },
+        "getPersonalChatHistory": {
+            "description": "Returns messages in the personal chat of a given user; for bots only",
+            "args": {
+                "limit": {
+                    "description": "The maximum number of messages to be returned; 1-20",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "user_id": {
+                    "description": "User identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "Messages"
+        },
         "getPhoneNumberInfo": {
             "description": "Returns information about a phone number by its prefix. Can be called before authorization",
             "args": {
@@ -44207,6 +44694,27 @@
                 }
             },
             "type": "PollOptionProperties"
+        },
+        "getPollVoteStatistics": {
+            "description": "Returns statistics of poll votes in a poll",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the chat to which the poll belongs",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "is_dark": {
+                    "description": "Pass true if a dark theme is used by the application",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "message_id": {
+                    "description": "Identifier of the message containing the poll. Use messageProperties.can_get_poll_vote_statistics to check whether the method can be used for a message",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "PollVoteStatistics"
         },
         "getPollVoters": {
             "description": "Returns message senders voted for the specified option in a poll; use poll.can_get_voters to check whether the method can be used.",
@@ -44634,7 +45142,7 @@
                     "type": "int64"
                 }
             },
-            "type": "NotificationSounds"
+            "type": "NotificationSound"
         },
         "getSavedNotificationSounds": {
             "description": "Returns the list of saved notification sounds. If a sound isn't in the list, then default sound needs to be used",
@@ -45205,6 +45713,22 @@
             "args": {},
             "type": "TemporaryPasswordState"
         },
+        "getTextCompositionStyleExample": {
+            "description": "Returns an example of usage of a custom text composition style",
+            "args": {
+                "example_number": {
+                    "description": "0-based unique number of the requested example; must be non-negative and less than getOption(\"text_composition_style_example_count\")",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "name": {
+                    "description": "Name of the style",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TextCompositionStyleExample"
+        },
         "getTextEntities": {
             "description": "Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously",
             "args": {
@@ -45387,7 +45911,7 @@
             "type": "HttpUrl"
         },
         "getUpgradedGiftsPromotionalAnimation": {
-            "description": "Returns promotional anumation for upgraded gifts",
+            "description": "Returns promotional animation for upgraded gifts",
             "args": {},
             "type": "Animation"
         },
@@ -47145,6 +47669,17 @@
             },
             "type": "StoryAlbum"
         },
+        "removeTextCompositionStyle": {
+            "description": "Removes a custom text composition style from the list of used by the user styles. If the style was created by the current user, then it can only be deleted",
+            "args": {
+                "name": {
+                    "description": "Name of the style",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
         "removeTopChat": {
             "description": "Removes a chat from the list of frequently used chats. Supported only if the chat info database is enabled",
             "args": {
@@ -48549,6 +49084,17 @@
             },
             "type": "FoundPositions"
         },
+        "searchTextCompositionStyle": {
+            "description": "Searches a custom text composition style by its name",
+            "args": {
+                "name": {
+                    "description": "Name of the style",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TextCompositionStyle"
+        },
         "searchUserByPhoneNumber": {
             "description": "Searches a user by their phone number. Returns a 404 error if the user can't be found",
             "args": {
@@ -49226,8 +49772,8 @@
                     "type": "int32"
                 },
                 "text": {
-                    "description": "Draft text of the message",
-                    "is_optional": false,
+                    "description": "Draft text of the message; pass null to show a \"Thinking...\" placeholder",
+                    "is_optional": true,
                     "type": "formattedText"
                 }
             },
@@ -49384,6 +49930,11 @@
                     "description": "Pass true if this is a restore of a Telegram Premium purchase; only for App Store",
                     "is_optional": false,
                     "type": "Bool"
+                },
+                "premium_day_count": {
+                    "description": "The number of days for which the Telegram Premium subscription will be granted",
+                    "is_optional": false,
+                    "type": "int32"
                 },
                 "transaction": {
                     "description": "Information about the transaction",
@@ -50655,6 +51206,22 @@
                     "description": "The new value of the main profile tab",
                     "is_optional": false,
                     "type": "ProfileTab"
+                }
+            },
+            "type": "Ok"
+        },
+        "setManagedBotAccessSettings": {
+            "description": "Sets access settings of a managed bot; for bots only",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the managed bot",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "settings": {
+                    "description": "New access settings",
+                    "is_optional": false,
+                    "type": "botAccessSettings"
                 }
             },
             "type": "Ok"
