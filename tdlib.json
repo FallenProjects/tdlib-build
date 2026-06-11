@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
-    "version": "1.8.64",
-    "commit": "49b3bcbb6bfebf2ed44dd9f25102d2e1a94a58c4",
+    "version": "1.8.65",
+    "commit": "a8f21f5230172634becc1739050ef23ecd6ea291",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -396,6 +396,28 @@
             ],
             "functions": []
         },
+        "ChatJoinRequestResult": {
+            "description": "Describes result of a chat join request",
+            "types": [
+                "chatJoinRequestResultApproved",
+                "chatJoinRequestResultDeclined",
+                "chatJoinRequestResultQueued"
+            ],
+            "functions": []
+        },
+        "ChatJoinResult": {
+            "description": "Describes result of join of a chat by the current user",
+            "types": [
+                "chatJoinResultSuccess",
+                "chatJoinResultRequestSent",
+                "chatJoinResultGuardBotApprovalRequired",
+                "chatJoinResultDeclined"
+            ],
+            "functions": [
+                "joinChat",
+                "joinChatByInviteLink"
+            ]
+        },
         "ChatList": {
             "description": "Describes a list of chats",
             "types": [
@@ -599,6 +621,16 @@
                 "diffEntityTypeInsert",
                 "diffEntityTypeReplace",
                 "diffEntityTypeDelete"
+            ],
+            "functions": []
+        },
+        "DraftMessageContent": {
+            "description": "Content of the message draft",
+            "types": [
+                "draftMessageContentText",
+                "draftMessageContentRichMessage",
+                "draftMessageContentVideoNote",
+                "draftMessageContentVoiceNote"
             ],
             "functions": []
         },
@@ -910,6 +942,7 @@
             "description": "The content of a message to send",
             "types": [
                 "inputMessageText",
+                "inputMessageRichMessage",
                 "inputMessageAnimation",
                 "inputMessageAudio",
                 "inputMessageDocument",
@@ -919,6 +952,7 @@
                 "inputMessageVideo",
                 "inputMessageVideoNote",
                 "inputMessageVoiceNote",
+                "inputMessageLiveLocation",
                 "inputMessageLocation",
                 "inputMessageVenue",
                 "inputMessageContact",
@@ -981,6 +1015,21 @@
                 "inputPassportElementErrorSourceTranslationFiles",
                 "inputPassportElementErrorSourceFile",
                 "inputPassportElementErrorSourceFiles"
+            ],
+            "functions": []
+        },
+        "InputPollMedia": {
+            "description": "The content of a poll media to send",
+            "types": [
+                "inputPollMediaAnimation",
+                "inputPollMediaAudio",
+                "inputPollMediaDocument",
+                "inputPollMediaLink",
+                "inputPollMediaLocation",
+                "inputPollMediaPhoto",
+                "inputPollMediaSticker",
+                "inputPollMediaVenue",
+                "inputPollMediaVideo"
             ],
             "functions": []
         },
@@ -1238,6 +1287,7 @@
             "description": "Contains the content of a message",
             "types": [
                 "messageText",
+                "messageRichMessage",
                 "messageAnimation",
                 "messageAudio",
                 "messageDocument",
@@ -1251,6 +1301,7 @@
                 "messageExpiredVideo",
                 "messageExpiredVideoNote",
                 "messageExpiredVoiceNote",
+                "messageLiveLocation",
                 "messageLocation",
                 "messageVenue",
                 "messageContact",
@@ -1520,11 +1571,14 @@
                 "pageBlockAuthorDate",
                 "pageBlockHeader",
                 "pageBlockSubheader",
+                "pageBlockSectionHeading",
                 "pageBlockKicker",
                 "pageBlockParagraph",
                 "pageBlockPreformatted",
                 "pageBlockFooter",
+                "pageBlockThinking",
                 "pageBlockDivider",
+                "pageBlockMathematicalExpression",
                 "pageBlockAnchor",
                 "pageBlockList",
                 "pageBlockBlockQuote",
@@ -1675,6 +1729,21 @@
             ],
             "functions": []
         },
+        "PollMedia": {
+            "description": "Contains the media in a poll",
+            "types": [
+                "pollMediaAnimation",
+                "pollMediaAudio",
+                "pollMediaDocument",
+                "pollMediaLink",
+                "pollMediaLocation",
+                "pollMediaPhoto",
+                "pollMediaSticker",
+                "pollMediaVenue",
+                "pollMediaVideo"
+            ],
+            "functions": []
+        },
         "PollType": {
             "description": "Describes the type of poll",
             "types": [
@@ -1741,6 +1810,7 @@
                 "premiumLimitTypeChatFolderChosenChatCount",
                 "premiumLimitTypePinnedArchivedChatCount",
                 "premiumLimitTypePinnedSavedMessagesTopicCount",
+                "premiumLimitTypeMessageTextLength",
                 "premiumLimitTypeCaptionLength",
                 "premiumLimitTypeBioLength",
                 "premiumLimitTypeChatFolderInviteLinkCount",
@@ -1991,6 +2061,14 @@
             ],
             "functions": []
         },
+        "RichMessageSource": {
+            "description": "Describes source of a rich message",
+            "types": [
+                "richMessageSourceMarkdown",
+                "richMessageSourceHtml"
+            ],
+            "functions": []
+        },
         "RichText": {
             "description": "Describes a formatted text object",
             "types": [
@@ -1999,15 +2077,26 @@
                 "richTextItalic",
                 "richTextUnderline",
                 "richTextStrikethrough",
+                "richTextSpoiler",
+                "richTextDateTime",
+                "richTextMention",
+                "richTextHashtag",
+                "richTextCashtag",
+                "richTextBotCommand",
                 "richTextFixed",
+                "richTextMentionName",
                 "richTextUrl",
                 "richTextEmailAddress",
+                "richTextBankCardNumber",
                 "richTextSubscript",
                 "richTextSuperscript",
                 "richTextMarked",
                 "richTextPhoneNumber",
+                "richTextCustomEmoji",
                 "richTextIcon",
+                "richTextMathematicalExpression",
                 "richTextReference",
+                "richTextReferenceLink",
                 "richTextAnchor",
                 "richTextAnchorLink",
                 "richTexts"
@@ -2023,8 +2112,16 @@
             ],
             "functions": []
         },
+        "SearchChatTypeFilter": {
+            "description": "Represents a filter for type of the chats to search for",
+            "types": [
+                "searchChatTypeFilterBot",
+                "searchChatTypeFilterChannel"
+            ],
+            "functions": []
+        },
         "SearchMessagesChatTypeFilter": {
-            "description": "Represents a filter for type of the chats in which to search messages",
+            "description": "Represents a filter for type of the chats in which to search for messages",
             "types": [
                 "searchMessagesChatTypeFilterPrivate",
                 "searchMessagesChatTypeFilterGroup",
@@ -2074,26 +2171,34 @@
             ],
             "functions": []
         },
-        "SessionType": {
-            "description": "Represents the type of session",
+        "SessionDeviceType": {
+            "description": "Represents the type of device from which session was created",
             "types": [
-                "sessionTypeAndroid",
-                "sessionTypeApple",
-                "sessionTypeBrave",
-                "sessionTypeChrome",
-                "sessionTypeEdge",
-                "sessionTypeFirefox",
-                "sessionTypeIpad",
-                "sessionTypeIphone",
-                "sessionTypeLinux",
-                "sessionTypeMac",
-                "sessionTypeOpera",
-                "sessionTypeSafari",
-                "sessionTypeUbuntu",
-                "sessionTypeUnknown",
-                "sessionTypeVivaldi",
-                "sessionTypeWindows",
-                "sessionTypeXbox"
+                "sessionDeviceTypeAndroid",
+                "sessionDeviceTypeApple",
+                "sessionDeviceTypeBrave",
+                "sessionDeviceTypeChrome",
+                "sessionDeviceTypeEdge",
+                "sessionDeviceTypeFirefox",
+                "sessionDeviceTypeIpad",
+                "sessionDeviceTypeIphone",
+                "sessionDeviceTypeLinux",
+                "sessionDeviceTypeMac",
+                "sessionDeviceTypeOpera",
+                "sessionDeviceTypeSafari",
+                "sessionDeviceTypeUbuntu",
+                "sessionDeviceTypeUnknown",
+                "sessionDeviceTypeVivaldi",
+                "sessionDeviceTypeWindows",
+                "sessionDeviceTypeXbox"
+            ],
+            "functions": []
+        },
+        "SessionType": {
+            "description": "Describes type of user session",
+            "types": [
+                "sessionTypeDevice",
+                "sessionTypeConnectedBot"
             ],
             "functions": []
         },
@@ -2585,7 +2690,7 @@
                 "updateHavePendingNotifications",
                 "updateDeleteMessages",
                 "updateChatAction",
-                "updatePendingTextMessage",
+                "updatePendingMessage",
                 "updateUserStatus",
                 "updateUser",
                 "updateBasicGroup",
@@ -2621,6 +2726,7 @@
                 "updateUserPrivacySettingRules",
                 "updateUnreadMessageCount",
                 "updateUnreadChatCount",
+                "updateChatJoinResult",
                 "updateStory",
                 "updateStoryDeleted",
                 "updateStoryPostSucceeded",
@@ -2641,6 +2747,7 @@
                 "updateEmojiChatThemes",
                 "updateAccentColors",
                 "updateProfileAccentColors",
+                "updateWebBrowserSettings",
                 "updateLanguagePackStrings",
                 "updateConnectionState",
                 "updateFreezeState",
@@ -2807,6 +2914,16 @@
                 "webAppOpenModeFullScreen"
             ],
             "functions": []
+        },
+        "WebBrowserType": {
+            "description": "Describes the type of web browser",
+            "types": [
+                "webBrowserTypeExternal",
+                "webBrowserTypeInApp"
+            ],
+            "functions": [
+                "getLinkWebBrowserType"
+            ]
         }
     },
     "types": {
@@ -5186,7 +5303,7 @@
             "type": "BusinessChatLinks"
         },
         "businessConnectedBot": {
-            "description": "Describes a bot connected to a business account",
+            "description": "Describes a business bot connected to an account",
             "args": {
                 "bot_user_id": {
                     "description": "User identifier of the bot",
@@ -5205,6 +5322,32 @@
                 }
             },
             "type": "BusinessConnectedBot"
+        },
+        "businessConnectedBotInfo": {
+            "description": "Describes a connection of a bot to an account",
+            "args": {
+                "bot": {
+                    "description": "Information about the bot",
+                    "is_optional": false,
+                    "type": "businessConnectedBot"
+                },
+                "connection_date": {
+                    "description": "Point in time (Unix timestamp) when the bot was added; may be 0 if unknown",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "device_model": {
+                    "description": "Model of the device that was used for the bot connection, as provided by the application; may be empty if unknown",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "location": {
+                    "description": "A human-readable description of the location from which the bot was connected, based on the IP address; may be empty if unknown",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "BusinessConnectedBotInfo"
         },
         "businessConnection": {
             "description": "Describes a connection of the bot with a business account",
@@ -8399,6 +8542,21 @@
             },
             "type": "ChatJoinRequest"
         },
+        "chatJoinRequestResultApproved": {
+            "description": "The request was approved",
+            "args": {},
+            "type": "ChatJoinRequestResult"
+        },
+        "chatJoinRequestResultDeclined": {
+            "description": "The request was decline",
+            "args": {},
+            "type": "ChatJoinRequestResult"
+        },
+        "chatJoinRequestResultQueued": {
+            "description": "The request was postponed without a decision",
+            "args": {},
+            "type": "ChatJoinRequestResult"
+        },
         "chatJoinRequests": {
             "description": "Contains a list of requests to join a chat",
             "args": {
@@ -8430,6 +8588,48 @@
                 }
             },
             "type": "ChatJoinRequestsInfo"
+        },
+        "chatJoinResultDeclined": {
+            "description": "The join was declined by the guard bot",
+            "args": {},
+            "type": "ChatJoinResult"
+        },
+        "chatJoinResultGuardBotApprovalRequired": {
+            "description": "An approval from a guard bot through a Web App is required to join the chat",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the guard bot",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "query_id": {
+                    "description": "Unique identifier of the join request, which will be used in updateChatJoinResult",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "url": {
+                    "description": "The URL of the Web App to open",
+                    "is_optional": false,
+                    "type": "webAppUrl"
+                }
+            },
+            "type": "ChatJoinResult"
+        },
+        "chatJoinResultRequestSent": {
+            "description": "The join request was sent and have to be approved by administrators of the chat",
+            "args": {},
+            "type": "ChatJoinResult"
+        },
+        "chatJoinResultSuccess": {
+            "description": "The chat was joined successfully",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the chat",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "ChatJoinResult"
         },
         "chatListArchive": {
             "description": "A list of chats usually located at the top of the main chat list. Unmuted chats are automatically moved from the Archive to the Main chat list when a new message arrives",
@@ -8804,7 +9004,7 @@
                     "type": "Bool"
                 },
                 "can_send_basic_messages": {
-                    "description": "True, if the user can send text messages, contacts, giveaways, giveaway winners, invoices, locations, and venues",
+                    "description": "True, if the user can send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations, and venues",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -10612,6 +10812,11 @@
         "draftMessage": {
             "description": "Contains information about a message draft",
             "args": {
+                "content": {
+                    "description": "Content of the message draft",
+                    "is_optional": false,
+                    "type": "DraftMessageContent"
+                },
                 "date": {
                     "description": "Point in time (Unix timestamp) when the draft was created",
                     "is_optional": false,
@@ -10621,11 +10826,6 @@
                     "description": "Identifier of the effect to apply to the message when it is sent; 0 if none",
                     "is_optional": false,
                     "type": "int64"
-                },
-                "input_message_text": {
-                    "description": "Content of the message draft; must be of the type inputMessageText, inputMessageVideoNote, or inputMessageVoiceNote",
-                    "is_optional": false,
-                    "type": "InputMessageContent"
                 },
                 "reply_to": {
                     "description": "Information about the message to be replied; inputMessageReplyToStory is unsupported; may be null if none",
@@ -10639,6 +10839,85 @@
                 }
             },
             "type": "DraftMessage"
+        },
+        "draftMessageContentRichMessage": {
+            "description": "A rich message draft; not supported in setChatDraftMessage",
+            "args": {
+                "message": {
+                    "description": "The rich message; the message must not have not yet uploaded media",
+                    "is_optional": false,
+                    "type": "richMessage"
+                }
+            },
+            "type": "DraftMessageContent"
+        },
+        "draftMessageContentText": {
+            "description": "A text message draft",
+            "args": {
+                "link_preview_options": {
+                    "description": "Options to be used for generation of a link preview; may be null if none; pass null to use default link preview options",
+                    "is_optional": true,
+                    "type": "linkPreviewOptions"
+                },
+                "text": {
+                    "description": "Formatted text to be saved as a draft; 0-getOption(\"message_text_length_max\") characters",
+                    "is_optional": false,
+                    "type": "formattedText"
+                }
+            },
+            "type": "DraftMessageContent"
+        },
+        "draftMessageContentVideoNote": {
+            "description": "A video note message draft",
+            "args": {
+                "duration": {
+                    "description": "Duration of the video, in seconds; 0-60",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "file_path": {
+                    "description": "Path to the file with the video note",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "length": {
+                    "description": "Video width and height; must be positive and not greater than 640",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "self_destruct_type": {
+                    "description": "Video note self-destruct type; may be null if none; pass null if none; private chats only",
+                    "is_optional": true,
+                    "type": "MessageSelfDestructType"
+                }
+            },
+            "type": "DraftMessageContent"
+        },
+        "draftMessageContentVoiceNote": {
+            "description": "A voice note message draft",
+            "args": {
+                "duration": {
+                    "description": "Duration of the voice note, in seconds",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "file_path": {
+                    "description": "Path to the file with the voice note",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "self_destruct_type": {
+                    "description": "Voice note self-destruct type; may be null if none; pass null if none; private chats only",
+                    "is_optional": true,
+                    "type": "MessageSelfDestructType"
+                },
+                "waveform": {
+                    "description": "Waveform representation of the voice note in 5-bit format",
+                    "is_optional": false,
+                    "type": "bytes"
+                }
+            },
+            "type": "DraftMessageContent"
         },
         "emailAddressAuthenticationAppleId": {
             "description": "An authentication token received through Apple ID",
@@ -13743,6 +14022,73 @@
             },
             "type": "InlineQueryResultsButtonType"
         },
+        "inputAnimation": {
+            "description": "An animation to be sent",
+            "args": {
+                "added_sticker_file_ids": {
+                    "description": "File identifiers of the stickers added to the animation, if applicable",
+                    "is_optional": false,
+                    "type": "vector\u003cint32\u003e"
+                },
+                "animation": {
+                    "description": "Animation file to be sent",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "duration": {
+                    "description": "Duration of the animation, in seconds; may be replaced by the server",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "height": {
+                    "description": "Height of the animation; may be replaced by the server",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "thumbnail": {
+                    "description": "Animation thumbnail; pass null to skip thumbnail uploading",
+                    "is_optional": true,
+                    "type": "inputThumbnail"
+                },
+                "width": {
+                    "description": "Width of the animation; may be replaced by the server",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InputAnimation"
+        },
+        "inputAudio": {
+            "description": "An audio to be sent",
+            "args": {
+                "album_cover_thumbnail": {
+                    "description": "Thumbnail of the cover for the album; pass null to skip thumbnail uploading",
+                    "is_optional": true,
+                    "type": "inputThumbnail"
+                },
+                "audio": {
+                    "description": "Audio file to be sent",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "duration": {
+                    "description": "Duration of the audio, in seconds; may be replaced by the server",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "performer": {
+                    "description": "Performer of the audio; 0-64 characters, may be replaced by the server",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Title of the audio; 0-64 characters; may be replaced by the server",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InputAudio"
+        },
         "inputBackgroundLocal": {
             "description": "A background from a local file",
             "args": {
@@ -14002,6 +14348,27 @@
             },
             "type": "InputCredentials"
         },
+        "inputDocument": {
+            "description": "A document (general file) to be sent",
+            "args": {
+                "disable_content_type_detection": {
+                    "description": "Pass true to disable automatic file type detection and send the document as a file. Always true for files sent to secret chats",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "document": {
+                    "description": "File to be sent",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "thumbnail": {
+                    "description": "Document thumbnail; pass null to skip thumbnail uploading",
+                    "is_optional": true,
+                    "type": "inputThumbnail"
+                }
+            },
+            "type": "InputDocument"
+        },
         "inputFileGenerated": {
             "description": "A file generated by the application. The application must handle updates updateFileGenerationStart and updateFileGenerationStop to generate the file when asked by TDLib",
             "args": {
@@ -14128,7 +14495,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAnimation, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14194,7 +14561,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14250,7 +14617,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAudio, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAudio, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14286,7 +14653,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14332,7 +14699,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageDocument, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageDocument, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14399,7 +14766,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14455,7 +14822,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessagePhoto, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessagePhoto, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14501,7 +14868,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageSticker, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageSticker, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14542,7 +14909,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14588,7 +14955,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageVideo, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVideo, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14644,7 +15011,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageVoiceNote, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVoiceNote, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -14712,50 +15079,25 @@
         "inputMessageAnimation": {
             "description": "An animation message (GIF-style).",
             "args": {
-                "added_sticker_file_ids": {
-                    "description": "File identifiers of the stickers added to the animation, if applicable",
-                    "is_optional": false,
-                    "type": "vector\u003cint32\u003e"
-                },
                 "animation": {
-                    "description": "Animation file to be sent",
+                    "description": "The animation to be sent",
                     "is_optional": false,
-                    "type": "InputFile"
+                    "type": "inputAnimation"
                 },
                 "caption": {
                     "description": "Animation caption; pass null to use an empty caption; 0-getOption(\"message_caption_length_max\") characters",
                     "is_optional": true,
                     "type": "formattedText"
                 },
-                "duration": {
-                    "description": "Duration of the animation, in seconds",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "has_spoiler": {
                     "description": "True, if the animation preview must be covered by a spoiler animation; not supported in secret chats",
                     "is_optional": false,
                     "type": "Bool"
                 },
-                "height": {
-                    "description": "Height of the animation; may be replaced by the server",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "show_caption_above_media": {
                     "description": "True, if the caption must be shown above the animation; otherwise, the caption must be shown below the animation; not supported in secret chats",
                     "is_optional": false,
                     "type": "Bool"
-                },
-                "thumbnail": {
-                    "description": "Animation thumbnail; pass null to skip thumbnail uploading",
-                    "is_optional": true,
-                    "type": "inputThumbnail"
-                },
-                "width": {
-                    "description": "Width of the animation; may be replaced by the server",
-                    "is_optional": false,
-                    "type": "int32"
                 }
             },
             "type": "InputMessageContent"
@@ -14763,35 +15105,15 @@
         "inputMessageAudio": {
             "description": "An audio message",
             "args": {
-                "album_cover_thumbnail": {
-                    "description": "Thumbnail of the cover for the album; pass null to skip thumbnail uploading",
-                    "is_optional": true,
-                    "type": "inputThumbnail"
-                },
                 "audio": {
-                    "description": "Audio file to be sent",
+                    "description": "Audio to be sent",
                     "is_optional": false,
-                    "type": "InputFile"
+                    "type": "inputAudio"
                 },
                 "caption": {
                     "description": "Audio caption; pass null to use an empty caption; 0-getOption(\"message_caption_length_max\") characters",
                     "is_optional": true,
                     "type": "formattedText"
-                },
-                "duration": {
-                    "description": "Duration of the audio, in seconds; may be replaced by the server",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "performer": {
-                    "description": "Performer of the audio; 0-64 characters, may be replaced by the server",
-                    "is_optional": false,
-                    "type": "string"
-                },
-                "title": {
-                    "description": "Title of the audio; 0-64 characters; may be replaced by the server",
-                    "is_optional": false,
-                    "type": "string"
                 }
             },
             "type": "InputMessageContent"
@@ -14822,7 +15144,7 @@
             "description": "A dice message",
             "args": {
                 "clear_draft": {
-                    "description": "True, if the chat message draft must be deleted",
+                    "description": "Pass true to delete message draft in the chat",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -14842,20 +15164,10 @@
                     "is_optional": true,
                     "type": "formattedText"
                 },
-                "disable_content_type_detection": {
-                    "description": "Pass true to disable automatic file type detection and send the document as a file. Always true for files sent to secret chats",
-                    "is_optional": false,
-                    "type": "Bool"
-                },
                 "document": {
                     "description": "Document to be sent",
                     "is_optional": false,
-                    "type": "InputFile"
-                },
-                "thumbnail": {
-                    "description": "Document thumbnail; pass null to skip thumbnail uploading",
-                    "is_optional": true,
-                    "type": "inputThumbnail"
+                    "type": "inputDocument"
                 }
             },
             "type": "InputMessageContent"
@@ -14983,28 +15295,24 @@
             },
             "type": "InputMessageContent"
         },
+        "inputMessageLiveLocation": {
+            "description": "A message with a live location",
+            "args": {
+                "location": {
+                    "description": "Initial state of the live location to be sent. Live period must be equal to 0x7FFFFFFF for permanent live locations, or between 60 and 86400",
+                    "is_optional": false,
+                    "type": "liveLocation"
+                }
+            },
+            "type": "InputMessageContent"
+        },
         "inputMessageLocation": {
             "description": "A message with a location",
             "args": {
-                "heading": {
-                    "description": "For live locations, a direction in which the location moves, in degrees; 1-360. Pass 0 if unknown",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "live_period": {
-                    "description": "Period for which the location can be updated, in seconds; must be between 60 and 86400 for a temporary live location, 0x7FFFFFFF for permanent live location, and 0 otherwise",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "location": {
                     "description": "Location to be sent",
                     "is_optional": false,
                     "type": "location"
-                },
-                "proximity_alert_radius": {
-                    "description": "For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled. Can't be enabled in channels and Saved Messages",
-                    "is_optional": false,
-                    "type": "int32"
                 }
             },
             "type": "InputMessageContent"
@@ -15043,11 +15351,6 @@
         "inputMessagePhoto": {
             "description": "A photo message",
             "args": {
-                "added_sticker_file_ids": {
-                    "description": "File identifiers of the stickers added to the photo, if applicable",
-                    "is_optional": false,
-                    "type": "vector\u003cint32\u003e"
-                },
                 "caption": {
                     "description": "Photo caption; pass null to use an empty caption; 0-getOption(\"message_caption_length_max\") characters",
                     "is_optional": true,
@@ -15058,15 +15361,10 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
-                "height": {
-                    "description": "Photo height",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "photo": {
-                    "description": "Photo to send. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20",
+                    "description": "Photo to be sent",
                     "is_optional": false,
-                    "type": "InputFile"
+                    "type": "inputPhoto"
                 },
                 "self_destruct_type": {
                     "description": "Photo self-destruct type; pass null if none; private chats only",
@@ -15077,21 +15375,6 @@
                     "description": "True, if the caption must be shown above the photo; otherwise, the caption must be shown below the photo; not supported in secret chats",
                     "is_optional": false,
                     "type": "Bool"
-                },
-                "thumbnail": {
-                    "description": "Photo thumbnail to be sent; pass null to skip thumbnail uploading. The thumbnail is sent to the other party only in secret chats",
-                    "is_optional": true,
-                    "type": "inputThumbnail"
-                },
-                "video": {
-                    "description": "Video of the live photo; not supported in secret chats; pass null if the photo isn't a live photo",
-                    "is_optional": true,
-                    "type": "InputFile"
-                },
-                "width": {
-                    "description": "Photo width",
-                    "is_optional": false,
-                    "type": "int32"
                 }
             },
             "type": "InputMessageContent"
@@ -15140,9 +15423,9 @@
                     "type": "Bool"
                 },
                 "media": {
-                    "description": "Media attached to the poll; pass null if none. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, non-live inputMessageLocation,",
+                    "description": "Media attached to the poll; pass null if none. Must be one of the following types: inputPollMediaAnimation, inputPollMediaAudio, inputPollMediaDocument, inputPollMediaLocation,",
                     "is_optional": true,
-                    "type": "InputMessageContent"
+                    "type": "InputPollMedia"
                 },
                 "members_only": {
                     "description": "True, if only the users that are members of the chat for more than a day will be able to vote; for channel chats only",
@@ -15250,11 +15533,27 @@
             },
             "type": "InputMessageReplyTo"
         },
+        "inputMessageRichMessage": {
+            "description": "A rich message",
+            "args": {
+                "clear_draft": {
+                    "description": "Pass true to delete message draft in the chat",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "message": {
+                    "description": "The rich message to send",
+                    "is_optional": false,
+                    "type": "inputRichMessage"
+                }
+            },
+            "type": "InputMessageContent"
+        },
         "inputMessageStakeDice": {
             "description": "A stake dice message",
             "args": {
                 "clear_draft": {
-                    "description": "True, if the chat message draft must be deleted",
+                    "description": "Pass true to delete message draft in the chat",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -15322,7 +15621,7 @@
             "description": "A text message",
             "args": {
                 "clear_draft": {
-                    "description": "True, if the chat message draft must be deleted",
+                    "description": "Pass true to delete message draft in the chat",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -15353,35 +15652,15 @@
         "inputMessageVideo": {
             "description": "A video message",
             "args": {
-                "added_sticker_file_ids": {
-                    "description": "File identifiers of the stickers added to the video, if applicable",
-                    "is_optional": false,
-                    "type": "vector\u003cint32\u003e"
-                },
                 "caption": {
                     "description": "Video caption; pass null to use an empty caption; 0-getOption(\"message_caption_length_max\") characters",
                     "is_optional": true,
                     "type": "formattedText"
                 },
-                "cover": {
-                    "description": "Cover of the video; pass null to skip cover uploading; not supported in secret chats and for self-destructing messages",
-                    "is_optional": true,
-                    "type": "InputFile"
-                },
-                "duration": {
-                    "description": "Duration of the video, in seconds",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "has_spoiler": {
                     "description": "True, if the video preview must be covered by a spoiler animation; not supported in secret chats",
                     "is_optional": false,
                     "type": "Bool"
-                },
-                "height": {
-                    "description": "Video height",
-                    "is_optional": false,
-                    "type": "int32"
                 },
                 "self_destruct_type": {
                     "description": "Video self-destruct type; pass null if none; private chats only",
@@ -15393,30 +15672,10 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
-                "start_timestamp": {
-                    "description": "Timestamp from which the video playing must start, in seconds",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "supports_streaming": {
-                    "description": "True, if the video is expected to be streamed",
-                    "is_optional": false,
-                    "type": "Bool"
-                },
-                "thumbnail": {
-                    "description": "Video thumbnail; pass null to skip thumbnail uploading",
-                    "is_optional": true,
-                    "type": "inputThumbnail"
-                },
                 "video": {
-                    "description": "Video to be sent. The video is expected to be re-encoded to MPEG4 format with H.264 codec by the sender",
+                    "description": "Video to be sent",
                     "is_optional": false,
-                    "type": "InputFile"
-                },
-                "width": {
-                    "description": "Video width",
-                    "is_optional": false,
-                    "type": "int32"
+                    "type": "inputVideo"
                 }
             },
             "type": "InputMessageContent"
@@ -15456,7 +15715,7 @@
             "description": "A voice note message",
             "args": {
                 "caption": {
-                    "description": "Voice note caption; may be null if empty; pass null to use an empty caption; 0-getOption(\"message_caption_length_max\") characters",
+                    "description": "Voice note caption; pass null to use an empty caption; 0-getOption(\"message_caption_length_max\") characters",
                     "is_optional": true,
                     "type": "formattedText"
                 },
@@ -15840,13 +16099,163 @@
             },
             "type": "InputPersonalDocument"
         },
+        "inputPhoto": {
+            "description": "A photo to be sent",
+            "args": {
+                "added_sticker_file_ids": {
+                    "description": "File identifiers of the stickers added to the photo, if applicable",
+                    "is_optional": false,
+                    "type": "vector\u003cint32\u003e"
+                },
+                "height": {
+                    "description": "Photo height; may be replaced by the server",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "photo": {
+                    "description": "Photo to be sent. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "thumbnail": {
+                    "description": "Photo thumbnail; pass null to skip thumbnail uploading. The thumbnail is sent to the other party only in secret chats",
+                    "is_optional": true,
+                    "type": "inputThumbnail"
+                },
+                "video": {
+                    "description": "Video of the live photo; not supported in secret chats; pass null if the photo isn't a live photo",
+                    "is_optional": true,
+                    "type": "InputFile"
+                },
+                "width": {
+                    "description": "Photo width; may be replaced by the server",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InputPhoto"
+        },
+        "inputPollMediaAnimation": {
+            "description": "An animation",
+            "args": {
+                "animation": {
+                    "description": "The animation to be sent",
+                    "is_optional": false,
+                    "type": "inputAnimation"
+                }
+            },
+            "type": "InputPollMedia"
+        },
+        "inputPollMediaAudio": {
+            "description": "An audio",
+            "args": {
+                "audio": {
+                    "description": "The audio to be sent",
+                    "is_optional": false,
+                    "type": "inputAudio"
+                }
+            },
+            "type": "InputPollMedia"
+        },
+        "inputPollMediaDocument": {
+            "description": "A document (general file)",
+            "args": {
+                "document": {
+                    "description": "The document to be sent",
+                    "is_optional": false,
+                    "type": "inputDocument"
+                }
+            },
+            "type": "InputPollMedia"
+        },
+        "inputPollMediaLink": {
+            "description": "A link",
+            "args": {
+                "url": {
+                    "description": "URL of the link",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InputPollMedia"
+        },
+        "inputPollMediaLocation": {
+            "description": "A location",
+            "args": {
+                "location": {
+                    "description": "Location to be sent",
+                    "is_optional": false,
+                    "type": "location"
+                }
+            },
+            "type": "InputPollMedia"
+        },
+        "inputPollMediaPhoto": {
+            "description": "A photo",
+            "args": {
+                "photo": {
+                    "description": "Photo to be sent",
+                    "is_optional": false,
+                    "type": "inputPhoto"
+                }
+            },
+            "type": "InputPollMedia"
+        },
+        "inputPollMediaSticker": {
+            "description": "A sticker",
+            "args": {
+                "height": {
+                    "description": "Sticker height",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "sticker": {
+                    "description": "Sticker to be sent",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "thumbnail": {
+                    "description": "Sticker thumbnail; pass null to skip thumbnail uploading",
+                    "is_optional": true,
+                    "type": "inputThumbnail"
+                },
+                "width": {
+                    "description": "Sticker width",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InputPollMedia"
+        },
+        "inputPollMediaVenue": {
+            "description": "A venue",
+            "args": {
+                "venue": {
+                    "description": "Venue to send",
+                    "is_optional": false,
+                    "type": "venue"
+                }
+            },
+            "type": "InputPollMedia"
+        },
+        "inputPollMediaVideo": {
+            "description": "A video",
+            "args": {
+                "video": {
+                    "description": "The video to be sent",
+                    "is_optional": false,
+                    "type": "inputVideo"
+                }
+            },
+            "type": "InputPollMedia"
+        },
         "inputPollOption": {
             "description": "Describes one answer option of a poll to be created",
             "args": {
                 "media": {
                     "description": "Option media; pass null if none; ignored in addPollOption. Must be one of the following types:",
                     "is_optional": true,
-                    "type": "InputMessageContent"
+                    "type": "InputPollMedia"
                 },
                 "text": {
                     "description": "Option text; 1-100 characters. Only custom emoji entities are allowed to be added and only by Premium users",
@@ -15872,7 +16281,7 @@
                 "explanation_media": {
                     "description": "Media that is shown when the user chooses an incorrect answer or taps on the lamp icon; pass null if none. Must be one of the following types:",
                     "is_optional": true,
-                    "type": "InputMessageContent"
+                    "type": "InputPollMedia"
                 }
             },
             "type": "InputPollType"
@@ -15887,6 +16296,27 @@
                 }
             },
             "type": "InputPollType"
+        },
+        "inputRichMessage": {
+            "description": "A rich message to send",
+            "args": {
+                "detect_automatic_blocks": {
+                    "description": "Pass true to enable detection of URLs, email addresses and other automatic blocks",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_rtl": {
+                    "description": "Pass true if the message must be shown from right to left",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "source": {
+                    "description": "Source of the rich message",
+                    "is_optional": false,
+                    "type": "RichMessageSource"
+                }
+            },
+            "type": "InputRichMessage"
         },
         "inputSticker": {
             "description": "A sticker to be added to a sticker set",
@@ -16173,6 +16603,57 @@
                 }
             },
             "type": "InputThumbnail"
+        },
+        "inputVideo": {
+            "description": "A video to be sent",
+            "args": {
+                "added_sticker_file_ids": {
+                    "description": "File identifiers of the stickers added to the video, if applicable",
+                    "is_optional": false,
+                    "type": "vector\u003cint32\u003e"
+                },
+                "cover": {
+                    "description": "Cover of the video; pass null to skip cover uploading; not supported in secret chats and for self-destructing messages",
+                    "is_optional": true,
+                    "type": "InputFile"
+                },
+                "duration": {
+                    "description": "Duration of the video, in seconds",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "height": {
+                    "description": "Video height",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "start_timestamp": {
+                    "description": "Timestamp from which the video playing must start, in seconds",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "supports_streaming": {
+                    "description": "True, if the video is expected to be streamed",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "thumbnail": {
+                    "description": "Video thumbnail; pass null to skip thumbnail uploading",
+                    "is_optional": true,
+                    "type": "inputThumbnail"
+                },
+                "video": {
+                    "description": "Video file to be sent. The video is expected to be re-encoded to MPEG4 format with H.264 codec by the sender",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "width": {
+                    "description": "Video width",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InputVideo"
         },
         "internalLinkTypeAttachmentMenuBot": {
             "description": "The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given target_chat to open the chat.",
@@ -17579,7 +18060,7 @@
                     "type": "Bool"
                 },
                 "site_name": {
-                    "description": "Short name of the site (e.g., Google Docs, App Store)",
+                    "description": "Short name of the website (e.g., Google Docs, App Store)",
                     "is_optional": false,
                     "type": "string"
                 },
@@ -17698,7 +18179,7 @@
             "type": "LinkPreviewType"
         },
         "linkPreviewTypeArticle": {
-            "description": "The link is a link to a web site",
+            "description": "The link is a link to a website",
             "args": {
                 "photo": {
                     "description": "Article's main photo; may be null",
@@ -18232,6 +18713,32 @@
             },
             "type": "LinkPreviewType"
         },
+        "liveLocation": {
+            "description": "A live location",
+            "args": {
+                "heading": {
+                    "description": "The direction in which the location moves, in degrees; 1-360; 0 if unknown",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "live_period": {
+                    "description": "Time relative to the message send date, for which the location can be updated, in seconds; if 0x7FFFFFFF, then location can be updated forever",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "location": {
+                    "description": "The current location",
+                    "is_optional": false,
+                    "type": "location"
+                },
+                "proximity_alert_radius": {
+                    "description": "The maximum distance to another chat member for proximity alerts, in meters (0-100000). 0 if the notification is disabled.",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "LiveLocation"
+        },
         "liveStoryDonors": {
             "description": "Contains a list of users and chats that spend most money on paid messages and reactions in a live story",
             "args": {
@@ -18458,7 +18965,7 @@
                 "url": {
                     "description": "URL of the Web App to open",
                     "is_optional": false,
-                    "type": "string"
+                    "type": "webAppUrl"
                 }
             },
             "type": "MainWebApp"
@@ -20091,33 +20598,29 @@
             },
             "type": "MessageLinkInfo"
         },
-        "messageLocation": {
-            "description": "A message with a location",
+        "messageLiveLocation": {
+            "description": "A message with a live location",
             "args": {
                 "expires_in": {
                     "description": "Left time for which the location can be updated, in seconds. If 0, then the location can't be updated anymore. The update updateMessageContent is not sent when this field changes",
                     "is_optional": false,
                     "type": "int32"
                 },
-                "heading": {
-                    "description": "For live locations, a direction in which the location moves, in degrees; 1-360. If 0 the direction is unknown",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "live_period": {
-                    "description": "Time relative to the message send date, for which the location can be updated, in seconds; if 0x7FFFFFFF, then location can be updated forever",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "location": {
-                    "description": "The location description",
+                    "description": "The current location",
+                    "is_optional": false,
+                    "type": "liveLocation"
+                }
+            },
+            "type": "MessageContent"
+        },
+        "messageLocation": {
+            "description": "A message with a location",
+            "args": {
+                "location": {
+                    "description": "The location",
                     "is_optional": false,
                     "type": "location"
-                },
-                "proximity_alert_radius": {
-                    "description": "For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). 0 if the notification is disabled. Available only to the message sender",
-                    "is_optional": false,
-                    "type": "int32"
                 }
             },
             "type": "MessageContent"
@@ -20471,9 +20974,9 @@
                     "type": "formattedText"
                 },
                 "media": {
-                    "description": "Media attached to the poll; may be null if none. If present, currently, can be only of the types messageAnimation, messageAudio, messageDocument, messageLocation, messagePhoto, messageVenue, or messageVideo without caption",
+                    "description": "Media attached to the poll; may be null if none. If present, currently, can be only of the types pollMediaAnimation, pollMediaAudio, pollMediaDocument, pollMediaLocation, pollMediaPhoto, pollMediaVenue, or pollMediaVideo",
                     "is_optional": true,
-                    "type": "MessageContent"
+                    "type": "PollMedia"
                 },
                 "poll": {
                     "description": "Information about the poll",
@@ -21056,6 +21559,17 @@
                 }
             },
             "type": "MessageReplyTo"
+        },
+        "messageRichMessage": {
+            "description": "A rich message; the message can have multiple media of the same type, all of which must be shown in the corresponding profile tab",
+            "args": {
+                "message": {
+                    "description": "The rich message",
+                    "is_optional": false,
+                    "type": "richMessage"
+                }
+            },
+            "type": "MessageContent"
         },
         "messageSchedulingStateSendAtDate": {
             "description": "The message will be sent at the specified date",
@@ -22493,9 +23007,14 @@
                     "type": "animation"
                 },
                 "caption": {
-                    "description": "Animation caption",
-                    "is_optional": false,
+                    "description": "Animation caption; may be null if none",
+                    "is_optional": true,
                     "type": "pageBlockCaption"
+                },
+                "has_spoiler": {
+                    "description": "True, if the animation preview must be covered by a spoiler animation",
+                    "is_optional": false,
+                    "type": "Bool"
                 },
                 "need_autoplay": {
                     "description": "True, if the animation must be played automatically",
@@ -22514,15 +23033,15 @@
                     "type": "audio"
                 },
                 "caption": {
-                    "description": "Audio file caption",
-                    "is_optional": false,
+                    "description": "Audio file caption; may be null if none",
+                    "is_optional": true,
                     "type": "pageBlockCaption"
                 }
             },
             "type": "PageBlock"
         },
         "pageBlockAuthorDate": {
-            "description": "The author and publishing date of a page",
+            "description": "The author and publishing date of a page; instant view only",
             "args": {
                 "author": {
                     "description": "Author",
@@ -22540,14 +23059,14 @@
         "pageBlockBlockQuote": {
             "description": "A block quote",
             "args": {
-                "credit": {
-                    "description": "Quote credit",
+                "blocks": {
+                    "description": "Quote blocks",
                     "is_optional": false,
-                    "type": "RichText"
+                    "type": "vector\u003cPageBlock\u003e"
                 },
-                "text": {
-                    "description": "Quote text",
-                    "is_optional": false,
+                "credit": {
+                    "description": "Quote credit; may be null if none",
+                    "is_optional": true,
                     "type": "RichText"
                 }
             },
@@ -22557,8 +23076,8 @@
             "description": "Contains a caption of another block",
             "args": {
                 "credit": {
-                    "description": "Block credit (like HTML tag \u003ccite\u003e)",
-                    "is_optional": false,
+                    "description": "Block credit (like HTML tag \u003ccite\u003e); may be null if none",
+                    "is_optional": true,
                     "type": "RichText"
                 },
                 "text": {
@@ -22570,7 +23089,7 @@
             "type": "PageBlockCaption"
         },
         "pageBlockChatLink": {
-            "description": "A link to a chat",
+            "description": "A link to a chat; instant view only",
             "args": {
                 "accent_color_id": {
                     "description": "Identifier of the accent color for chat title and background of chat photo",
@@ -22598,21 +23117,21 @@
         "pageBlockCollage": {
             "description": "A collage",
             "args": {
-                "caption": {
-                    "description": "Block caption",
-                    "is_optional": false,
-                    "type": "pageBlockCaption"
-                },
-                "page_blocks": {
+                "blocks": {
                     "description": "Collage item contents",
                     "is_optional": false,
                     "type": "vector\u003cPageBlock\u003e"
+                },
+                "caption": {
+                    "description": "Block caption; may be null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
                 }
             },
             "type": "PageBlock"
         },
         "pageBlockCover": {
-            "description": "A page cover",
+            "description": "A page cover; instant view only",
             "args": {
                 "cover": {
                     "description": "Cover",
@@ -22625,6 +23144,11 @@
         "pageBlockDetails": {
             "description": "A collapsible block",
             "args": {
+                "blocks": {
+                    "description": "Block contents",
+                    "is_optional": false,
+                    "type": "vector\u003cPageBlock\u003e"
+                },
                 "header": {
                     "description": "Always visible heading for the block",
                     "is_optional": false,
@@ -22634,11 +23158,6 @@
                     "description": "True, if the block is open by default",
                     "is_optional": false,
                     "type": "Bool"
-                },
-                "page_blocks": {
-                    "description": "Block contents",
-                    "is_optional": false,
-                    "type": "vector\u003cPageBlock\u003e"
                 }
             },
             "type": "PageBlock"
@@ -22649,7 +23168,7 @@
             "type": "PageBlock"
         },
         "pageBlockEmbedded": {
-            "description": "An embedded web page",
+            "description": "An embedded web page; instant view only",
             "args": {
                 "allow_scrolling": {
                     "description": "True, if scrolling needs to be allowed",
@@ -22657,8 +23176,8 @@
                     "type": "Bool"
                 },
                 "caption": {
-                    "description": "Block caption",
-                    "is_optional": false,
+                    "description": "Block caption; may be null if none",
+                    "is_optional": true,
                     "type": "pageBlockCaption"
                 },
                 "height": {
@@ -22695,7 +23214,7 @@
             "type": "PageBlock"
         },
         "pageBlockEmbeddedPost": {
-            "description": "An embedded post",
+            "description": "An embedded post; instant view only",
             "args": {
                 "author": {
                     "description": "Post author",
@@ -22707,20 +23226,20 @@
                     "is_optional": true,
                     "type": "photo"
                 },
-                "caption": {
-                    "description": "Post caption",
+                "blocks": {
+                    "description": "Post content",
                     "is_optional": false,
+                    "type": "vector\u003cPageBlock\u003e"
+                },
+                "caption": {
+                    "description": "Post caption; may be null if none",
+                    "is_optional": true,
                     "type": "pageBlockCaption"
                 },
                 "date": {
                     "description": "Point in time (Unix timestamp) when the post was created; 0 if unknown",
                     "is_optional": false,
                     "type": "int32"
-                },
-                "page_blocks": {
-                    "description": "Post content",
-                    "is_optional": false,
-                    "type": "vector\u003cPageBlock\u003e"
                 },
                 "url": {
                     "description": "URL of the embedded post",
@@ -22742,7 +23261,7 @@
             "type": "PageBlock"
         },
         "pageBlockHeader": {
-            "description": "A header",
+            "description": "A header; instant view only",
             "args": {
                 "header": {
                     "description": "Header",
@@ -22768,7 +23287,7 @@
             "type": "PageBlockHorizontalAlignment"
         },
         "pageBlockKicker": {
-            "description": "A kicker",
+            "description": "A kicker; instant view only",
             "args": {
                 "kicker": {
                     "description": "Kicker",
@@ -22792,15 +23311,35 @@
         "pageBlockListItem": {
             "description": "Describes an item of a list page block",
             "args": {
+                "blocks": {
+                    "description": "Item blocks",
+                    "is_optional": false,
+                    "type": "vector\u003cPageBlock\u003e"
+                },
+                "has_checkbox": {
+                    "description": "True, if the item has a checkbox",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_checked": {
+                    "description": "True, if the item is checked",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "label": {
                     "description": "Item label",
                     "is_optional": false,
                     "type": "string"
                 },
-                "page_blocks": {
-                    "description": "Item blocks",
+                "type": {
+                    "description": "Type of the item numbering type; must be one of \"a\" for a lowercase letters, \"A\" for an uppercase letters, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals,",
                     "is_optional": false,
-                    "type": "vector\u003cPageBlock\u003e"
+                    "type": "string"
+                },
+                "value": {
+                    "description": "Value of the item; 0 for unordered lists",
+                    "is_optional": false,
+                    "type": "int32"
                 }
             },
             "type": "PageBlockListItem"
@@ -22809,8 +23348,8 @@
             "description": "A map",
             "args": {
                 "caption": {
-                    "description": "Block caption",
-                    "is_optional": false,
+                    "description": "Block caption; may be null if none",
+                    "is_optional": true,
                     "type": "pageBlockCaption"
                 },
                 "height": {
@@ -22836,6 +23375,17 @@
             },
             "type": "PageBlock"
         },
+        "pageBlockMathematicalExpression": {
+            "description": "A mathematical expression",
+            "args": {
+                "expression": {
+                    "description": "The expression in LaTeX format",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "PageBlock"
+        },
         "pageBlockParagraph": {
             "description": "A text paragraph",
             "args": {
@@ -22851,9 +23401,14 @@
             "description": "A photo",
             "args": {
                 "caption": {
-                    "description": "Photo caption",
-                    "is_optional": false,
+                    "description": "Photo caption; may be null if none",
+                    "is_optional": true,
                     "type": "pageBlockCaption"
+                },
+                "has_spoiler": {
+                    "description": "True, if the photo preview must be covered by a spoiler animation",
+                    "is_optional": false,
+                    "type": "Bool"
                 },
                 "photo": {
                     "description": "Photo file; may be null",
@@ -22861,7 +23416,7 @@
                     "type": "photo"
                 },
                 "url": {
-                    "description": "URL that needs to be opened when the photo is clicked",
+                    "description": "URL that needs to be opened when the photo is clicked; instant view only",
                     "is_optional": false,
                     "type": "string"
                 }
@@ -22888,8 +23443,8 @@
             "description": "A pull quote",
             "args": {
                 "credit": {
-                    "description": "Quote credit",
-                    "is_optional": false,
+                    "description": "Quote credit; may be null if none",
+                    "is_optional": true,
                     "type": "RichText"
                 },
                 "text": {
@@ -22937,7 +23492,7 @@
             "type": "PageBlockRelatedArticle"
         },
         "pageBlockRelatedArticles": {
-            "description": "Related articles",
+            "description": "Related articles; instant view only",
             "args": {
                 "articles": {
                     "description": "List of related articles",
@@ -22952,24 +23507,40 @@
             },
             "type": "PageBlock"
         },
+        "pageBlockSectionHeading": {
+            "description": "A section heading",
+            "args": {
+                "size": {
+                    "description": "Relative size of the text font; 1-6, 1 is the largest, 6 is the smallest",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "text": {
+                    "description": "Text of the section heading",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "PageBlock"
+        },
         "pageBlockSlideshow": {
             "description": "A slideshow",
             "args": {
-                "caption": {
-                    "description": "Block caption",
-                    "is_optional": false,
-                    "type": "pageBlockCaption"
-                },
-                "page_blocks": {
+                "blocks": {
                     "description": "Slideshow item contents",
                     "is_optional": false,
                     "type": "vector\u003cPageBlock\u003e"
+                },
+                "caption": {
+                    "description": "Block caption; may be null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
                 }
             },
             "type": "PageBlock"
         },
         "pageBlockSubheader": {
-            "description": "A subheader",
+            "description": "A subheader; instant view only",
             "args": {
                 "subheader": {
                     "description": "Subheader",
@@ -22980,7 +23551,7 @@
             "type": "PageBlock"
         },
         "pageBlockSubtitle": {
-            "description": "The subtitle of a page",
+            "description": "The subtitle of a page; instant view only",
             "args": {
                 "subtitle": {
                     "description": "Subtitle",
@@ -22994,8 +23565,8 @@
             "description": "A table",
             "args": {
                 "caption": {
-                    "description": "Table caption",
-                    "is_optional": false,
+                    "description": "Table caption; may be null if none",
+                    "is_optional": true,
                     "type": "RichText"
                 },
                 "cells": {
@@ -23052,8 +23623,19 @@
             },
             "type": "PageBlockTableCell"
         },
+        "pageBlockThinking": {
+            "description": "A \"Thinking...\" placeholder; for pending rich messages only",
+            "args": {
+                "text": {
+                    "description": "Text of the placeholder",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "PageBlock"
+        },
         "pageBlockTitle": {
-            "description": "The title of a page",
+            "description": "The title of a page; instant view only",
             "args": {
                 "title": {
                     "description": "Title",
@@ -23082,9 +23664,14 @@
             "description": "A video",
             "args": {
                 "caption": {
-                    "description": "Video caption",
-                    "is_optional": false,
+                    "description": "Video caption; may be null if none",
+                    "is_optional": true,
                     "type": "pageBlockCaption"
+                },
+                "has_spoiler": {
+                    "description": "True, if the video preview must be covered by a spoiler animation",
+                    "is_optional": false,
+                    "type": "Bool"
                 },
                 "is_looped": {
                     "description": "True, if the video must be looped",
@@ -23108,8 +23695,8 @@
             "description": "A voice note",
             "args": {
                 "caption": {
-                    "description": "Voice note caption",
-                    "is_optional": false,
+                    "description": "Voice note caption; may be null if none",
+                    "is_optional": true,
                     "type": "pageBlockCaption"
                 },
                 "voice_note": {
@@ -24203,6 +24790,11 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "can_see_results": {
+                    "description": "True, if the current user can see results of the poll",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "close_date": {
                     "description": "Point in time (Unix timestamp) when the poll will automatically be closed",
                     "is_optional": false,
@@ -24276,6 +24868,135 @@
             },
             "type": "Poll"
         },
+        "pollMediaAnimation": {
+            "description": "An animation",
+            "args": {
+                "animation": {
+                    "description": "The animation",
+                    "is_optional": false,
+                    "type": "animation"
+                }
+            },
+            "type": "PollMedia"
+        },
+        "pollMediaAudio": {
+            "description": "An audio",
+            "args": {
+                "audio": {
+                    "description": "The audio",
+                    "is_optional": false,
+                    "type": "audio"
+                }
+            },
+            "type": "PollMedia"
+        },
+        "pollMediaDocument": {
+            "description": "A document (general file)",
+            "args": {
+                "document": {
+                    "description": "The document",
+                    "is_optional": false,
+                    "type": "document"
+                }
+            },
+            "type": "PollMedia"
+        },
+        "pollMediaLink": {
+            "description": "A link",
+            "args": {
+                "link_preview": {
+                    "description": "Preview of the link; may be null if unknown",
+                    "is_optional": true,
+                    "type": "linkPreview"
+                },
+                "url": {
+                    "description": "URL of the link",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "PollMedia"
+        },
+        "pollMediaLocation": {
+            "description": "A location",
+            "args": {
+                "location": {
+                    "description": "The location",
+                    "is_optional": false,
+                    "type": "location"
+                }
+            },
+            "type": "PollMedia"
+        },
+        "pollMediaPhoto": {
+            "description": "A photo",
+            "args": {
+                "photo": {
+                    "description": "The photo",
+                    "is_optional": false,
+                    "type": "photo"
+                },
+                "video": {
+                    "description": "The video representing the live photo; may be null if the photo is static",
+                    "is_optional": true,
+                    "type": "video"
+                }
+            },
+            "type": "PollMedia"
+        },
+        "pollMediaSticker": {
+            "description": "A sticker",
+            "args": {
+                "sticker": {
+                    "description": "The sticker",
+                    "is_optional": false,
+                    "type": "sticker"
+                }
+            },
+            "type": "PollMedia"
+        },
+        "pollMediaVenue": {
+            "description": "A venue",
+            "args": {
+                "venue": {
+                    "description": "The venue",
+                    "is_optional": false,
+                    "type": "venue"
+                }
+            },
+            "type": "PollMedia"
+        },
+        "pollMediaVideo": {
+            "description": "A video",
+            "args": {
+                "alternative_videos": {
+                    "description": "Alternative qualities of the video",
+                    "is_optional": false,
+                    "type": "vector\u003calternativeVideo\u003e"
+                },
+                "cover": {
+                    "description": "Cover of the video; may be null if none",
+                    "is_optional": true,
+                    "type": "photo"
+                },
+                "start_timestamp": {
+                    "description": "Timestamp from which the video playing must start, in seconds",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "storyboards": {
+                    "description": "Available storyboards for the video",
+                    "is_optional": false,
+                    "type": "vector\u003cvideoStoryboard\u003e"
+                },
+                "video": {
+                    "description": "The video description",
+                    "is_optional": false,
+                    "type": "video"
+                }
+            },
+            "type": "PollMedia"
+        },
         "pollOption": {
             "description": "Describes one answer option of a poll",
             "args": {
@@ -24305,9 +25026,9 @@
                     "type": "Bool"
                 },
                 "media": {
-                    "description": "Option media; may be null if none. If present, currently, can be only of the types messageAnimation, messageLocation, messagePhoto, messageSticker, messageVenue, or messageVideo without caption",
+                    "description": "Option media; may be null if none. If present, currently, can be only of the types pollMediaAnimation, pollMediaLink, pollMediaLocation, pollMediaPhoto, pollMediaSticker, pollMediaVenue, or pollMediaVideo",
                     "is_optional": true,
-                    "type": "MessageContent"
+                    "type": "PollMedia"
                 },
                 "recent_voter_ids": {
                     "description": "Identifiers of recent voters for the option, if the poll is non-anonymous and poll results are available",
@@ -24374,7 +25095,7 @@
                 "explanation_media": {
                     "description": "Media that is shown when the user chooses an incorrect answer or taps on the lamp icon; may be null if none or the poll is unanswered yet.",
                     "is_optional": true,
-                    "type": "MessageContent"
+                    "type": "PollMedia"
                 }
             },
             "type": "PollType"
@@ -24854,6 +25575,11 @@
         },
         "premiumLimitTypeFavoriteStickerCount": {
             "description": "The maximum number of favorite stickers",
+            "args": {},
+            "type": "PremiumLimitType"
+        },
+        "premiumLimitTypeMessageTextLength": {
+            "description": "The maximum length of text of sent messages",
             "args": {},
             "type": "PremiumLimitType"
         },
@@ -26861,6 +27587,49 @@
             },
             "type": "RevenueWithdrawalState"
         },
+        "richMessage": {
+            "description": "Describes a message with rich formatting",
+            "args": {
+                "blocks": {
+                    "description": "Content of the message",
+                    "is_optional": false,
+                    "type": "vector\u003cPageBlock\u003e"
+                },
+                "is_full": {
+                    "description": "True, if the object contains the full message. Otherwise, getFullRichMessage must be used to get the full message",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_rtl": {
+                    "description": "True, if the message must be shown from right to left",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "RichMessage"
+        },
+        "richMessageSourceHtml": {
+            "description": "An HTML-formatted rich message; for bots only",
+            "args": {
+                "text": {
+                    "description": "HTML-formatted text of the message",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "RichMessageSource"
+        },
+        "richMessageSourceMarkdown": {
+            "description": "A Markdown-formatted rich message; for bots only",
+            "args": {
+                "text": {
+                    "description": "Markdown-formatted text of the message",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "RichMessageSource"
+        },
         "richTextAnchor": {
             "description": "An anchor",
             "args": {
@@ -26886,9 +27655,25 @@
                     "type": "RichText"
                 },
                 "url": {
-                    "description": "An HTTP URL, opening the anchor",
+                    "description": "An HTTP URL that opens the anchor",
                     "is_optional": false,
                     "type": "string"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextBankCardNumber": {
+            "description": "A bank card number",
+            "args": {
+                "bank_card_number": {
+                    "description": "The number of the bank card",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
                 }
             },
             "type": "RichText"
@@ -26904,8 +27689,77 @@
             },
             "type": "RichText"
         },
+        "richTextBotCommand": {
+            "description": "A bot command",
+            "args": {
+                "bot_command": {
+                    "description": "The bot command",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextCashtag": {
+            "description": "A cashtag",
+            "args": {
+                "cashtag": {
+                    "description": "The cashtag",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextCustomEmoji": {
+            "description": "A custom emoji",
+            "args": {
+                "alternative_text": {
+                    "description": "Alternative text for the custom emoji",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "custom_emoji_id": {
+                    "description": "Unique identifier of the custom emoji",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextDateTime": {
+            "description": "A date and time",
+            "args": {
+                "formatting_type": {
+                    "description": "Date and time formatting type; may be null if none and the original text must not be changed",
+                    "is_optional": true,
+                    "type": "DateTimeFormattingType"
+                },
+                "text": {
+                    "description": "Original text",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "unix_time": {
+                    "description": "Point in time (Unix timestamp) representing the date and time",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "RichText"
+        },
         "richTextEmailAddress": {
-            "description": "A rich text email link",
+            "description": "A rich text email address",
             "args": {
                 "email_address": {
                     "description": "Email address",
@@ -26931,8 +27785,24 @@
             },
             "type": "RichText"
         },
+        "richTextHashtag": {
+            "description": "A hashtag",
+            "args": {
+                "hashtag": {
+                    "description": "The hashtag",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "RichText"
+        },
         "richTextIcon": {
-            "description": "A small image inside the text",
+            "description": "A small image inside the text; instant view only",
             "args": {
                 "document": {
                     "description": "The image represented as a document. The image can be in GIF, JPEG or PNG format",
@@ -26974,6 +27844,49 @@
             },
             "type": "RichText"
         },
+        "richTextMathematicalExpression": {
+            "description": "A mathematical expression",
+            "args": {
+                "expression": {
+                    "description": "The expression in LaTeX format",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextMention": {
+            "description": "A mention of a Telegram user or chat by a username",
+            "args": {
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "username": {
+                    "description": "The username",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextMentionName": {
+            "description": "A rich text that serves as a mention of a user",
+            "args": {
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "user_id": {
+                    "description": "Identifier of the mentioned user",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "RichText"
+        },
         "richTextPhoneNumber": {
             "description": "A rich text phone number",
             "args": {
@@ -27002,22 +27915,49 @@
             "type": "RichText"
         },
         "richTextReference": {
-            "description": "A reference to a richTexts object on the same page",
+            "description": "A reference",
             "args": {
-                "anchor_name": {
-                    "description": "The name of a richTextAnchor object, which is the first element of the target richTexts object",
+                "name": {
+                    "description": "Reference name",
                     "is_optional": false,
                     "type": "string"
                 },
                 "text": {
-                    "description": "The text",
+                    "description": "Text of the reference",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextReferenceLink": {
+            "description": "A link to a reference on the same page",
+            "args": {
+                "reference_name": {
+                    "description": "The reference name",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "text": {
+                    "description": "The link text",
                     "is_optional": false,
                     "type": "RichText"
                 },
                 "url": {
-                    "description": "An HTTP URL, opening the reference",
+                    "description": "An HTTP URL that opens the reference",
                     "is_optional": false,
                     "type": "string"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextSpoiler": {
+            "description": "A spoilered rich text",
+            "args": {
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
                 }
             },
             "type": "RichText"
@@ -27070,7 +28010,7 @@
             "description": "A rich text URL link",
             "args": {
                 "is_cached": {
-                    "description": "True, if the URL has cached instant view server-side",
+                    "description": "True, if the URL has cached instant view server-side; instant view only",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -27290,6 +28230,16 @@
                 }
             },
             "type": "ScopeNotificationSettings"
+        },
+        "searchChatTypeFilterBot": {
+            "description": "Returns only private chats with bots",
+            "args": {},
+            "type": "SearchChatTypeFilter"
+        },
+        "searchChatTypeFilterChannel": {
+            "description": "Returns only channel chats",
+            "args": {},
+            "type": "SearchChatTypeFilter"
         },
         "searchMessagesChatTypeFilterChannel": {
             "description": "Returns only messages in channel chats",
@@ -27518,6 +28468,11 @@
                     "is_optional": false,
                     "type": "string"
                 },
+                "device_type": {
+                    "description": "Session device type based on the system and application version, which can be used to display a corresponding icon",
+                    "is_optional": false,
+                    "type": "SessionDeviceType"
+                },
                 "id": {
                     "description": "Session identifier",
                     "is_optional": false,
@@ -27572,98 +28527,115 @@
                     "description": "Version of the operating system the application has been run or is running on, as provided by the application",
                     "is_optional": false,
                     "type": "string"
-                },
-                "type": {
-                    "description": "Session type based on the system and application version, which can be used to display a corresponding icon",
-                    "is_optional": false,
-                    "type": "SessionType"
                 }
             },
             "type": "Session"
         },
-        "sessionTypeAndroid": {
+        "sessionDeviceTypeAndroid": {
             "description": "The session is running on an Android device",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeApple": {
+        "sessionDeviceTypeApple": {
             "description": "The session is running on a generic Apple device",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeBrave": {
+        "sessionDeviceTypeBrave": {
             "description": "The session is running on the Brave browser",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeChrome": {
+        "sessionDeviceTypeChrome": {
             "description": "The session is running on the Chrome browser",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeEdge": {
+        "sessionDeviceTypeEdge": {
             "description": "The session is running on the Edge browser",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeFirefox": {
+        "sessionDeviceTypeFirefox": {
             "description": "The session is running on the Firefox browser",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeIpad": {
+        "sessionDeviceTypeIpad": {
             "description": "The session is running on an iPad device",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeIphone": {
+        "sessionDeviceTypeIphone": {
             "description": "The session is running on an iPhone device",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeLinux": {
+        "sessionDeviceTypeLinux": {
             "description": "The session is running on a Linux device",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeMac": {
+        "sessionDeviceTypeMac": {
             "description": "The session is running on a Mac device",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeOpera": {
+        "sessionDeviceTypeOpera": {
             "description": "The session is running on the Opera browser",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeSafari": {
+        "sessionDeviceTypeSafari": {
             "description": "The session is running on the Safari browser",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeUbuntu": {
+        "sessionDeviceTypeUbuntu": {
             "description": "The session is running on an Ubuntu device",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeUnknown": {
+        "sessionDeviceTypeUnknown": {
             "description": "The session is running on an unknown type of device",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeVivaldi": {
+        "sessionDeviceTypeVivaldi": {
             "description": "The session is running on the Vivaldi browser",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeWindows": {
+        "sessionDeviceTypeWindows": {
             "description": "The session is running on a Windows device",
             "args": {},
-            "type": "SessionType"
+            "type": "SessionDeviceType"
         },
-        "sessionTypeXbox": {
+        "sessionDeviceTypeXbox": {
             "description": "The session is running on an Xbox console",
             "args": {},
+            "type": "SessionDeviceType"
+        },
+        "sessionTypeConnectedBot": {
+            "description": "A business bot connected to the current user's account",
+            "args": {
+                "bot_user_id": {
+                    "description": "User identifier of the bot. Use deleteBusinessConnectedBot to remove it or confirmBusinessConnectedBot to confirm it if it isn't confirmed yet",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "SessionType"
+        },
+        "sessionTypeDevice": {
+            "description": "A regular session from a device",
+            "args": {
+                "session_id": {
+                    "description": "Unique identifier of the session. Use terminateSession to terminate it or confirmSession to confirm it if it isn't confirmed yet",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
             "type": "SessionType"
         },
         "sessions": {
@@ -30927,7 +31899,7 @@
                     "type": "Bool"
                 },
                 "join_by_request": {
-                    "description": "True, if all users directly joining the supergroup need to be approved by supergroup administrators. May be true only for non-broadcast supergroups with username, location, or a linked chat",
+                    "description": "True, if all users directly joining the supergroup need to be approved by supergroup administrators",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -31081,6 +32053,11 @@
                     "description": "Number of saved to profile gifts for channels without can_post_messages administrator right, otherwise, the total number of received gifts",
                     "is_optional": false,
                     "type": "int32"
+                },
+                "guard_bot_user_id": {
+                    "description": "User identifier of the guard bot in the group; for chat administrators only",
+                    "is_optional": false,
+                    "type": "int53"
                 },
                 "has_aggressive_anti_spam_enabled": {
                     "description": "True, if aggressive anti-spam checks are enabled in the supergroup. The value of this field is only available to chat administrators",
@@ -32492,25 +33469,25 @@
         "unconfirmedSession": {
             "description": "Contains information about an unconfirmed session",
             "args": {
+                "date": {
+                    "description": "Point in time (Unix timestamp) when the user has logged in or the business bot was connected",
+                    "is_optional": false,
+                    "type": "int32"
+                },
                 "device_model": {
                     "description": "Model of the device that was used for the session creation, as provided by the application",
                     "is_optional": false,
                     "type": "string"
-                },
-                "id": {
-                    "description": "Session identifier",
-                    "is_optional": false,
-                    "type": "int64"
                 },
                 "location": {
                     "description": "A human-readable description of the location from which the session was created, based on the IP address",
                     "is_optional": false,
                     "type": "string"
                 },
-                "log_in_date": {
-                    "description": "Point in time (Unix timestamp) when the user has logged in",
+                "type": {
+                    "description": "Session type",
                     "is_optional": false,
-                    "type": "int32"
+                    "type": "SessionType"
                 }
             },
             "type": "UnconfirmedSession"
@@ -33824,6 +34801,11 @@
                     "is_optional": false,
                     "type": "string"
                 },
+                "is_guard": {
+                    "description": "True, if the bot can be set as a guard bot in supergroup chats",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "is_inline": {
                     "description": "True, if the bot supports inline queries",
                     "is_optional": false,
@@ -34291,9 +35273,9 @@
                     "type": "int64"
                 },
                 "url": {
-                    "description": "A Web App URL to open in a web view",
+                    "description": "The Web App URL to open in a web view",
                     "is_optional": false,
-                    "type": "string"
+                    "type": "webAppUrl"
                 }
             },
             "type": "WebAppInfo"
@@ -34334,9 +35316,92 @@
             },
             "type": "WebAppOpenParameters"
         },
+        "webAppUrl": {
+            "description": "Contains information about a Web App URL",
+            "args": {
+                "require_same_origin": {
+                    "description": "True, if events from the Web App must be accepted only from the same origin as the URL",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "url": {
+                    "description": "The Web App URL to open in a web view",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "WebAppUrl"
+        },
+        "webBrowserSettings": {
+            "description": "Describes web browser settings",
+            "args": {
+                "display_close_button": {
+                    "description": "True, if a close button must be shown in the in-app browser; for Android app only",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "external_exceptions": {
+                    "description": "The list of websites which must always be opened in an external browser",
+                    "is_optional": false,
+                    "type": "vector\u003cwebDomainException\u003e"
+                },
+                "in_app_exceptions": {
+                    "description": "The list of websites which must always be opened in the in-app browser",
+                    "is_optional": false,
+                    "type": "vector\u003cwebDomainException\u003e"
+                },
+                "open_external_browser": {
+                    "description": "True, if links are opened in an external browser by default",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "WebBrowserSettings"
+        },
+        "webBrowserTypeExternal": {
+            "description": "An external web browser",
+            "args": {},
+            "type": "WebBrowserType"
+        },
+        "webBrowserTypeInApp": {
+            "description": "The in-app browser",
+            "args": {},
+            "type": "WebBrowserType"
+        },
+        "webDomainException": {
+            "description": "Describes an exception for built-in browser usage",
+            "args": {
+                "domain": {
+                    "description": "Domain of the URL. All URLs on the domain and subdomains of the domain are subject to the exception",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "favicon_custom_emoji_id": {
+                    "description": "Identifier of the custom emoji with favicon of the website; may be 0 if unknown, in which case the first letter of the domain must be used",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "title": {
+                    "description": "Title of the website",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "url": {
+                    "description": "URL for which the exception is done",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "WebDomainException"
+        },
         "webPageInstantView": {
             "description": "Describes an instant view page for a web page",
             "args": {
+                "blocks": {
+                    "description": "Content of the instant view page",
+                    "is_optional": false,
+                    "type": "vector\u003cPageBlock\u003e"
+                },
                 "feedback_link": {
                     "description": "An internal link to be opened to leave feedback about the instant view",
                     "is_optional": false,
@@ -34351,11 +35416,6 @@
                     "description": "True, if the instant view must be shown from right to left",
                     "is_optional": false,
                     "type": "Bool"
-                },
-                "page_blocks": {
-                    "description": "Content of the instant view page",
-                    "is_optional": false,
-                    "type": "vector\u003cPageBlock\u003e"
                 },
                 "version": {
                     "description": "Version of the instant view; currently, can be 1 or 2",
@@ -34981,6 +36041,27 @@
                     "description": "New value of is_translatable",
                     "is_optional": false,
                     "type": "Bool"
+                }
+            },
+            "type": "Update"
+        },
+        "updateChatJoinResult": {
+            "description": "A join request from the user was completed",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the joined chat, or 0 if the request wasn't approved",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "query_id": {
+                    "description": "Identifier of the join request query as received in chatJoinResultGuardBotApprovalRequired. If the corresponding Web App is stiil open, then it must be closed",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "result": {
+                    "description": "Result of the join",
+                    "is_optional": false,
+                    "type": "ChatJoinRequestResult"
                 }
             },
             "type": "Update"
@@ -36414,6 +37495,11 @@
                     "is_optional": true,
                     "type": "chatInviteLink"
                 },
+                "query_id": {
+                    "description": "Identifier of the join request query, which can be used in answerChatJoinRequestQuery; 0 if none",
+                    "is_optional": false,
+                    "type": "int64"
+                },
                 "request": {
                     "description": "Join request",
                     "is_optional": false,
@@ -36830,13 +37916,18 @@
             },
             "type": "Update"
         },
-        "updatePendingTextMessage": {
-            "description": "A new pending text message was received in a chat with a bot. The message must be shown in the chat for at most getOption(\"pending_text_message_period\") seconds,",
+        "updatePendingMessage": {
+            "description": "A new pending text or rich message was received in a chat with a bot. The message must be shown in the chat for at most getOption(\"pending_text_message_period\") seconds,",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
                     "is_optional": false,
                     "type": "int53"
+                },
+                "content": {
+                    "description": "Content of the message; always of the type messageText or messageRichMessage",
+                    "is_optional": false,
+                    "type": "MessageContent"
                 },
                 "draft_id": {
                     "description": "Unique identifier of the message draft within the message thread",
@@ -36847,11 +37938,6 @@
                     "description": "The forum topic identifier in which the message will be sent; 0 if none",
                     "is_optional": false,
                     "type": "int32"
-                },
-                "text": {
-                    "description": "Text of the pending message",
-                    "is_optional": false,
-                    "type": "formattedText"
                 }
             },
             "type": "Update"
@@ -37395,6 +38481,11 @@
                     "description": "The unconfirmed session; may be null if none",
                     "is_optional": true,
                     "type": "unconfirmedSession"
+                },
+                "unconfirmed_session_count": {
+                    "description": "The total number of unconfirmed sessions",
+                    "is_optional": false,
+                    "type": "int32"
                 }
             },
             "type": "Update"
@@ -37538,6 +38629,17 @@
                     "description": "Identifier of Web App launch",
                     "is_optional": false,
                     "type": "int64"
+                }
+            },
+            "type": "Update"
+        },
+        "updateWebBrowserSettings": {
+            "description": "Web browser settings have been updated",
+            "args": {
+                "settings": {
+                    "description": "New settings",
+                    "is_optional": false,
+                    "type": "webBrowserSettings"
                 }
             },
             "type": "Update"
@@ -38085,7 +39187,7 @@
             "description": "Adds a message to a quick reply shortcut. If shortcut doesn't exist and there are less than getOption(\"quick_reply_shortcut_count_max\") shortcuts, then a new shortcut is created.",
             "args": {
                 "input_message_content": {
-                    "description": "The content of the message to be added; inputMessagePaidMedia, inputMessageForwarded and inputMessageLocation with live_period aren't supported",
+                    "description": "The content of the message to be added; inputMessagePaidMedia, inputMessageForwarded and inputMessageLiveLocation",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -38225,6 +39327,22 @@
             },
             "type": "Ok"
         },
+        "addWebBrowserSettingsException": {
+            "description": "Adds a special handling for the opening of the specified URL",
+            "args": {
+                "open_external_browser": {
+                    "description": "Pass true if the specified website must be opened in an external browser; pass false to open it in the in-app browser. There can be at most 100 exceptions in each list of the exceptions",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "url": {
+                    "description": "URL of the website",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
         "allowBotToSendMessages": {
             "description": "Allows the specified bot to send messages to the user",
             "args": {
@@ -38277,6 +39395,27 @@
                 },
                 "url": {
                     "description": "URL to be opened",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
+        "answerChatJoinRequestQuery": {
+            "description": "Sets the result of a chat join query; for bots only",
+            "args": {
+                "query_id": {
+                    "description": "Identifier of the query",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "result": {
+                    "description": "The result",
+                    "is_optional": false,
+                    "type": "ChatJoinRequestResult"
+                },
+                "url": {
+                    "description": "URL of the Web App to open",
                     "is_optional": false,
                     "type": "string"
                 }
@@ -38691,6 +39830,22 @@
             },
             "type": "Ok"
         },
+        "changeWebBrowserSettings": {
+            "description": "Changes web browser settings",
+            "args": {
+                "display_close_button": {
+                    "description": "Pass true if a close button must be shown in the in-app browser; for Android app only",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "open_external_browser": {
+                    "description": "Pass true if links must be opened in an external browser by default",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "Ok"
+        },
         "checkAuthenticationBotToken": {
             "description": "Checks the authentication token of a bot; to log in as a bot. Works only when the current authorization state is authorizationStateWaitPhoneNumber. Can be used instead of setAuthenticationPhoneNumber and checkAuthenticationCode to log in",
             "args": {
@@ -38794,6 +39949,22 @@
                     "description": "The number of days for which the Telegram Premium subscription will be granted",
                     "is_optional": false,
                     "type": "int32"
+                }
+            },
+            "type": "Ok"
+        },
+        "checkAuthenticationWebToken": {
+            "description": "Checks a web token to log in to the corresponding account; for official Telegram apps only. Works only when the current authorization state is",
+            "args": {
+                "dc_id": {
+                    "description": "Identifier of the datacenter of the user",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "token": {
+                    "description": "The token to check",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "Ok"
@@ -39227,6 +40398,17 @@
                 }
             },
             "type": "FormattedText"
+        },
+        "confirmBusinessConnectedBot": {
+            "description": "Confirms an unconfirmed business connection of the current user from another device",
+            "args": {
+                "bot_user_id": {
+                    "description": "User identifier of the bot",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "Ok"
         },
         "confirmQrCodeAuthentication": {
             "description": "Confirms QR code authentication on another device. Returns created session on success",
@@ -40748,30 +41930,15 @@
                     "is_optional": false,
                     "type": "int53"
                 },
-                "heading": {
-                    "description": "The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "live_period": {
-                    "description": "New time relative to the message send date, for which the location can be updated, in seconds. If 0x7FFFFFFF specified, then the location can be updated forever.",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "location": {
-                    "description": "New location content of the message; pass null to stop sharing the live location",
+                    "description": "New live location of the message; pass null to stop sharing the live location. If the new live_period isn't set to 0x7FFFFFFF,",
                     "is_optional": true,
-                    "type": "location"
+                    "type": "liveLocation"
                 },
                 "message_id": {
                     "description": "Identifier of the message",
                     "is_optional": false,
                     "type": "int53"
-                },
-                "proximity_alert_radius": {
-                    "description": "The new maximum distance for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled",
-                    "is_optional": false,
-                    "type": "int32"
                 },
                 "reply_markup": {
                     "description": "The new message reply markup; pass null if none",
@@ -40852,7 +42019,7 @@
                     "type": "int53"
                 },
                 "input_message_content": {
-                    "description": "New text content of the message. Must be of type inputMessageText",
+                    "description": "New text content of the message. Must be of type inputMessageText or inputMessageRichMessage",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -41075,30 +42242,15 @@
         "editInlineMessageLiveLocation": {
             "description": "Edits the content of a live location in an inline message sent via a bot; for bots only",
             "args": {
-                "heading": {
-                    "description": "The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "inline_message_id": {
                     "description": "Inline message identifier",
                     "is_optional": false,
                     "type": "string"
                 },
-                "live_period": {
-                    "description": "New time relative to the message send date, for which the location can be updated, in seconds. If 0x7FFFFFFF specified, then the location can be updated forever.",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "location": {
-                    "description": "New location content of the message; pass null to stop sharing the live location",
+                    "description": "New live location of the message; pass null to stop sharing the live location. If the new live_period isn't set to 0x7FFFFFFF,",
                     "is_optional": true,
-                    "type": "location"
-                },
-                "proximity_alert_radius": {
-                    "description": "The new maximum distance for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled",
-                    "is_optional": false,
-                    "type": "int32"
+                    "type": "liveLocation"
                 },
                 "reply_markup": {
                     "description": "The new message reply markup; pass null if none",
@@ -41154,7 +42306,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "New text content of the message. Must be of type inputMessageText",
+                    "description": "New text content of the message. Must be of type inputMessageText or inputMessageRichMessage",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -41231,30 +42383,15 @@
                     "is_optional": false,
                     "type": "int53"
                 },
-                "heading": {
-                    "description": "The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "live_period": {
-                    "description": "New time relative to the message send date, for which the location can be updated, in seconds. If 0x7FFFFFFF specified, then the location can be updated forever.",
-                    "is_optional": false,
-                    "type": "int32"
-                },
                 "location": {
-                    "description": "New location content of the message; pass null to stop sharing the live location",
+                    "description": "New live location of the message; pass null to stop sharing the live location. If the new live_period isn't set to 0x7FFFFFFF,",
                     "is_optional": true,
-                    "type": "location"
+                    "type": "liveLocation"
                 },
                 "message_id": {
                     "description": "Identifier of the message. Use messageProperties.can_be_edited to check whether the message can be edited",
                     "is_optional": false,
                     "type": "int53"
-                },
-                "proximity_alert_radius": {
-                    "description": "The new maximum distance for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled",
-                    "is_optional": false,
-                    "type": "int32"
                 },
                 "reply_markup": {
                     "description": "The new message reply markup; pass null if none; for bots only",
@@ -41341,7 +42478,7 @@
                     "type": "int53"
                 },
                 "input_message_content": {
-                    "description": "New text content of the message. Must be of type inputMessageText",
+                    "description": "New text content of the message. Must be of type inputMessageText or inputMessageRichMessage",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -41388,7 +42525,7 @@
             "description": "Asynchronously edits the text, media or caption of a quick reply message. Use quickReplyMessage.can_be_edited to check whether a message can be edited.",
             "args": {
                 "input_message_content": {
-                    "description": "New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageChecklist, inputMessageDocument, inputMessagePhoto, inputMessageText, or inputMessageVideo",
+                    "description": "New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageChecklist, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageText, or inputMessageVideo",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -41669,7 +42806,7 @@
             "type": "AccountTtl"
         },
         "getActiveSessions": {
-            "description": "Returns all active sessions of the current user",
+            "description": "Returns all active sessions of the current user. Additionally, getBusinessConnectedBot must be used to show the bot on top of active sessions",
             "args": {},
             "type": "Sessions"
         },
@@ -42009,9 +43146,9 @@
             "type": "BusinessChatLinks"
         },
         "getBusinessConnectedBot": {
-            "description": "Returns the business bot that is connected to the current user account. Returns a 404 error if there is no connected bot",
+            "description": "Returns information about the business bot that is connected to the current user account. Returns a 404 error if there is no connected bot",
             "args": {},
-            "type": "BusinessConnectedBot"
+            "type": "BusinessConnectedBotInfo"
         },
         "getBusinessConnection": {
             "description": "Returns information about a business connection by its identifier; for bots only",
@@ -42769,7 +43906,7 @@
             "type": "Chats"
         },
         "getChatSparseMessagePositions": {
-            "description": "Returns sparse positions of messages of the specified type in the chat to be used for shared media scroll implementation. Returns the results in reverse chronological order (i.e., in order of decreasing message_id).",
+            "description": "Returns sparse positions of messages of the specified type in the chat to be used for Shared Media scroll implementation. Returns the results in reverse chronological order (i.e., in order of decreasing message_id).",
             "args": {
                 "chat_id": {
                     "description": "Identifier of the chat in which to return information about message positions",
@@ -42988,6 +44125,17 @@
             "description": "Returns information about existing countries. Can be called before authorization",
             "args": {},
             "type": "Countries"
+        },
+        "getCountry": {
+            "description": "Returns information about an existing country. Can be called before authorization",
+            "args": {
+                "country_code": {
+                    "description": "A two-letter ISO 3166-1 alpha-2 country code",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "CountryInfo"
         },
         "getCountryCode": {
             "description": "Uses the current IP address to find the current country. Returns two-letter ISO 3166-1 alpha-2 country code. Can be called before authorization",
@@ -43233,7 +44381,7 @@
             "type": "HttpUrl"
         },
         "getExternalLinkInfo": {
-            "description": "Returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if link preview is disabled in secret chats",
+            "description": "Returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats",
             "args": {
                 "link": {
                     "description": "The link",
@@ -43400,6 +44548,22 @@
                 }
             },
             "type": "ForumTopics"
+        },
+        "getFullRichMessage": {
+            "description": "Returns the full version of a rich message",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the chat the messages belong to",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "message_id": {
+                    "description": "Identifier of the message",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "RichMessage"
         },
         "getGameHighScores": {
             "description": "Returns the high scores for a game and some part of the high score table in the range of the specified user; for bots only",
@@ -43842,6 +45006,17 @@
                 }
             },
             "type": "LinkPreview"
+        },
+        "getLinkWebBrowserType": {
+            "description": "Returns a type of the web browser which must be used to open the link",
+            "args": {
+                "link": {
+                    "description": "The HTTP link",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "WebBrowserType"
         },
         "getLiveStoryAvailableMessageSenders": {
             "description": "Returns the list of message sender identifiers, on whose behalf messages can be sent to a live story",
@@ -46110,7 +47285,7 @@
                     "type": "string"
                 }
             },
-            "type": "HttpUrl"
+            "type": "WebAppUrl"
         },
         "getWebAppPlaceholder": {
             "description": "Returns a default placeholder for Web Apps of a bot. This is an offline method. Returns a 404 error if the placeholder isn't known",
@@ -46142,7 +47317,7 @@
                     "type": "string"
                 }
             },
-            "type": "HttpUrl"
+            "type": "WebAppUrl"
         },
         "getWebPageInstantView": {
             "description": "Returns an instant view version of a web page if available. This is an offline method if only_local is true. Returns a 404 error if the web page has no instant view page",
@@ -46304,7 +47479,7 @@
             "type": "Ok"
         },
         "joinChat": {
-            "description": "Adds the current user as a new member to a chat. Private and secret chats can't be joined using this method. May return an error with a message \"INVITE_REQUEST_SENT\" if only a join request was created",
+            "description": "Adds the current user as a new member to a chat. Private and secret chats can't be joined using this method",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
@@ -46312,10 +47487,10 @@
                     "type": "int53"
                 }
             },
-            "type": "Ok"
+            "type": "ChatJoinResult"
         },
         "joinChatByInviteLink": {
-            "description": "Uses an invite link to add the current user to the chat if possible. May return an error with a message \"INVITE_REQUEST_SENT\" if only a join request was created",
+            "description": "Uses an invite link to add the current user to the chat if possible",
             "args": {
                 "invite_link": {
                     "description": "Invite link to use",
@@ -46323,7 +47498,7 @@
                     "type": "string"
                 }
             },
-            "type": "Chat"
+            "type": "ChatJoinResult"
         },
         "joinGroupCall": {
             "description": "Joins a regular group call that is not bound to a chat",
@@ -47345,6 +48520,11 @@
             },
             "type": "Ok"
         },
+        "removeAllWebBrowserSettingsExceptions": {
+            "description": "Removes special handling for the opening of all links",
+            "args": {},
+            "type": "Ok"
+        },
         "removeBusinessConnectedBotFromChat": {
             "description": "Removes the connected business bot from a specific chat by adding the chat to businessRecipients.excluded_chat_ids",
             "args": {
@@ -47692,6 +48872,17 @@
                     "description": "Chat identifier",
                     "is_optional": false,
                     "type": "int53"
+                }
+            },
+            "type": "Ok"
+        },
+        "removeWebBrowserSettingsException": {
+            "description": "Removes a special handling for the opening of the specified URL",
+            "args": {
+                "url": {
+                    "description": "URL of the website",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "Ok"
@@ -48494,7 +49685,7 @@
             "type": "FoundChatMessages"
         },
         "searchChatRecentLocationMessages": {
-            "description": "Returns information about the recent locations of chat members that were sent to the chat. Returns up to 1 location message per user",
+            "description": "Returns information about the recent live locations of chat members that were sent to the chat. Returns at most one live location message per user",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
@@ -48521,6 +49712,11 @@
                     "description": "Query to search for. If the query is empty, returns up to 50 recently found chats",
                     "is_optional": false,
                     "type": "string"
+                },
+                "type_filter": {
+                    "description": "Additional filter for type of the chats to be returned; pass null to search for chats of all types",
+                    "is_optional": true,
+                    "type": "SearchChatTypeFilter"
                 }
             },
             "type": "Chats"
@@ -48537,6 +49733,11 @@
                     "description": "Query to search for",
                     "is_optional": false,
                     "type": "string"
+                },
+                "type_filter": {
+                    "description": "Additional filter for type of the chats to be returned; pass null to search for chats of all types",
+                    "is_optional": true,
+                    "type": "SearchChatTypeFilter"
                 }
             },
             "type": "Chats"
@@ -48762,6 +49963,11 @@
                     "description": "Query to search for",
                     "is_optional": false,
                     "type": "string"
+                },
+                "type_filter": {
+                    "description": "Additional filter for type of the chats to be returned; pass null to search for chats of all types",
+                    "is_optional": true,
+                    "type": "SearchChatTypeFilter"
                 }
             },
             "type": "Chats"
@@ -48919,6 +50125,11 @@
                     "description": "Query to search for",
                     "is_optional": false,
                     "type": "string"
+                },
+                "type_filter": {
+                    "description": "Additional filter for type of the chats to be returned; pass null to search for chats of all types",
+                    "is_optional": true,
+                    "type": "SearchChatTypeFilter"
                 }
             },
             "type": "Chats"
@@ -49752,6 +50963,32 @@
                 }
             },
             "type": "GiftResaleResult"
+        },
+        "sendRichMessageDraft": {
+            "description": "Sends a draft for a being generated rich message; for bots only",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "draft_id": {
+                    "description": "Unique identifier of the draft",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "forum_topic_id": {
+                    "description": "The forum topic identifier in which the message will be sent; pass 0 if none",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "message": {
+                    "description": "Draft of the message",
+                    "is_optional": false,
+                    "type": "inputRichMessage"
+                }
+            },
+            "type": "Ok"
         },
         "sendTextMessageDraft": {
             "description": "Sends a draft for a being generated text message; for bots only",
@@ -52422,7 +53659,7 @@
             "type": "Ok"
         },
         "terminateAllOtherSessions": {
-            "description": "Terminates all other sessions of the current user",
+            "description": "Terminates all other sessions of the current user. Additionally, the user must be suggested to delete the connected business bot using deleteBusinessConnectedBot if there is any",
             "args": {},
             "type": "Ok"
         },
@@ -53196,6 +54433,16 @@
         "toggleSupergroupJoinByRequest": {
             "description": "Toggles whether all users directly joining the supergroup need to be approved by supergroup administrators; requires can_restrict_members administrator right",
             "args": {
+                "apply_to_invite_links": {
+                    "description": "Pass true to apply the change to the existing invite links, including primary links",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "guard_bot_user_id": {
+                    "description": "Identifier of the bot which will be the guard bot in the group; pass 0 if none; ignored if join_by_request == false.",
+                    "is_optional": false,
+                    "type": "int53"
+                },
                 "join_by_request": {
                     "description": "New value of join_by_request",
                     "is_optional": false,
