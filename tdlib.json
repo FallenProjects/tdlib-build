@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
     "version": "1.8.65",
-    "commit": "a8f21f5230172634becc1739050ef23ecd6ea291",
+    "commit": "a17f87c4cff7b90b278d12b91ba0614383aaee82",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -977,7 +977,7 @@
             "functions": []
         },
         "InputPaidMediaType": {
-            "description": "Describes type of paid media to sent",
+            "description": "Describes type of paid media to send",
             "types": [
                 "inputPaidMediaTypePhoto",
                 "inputPaidMediaTypeVideo"
@@ -3426,7 +3426,7 @@
                     "type": "string"
                 },
                 "has_stickers": {
-                    "description": "True, if stickers were added to the animation. The list of corresponding sticker set can be received using getAttachedStickerSets",
+                    "description": "True, if stickers were added to the animation. The list of corresponding sticker sets can be received using getAttachedStickerSets",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -4216,7 +4216,7 @@
                     "type": "Bool"
                 },
                 "preload_stories": {
-                    "description": "True, if stories needs to be preloaded",
+                    "description": "True, if stories need to be preloaded",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -5471,7 +5471,7 @@
             "description": "Describes settings for greeting messages that are automatically sent by a Telegram Business account as response to incoming messages in an inactive private chat",
             "args": {
                 "inactivity_days": {
-                    "description": "The number of days after which a chat will be considered as inactive; currently, must be on of 7, 14, 21, or 28",
+                    "description": "The number of days after which a chat will be considered as inactive; currently, must be one of 7, 14, 21, or 28",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -5502,7 +5502,7 @@
                     "type": "businessGreetingMessageSettings"
                 },
                 "local_opening_hours": {
-                    "description": "Opening hours of the business in the local time; may be null if none. The hours are guaranteed to be valid and has already been split by week days.",
+                    "description": "Opening hours of the business in the local time; may be null if none. The hours are guaranteed to be valid and have already been split by week days.",
                     "is_optional": true,
                     "type": "businessOpeningHours"
                 },
@@ -5522,7 +5522,7 @@
                     "type": "int32"
                 },
                 "opening_hours": {
-                    "description": "Opening hours of the business; may be null if none. The hours are guaranteed to be valid and has already been split by week days",
+                    "description": "Opening hours of the business; may be null if none. The hours are guaranteed to be valid and have already been split by week days",
                     "is_optional": true,
                     "type": "businessOpeningHours"
                 },
@@ -8548,7 +8548,7 @@
             "type": "ChatJoinRequestResult"
         },
         "chatJoinRequestResultDeclined": {
-            "description": "The request was decline",
+            "description": "The request was declined",
             "args": {},
             "type": "ChatJoinRequestResult"
         },
@@ -12211,7 +12211,7 @@
                     "type": "int53"
                 },
                 "first_send_date": {
-                    "description": "Point in time (Unix timestamp) when the gift was send for the first time; for sold out gifts only",
+                    "description": "Point in time (Unix timestamp) when the gift was sent for the first time; for sold out gifts only",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -12236,7 +12236,7 @@
                     "type": "Bool"
                 },
                 "last_send_date": {
-                    "description": "Point in time (Unix timestamp) when the gift was send for the last time; for sold out gifts only",
+                    "description": "Point in time (Unix timestamp) when the gift was sent for the last time; for sold out gifts only",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -12246,7 +12246,7 @@
                     "type": "int32"
                 },
                 "overall_limits": {
-                    "description": "Number of times the gift can be purchased all users; may be null if not limited",
+                    "description": "Number of times the gift can be purchased by all users; may be null if not limited",
                     "is_optional": true,
                     "type": "giftPurchaseLimits"
                 },
@@ -20295,7 +20295,7 @@
             "type": "MessageContent"
         },
         "messageGiveawayPrizeStars": {
-            "description": "A Telegram Stars were received by the current user from a giveaway",
+            "description": "Telegram Stars were received by the current user from a giveaway",
             "args": {
                 "boosted_chat_id": {
                     "description": "Identifier of the supergroup or channel chat, which was automatically boosted by the winners of the giveaway",
@@ -21937,7 +21937,7 @@
             "type": "MessageContent"
         },
         "messageSuggestedPostApprovalFailed": {
-            "description": "Approval of suggested post has failed, because the user which proposed the post had no enough funds",
+            "description": "Approval of suggested post has failed, because the user who proposed the post didn't have enough funds",
             "args": {
                 "price": {
                     "description": "Price of the suggested post",
@@ -22152,7 +22152,7 @@
                     "type": "Bool"
                 },
                 "craft_date": {
-                    "description": "Point in time (Unix timestamp) when the gift can be used to craft another gift can be in the past; only for the receiver of the gift",
+                    "description": "Point in time (Unix timestamp) when the gift can be used to craft another gift; can be in the past; only for the receiver of the gift",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -23332,7 +23332,7 @@
                     "type": "string"
                 },
                 "type": {
-                    "description": "Type of the item numbering type; must be one of \"a\" for a lowercase letters, \"A\" for an uppercase letters, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals,",
+                    "description": "Type of the item numbering type; must be one of \"a\" for lowercase letters, \"A\" for uppercase letters, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals,",
                     "is_optional": false,
                     "type": "string"
                 },
@@ -27050,7 +27050,7 @@
                     "type": "vector\u003cint32\u003e"
                 },
                 "craft_date": {
-                    "description": "Point in time (Unix timestamp) when the gift can be used to craft another gift can be in the past; only for the receiver of the gift",
+                    "description": "Point in time (Unix timestamp) when the gift can be used to craft another gift; can be in the past; only for the receiver of the gift",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -29322,7 +29322,7 @@
                     "type": "Bool"
                 },
                 "is_expiring": {
-                    "description": "True, if the subscription expires soon and there are no enough Telegram Stars on the user's balance to extend it",
+                    "description": "True, if the subscription expires soon and there aren't enough Telegram Stars on the user's balance to extend it",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -29390,7 +29390,7 @@
                     "type": "Bool"
                 },
                 "invite_link": {
-                    "description": "The invite link that can be used to renew the subscription if it has been expired; may be empty, if the link isn't available anymore",
+                    "description": "The invite link that can be used to renew the subscription if it has expired; may be empty if the link isn't available anymore",
                     "is_optional": true,
                     "type": "string"
                 }
@@ -30960,7 +30960,7 @@
                     "type": "int32"
                 },
                 "has_expired_viewers": {
-                    "description": "True, if users viewed the story can't be received, because the story has expired more than getOption(\"story_viewers_expiration_delay\") seconds ago",
+                    "description": "True, if users who viewed the story can't be received, because the story has expired more than getOption(\"story_viewers_expiration_delay\") seconds ago",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -31155,7 +31155,7 @@
             "type": "StoryAreaType"
         },
         "storyAreaTypeSuggestedReaction": {
-            "description": "An area pointing to a suggested reaction. App needs to show a clickable reaction on the area and call setStoryReaction when the are is clicked",
+            "description": "An area pointing to a suggested reaction. App needs to show a clickable reaction on the area and call setStoryReaction when the area is clicked",
             "args": {
                 "is_dark": {
                     "description": "True, if reaction has a dark background",
@@ -32682,7 +32682,7 @@
             "description": "Describes a style that can be used to compose a text",
             "args": {
                 "creator_user_id": {
-                    "description": "User identifier of the creator of the style; 0 if none of unknown",
+                    "description": "User identifier of the creator of the style; 0 if none or unknown",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -33608,7 +33608,7 @@
                     "type": "Bool"
                 },
                 "is_crafted": {
-                    "description": "True, if the gift was craft from another gifts",
+                    "description": "True, if the gift was crafted from other gifts",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -33952,7 +33952,7 @@
             "type": "UpgradedGiftOrigin"
         },
         "upgradedGiftOriginPrepaidUpgrade": {
-            "description": "The sender or receiver of the message has paid for upgraid of the gift, which has been completed",
+            "description": "The sender or receiver of the message has paid for upgrade of the gift, which has been completed",
             "args": {},
             "type": "UpgradedGiftOrigin"
         },
@@ -35460,7 +35460,7 @@
             "type": "Update"
         },
         "updateActiveGiftAuctions": {
-            "description": "The list of auctions in which participate the current user has changed",
+            "description": "The list of auctions in which the current user participates has changed",
             "args": {
                 "states": {
                     "description": "New states of the auctions",
@@ -35493,7 +35493,7 @@
             "type": "Update"
         },
         "updateAgeVerificationParameters": {
-            "description": "The parameters for age verification of the current user's account has changed",
+            "description": "The parameters for age verification of the current user's account have changed",
             "args": {
                 "parameters": {
                     "description": "Parameters for the age verification; may be null if age verification isn't needed",
@@ -35525,7 +35525,7 @@
             "type": "Update"
         },
         "updateAnimationSearchParameters": {
-            "description": "The parameters of animation search through getOption(\"animation_search_bot_username\") bot has changed",
+            "description": "The parameters of animation search through getOption(\"animation_search_bot_username\") bot have changed",
             "args": {
                 "emojis": {
                     "description": "The new list of emojis suggested for searching",
@@ -36054,7 +36054,7 @@
                     "type": "int53"
                 },
                 "query_id": {
-                    "description": "Identifier of the join request query as received in chatJoinResultGuardBotApprovalRequired. If the corresponding Web App is stiil open, then it must be closed",
+                    "description": "Identifier of the join request query as received in chatJoinResultGuardBotApprovalRequired. If the corresponding Web App is still open, then it must be closed",
                     "is_optional": false,
                     "type": "int64"
                 },
@@ -38175,7 +38175,7 @@
             "type": "Update"
         },
         "updateSpeechRecognitionTrial": {
-            "description": "The parameters of speech recognition without Telegram Premium subscription has changed",
+            "description": "The parameters of speech recognition without Telegram Premium subscription have changed",
             "args": {
                 "left_count": {
                     "description": "Number of left speech recognition attempts this week",
@@ -38201,7 +38201,7 @@
             "type": "Update"
         },
         "updateSpeedLimitNotification": {
-            "description": "Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user.",
+            "description": "Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a file being downloaded or uploaded is visible to the user.",
             "args": {
                 "is_upload": {
                     "description": "True, if upload speed was limited; false, if download speed was limited",
@@ -38700,7 +38700,7 @@
             "type": "HttpUrl"
         },
         "acceptTermsOfService": {
-            "description": "Accepts Telegram terms of services",
+            "description": "Accepts Telegram terms of service",
             "args": {
                 "terms_of_service_id": {
                     "description": "Terms of service identifier",
@@ -43581,7 +43581,7 @@
                     "type": "int53"
                 },
                 "is_revoked": {
-                    "description": "Pass true if revoked links needs to be returned instead of active or expired",
+                    "description": "Pass true if revoked links need to be returned instead of active or expired",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -44094,7 +44094,7 @@
             "description": "Returns affiliate programs that were connected to the given affiliate",
             "args": {
                 "affiliate": {
-                    "description": "The affiliate to which the affiliate program were connected",
+                    "description": "The affiliate to which the affiliate programs were connected",
                     "is_optional": false,
                     "type": "AffiliateType"
                 },
@@ -46219,7 +46219,7 @@
             "type": "RecoveryEmailAddress"
         },
         "getRemoteFile": {
-            "description": "Returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user.",
+            "description": "Returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even if the request succeeds, the file can be used only if it is still accessible to the user.",
             "args": {
                 "file_type": {
                     "description": "File type; pass null if unknown",
@@ -46440,7 +46440,7 @@
                     "type": "string"
                 },
                 "only_expiring": {
-                    "description": "Pass true to receive only expiring subscriptions for which there are no enough Telegram Stars to extend",
+                    "description": "Pass true to receive only expiring subscriptions for which there aren't enough Telegram Stars to extend",
                     "is_optional": false,
                     "type": "Bool"
                 }
@@ -52655,7 +52655,7 @@
             "type": "PassportElement"
         },
         "setPassportElementErrors": {
-            "description": "Informs the user who some of the elements in their Telegram Passport contain errors; for bots only. The user will not be able to resend the elements, until the errors are fixed",
+            "description": "Informs the user that some of the elements in their Telegram Passport contain errors; for bots only. The user will not be able to resend the elements, until the errors are fixed",
             "args": {
                 "errors": {
                     "description": "The errors",
@@ -54761,7 +54761,7 @@
                     "type": "string"
                 },
                 "star_count": {
-                    "description": "The Telegram Star amount required to pay for the upgrade. It the gift has prepaid_upgrade_star_count \u003e 0, then pass 0, otherwise, pass gift.upgrade_star_count",
+                    "description": "The Telegram Star amount required to pay for the upgrade. If the gift has prepaid_upgrade_star_count \u003e 0, then pass 0, otherwise, pass gift.upgrade_star_count",
                     "is_optional": false,
                     "type": "int53"
                 }
@@ -54772,7 +54772,7 @@
             "description": "Uploads a file with a sticker; returns the uploaded file",
             "args": {
                 "sticker": {
-                    "description": "File file to upload; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side.",
+                    "description": "File to upload; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side.",
                     "is_optional": false,
                     "type": "InputFile"
                 },
