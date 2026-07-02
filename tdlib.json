@@ -55001,7 +55001,7 @@
         "can_archive_and_mute_new_chats_from_unknown_users": {
             "type": "Bool",
             "writable": false,
-            "description": "If true, the field archiveChatListSettings.archive_and_mute_new_chats_from_unknown_users can be set to true"
+            "description": "If true, new chats from unknown users can be automatically archived and muted via archiveChatListSettings"
         },
         "can_enable_paid_messages": {
             "type": "Bool",
@@ -55393,6 +55393,11 @@
             "writable": true,
             "description": "Online status of the current user"
         },
+        "owned_bot_count_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.63. The maximum number of bots that can be owned by the current user"
+        },
         "paid_group_call_message_star_count_max": {
             "type": "int64",
             "writable": false,
@@ -55463,6 +55468,16 @@
             "writable": false,
             "description": "Since TDLib 1.8.50. The maximum number of options in a poll message"
         },
+        "poll_country_count_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.63. The maximum number of countries for which a poll can be restricted"
+        },
+        "poll_open_period_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.63. The maximum amount of time after which the poll may be automatically closed; in seconds"
+        },
         "prefer_ipv6": {
             "type": "Bool",
             "writable": true,
@@ -55503,6 +55518,31 @@
             "writable": false,
             "description": "Identifier of the @replies bot"
         },
+        "rich_message_block_count_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.65. The maximum number of blocks in a rich message"
+        },
+        "rich_message_depth_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.65. The maximum depth of nested blocks in a rich message"
+        },
+        "rich_message_media_count_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.65. The maximum number of media files in a rich message"
+        },
+        "rich_message_table_column_count_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.65. The maximum number of columns in a table of a rich message"
+        },
+        "rich_message_text_length_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.65. The maximum length of a rich message text"
+        },
         "stake_dice_stake_amount_max": {
             "type": "int64",
             "writable": false,
@@ -55511,7 +55551,7 @@
         "stake_dice_stake_amount_min": {
             "type": "int64",
             "writable": false,
-            "description": "Since TDLib 1.8.60. . The minimum amount of Toncoins that can be staked for a roll in nanotoncoins"
+            "description": "Since TDLib 1.8.60. The minimum amount of Toncoins that can be staked for a roll in nanotoncoins"
         },
         "star_withdrawal_count_max": {
             "type": "int64",
@@ -55657,6 +55697,21 @@
             "type": "Bool",
             "writable": false,
             "description": "If true, the test environment is being used instead of the production environment"
+        },
+        "text_composition_style_example_count": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.64. The number of examples that are available for each text composition style"
+        },
+        "text_composition_style_prompt_length_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.64. The maximum allowed length of the text composition style prompt"
+        },
+        "text_composition_style_title_length_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.64. The maximum allowed length of the text composition style title"
         },
         "thousand_star_to_usd_rate": {
             "type": "int64",
