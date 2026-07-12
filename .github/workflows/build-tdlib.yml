@@ -274,7 +274,7 @@ jobs:
              mkdir build
              cd build
              $nativeDir = Resolve-Path "..\build-native"
-             cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" -DTD_PREPARE_CROSS_COMPILING_DIR="$nativeDir" -DVCPKG_APPLOCAL_DEPS=OFF ../td
+             cmake -A ARM64 -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_SYSTEM_PROCESSOR=ARM64 -DCMAKE_CROSSCOMPILING=ON -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" -DTD_PREPARE_CROSS_COMPILING_DIR="$nativeDir" -DVCPKG_APPLOCAL_DEPS=OFF ../td
           } else {
              mkdir build
              cd build
