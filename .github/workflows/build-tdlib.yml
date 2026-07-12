@@ -208,8 +208,12 @@ jobs:
           files: TDLib-tdjson-macos-${{ matrix.arch }}.tar.gz
 
   build-windows:
-    name: Windows
+    name: Windows (${{ matrix.arch }})
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
     steps:
       - name: Checkout TDLib
         uses: actions/checkout@v4
@@ -240,7 +244,11 @@ jobs:
         shell: powershell
         run: |
           cd vcpkg
-          .\vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
+          if ("${{ matrix.arch }}" -eq "x64") {
+             .\vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
+          } else {
+             .\vcpkg.exe install gperf:x64-windows openssl:arm64-windows zlib:arm64-windows
+          }
 
       - name: Configure CMake
         shell: powershell
@@ -250,7 +258,11 @@ jobs:
           cd build
           $vcpkgRoot = Resolve-Path "..\vcpkg"
           $gperfPath = Join-Path $vcpkgRoot "installed\x64-windows\tools\gperf\gperf.exe"
-          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" ../td
+          if ("${{ matrix.arch }}" -eq "x64") {
+             cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" ../td
+          } else {
+             cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" ../td
+          }
 
       - name: Build TDLib (Windows)
         shell: powershell
@@ -266,10 +278,96 @@ jobs:
              Copy-Item "td/tdlib/bin/*.dll" -Destination "out"
           }
           cd out
-          Compress-Archive -Path * -DestinationPath ../TDLib-tdjson-windows-x64.zip
+          Compress-Archive -Path * -DestinationPath ../TDLib-tdjson-windows-${{ matrix.arch }}.zip
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.vars.outputs.version }}
-          files: TDLib-tdjson-windows-x64.zip
+          files: TDLib-tdjson-windows-${{ matrix.arch }}.zip
+
+  build-android:
+    name: Android (${{ matrix.abi }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        abi: [aarch64, x86_64]
+    steps:
+      - name: Checkout TDLib
+        uses: actions/checkout@v4
+        with:
+          repository: tdlib/td
+          fetch-depth: 1
+          path: td
+
+      - name: Get TDLib Version
+        id: vars
+        run: |
+          cd td
+          VERSION=$(grep -oE 'project\(TDLib VERSION [0-9.]+' CMakeLists.txt | awk '{print $3}')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Setup Android NDK
+        run: |
+          echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "ndk;27.3.13750724"
+          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/27.3.13750724" >> $GITHUB_ENV
+          echo "ANDROID_API=29" >> $GITHUB_ENV
+          echo "NDK_TOOLCHAIN=$ANDROID_SDK_ROOT/ndk/27.3.13750724/toolchains/llvm/prebuilt/linux-x86_64" >> $GITHUB_ENV
+          if [ "${{ matrix.abi }}" = "aarch64" ]; then
+            echo "OPENSSL_TARGET=android-arm64" >> $GITHUB_ENV
+            echo "ANDROID_ABI=arm64-v8a" >> $GITHUB_ENV
+          else
+            echo "OPENSSL_TARGET=android-x86_64" >> $GITHUB_ENV
+            echo "ANDROID_ABI=x86_64" >> $GITHUB_ENV
+          fi
+
+      - name: Install Host Dependencies (Linux)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake gperf zlib1g-dev libssl-dev ninja-build
+
+      - name: Run Native Prepare for Cross-Compilation
+        run: |
+          cmake -G Ninja -S td -B build-native -DCMAKE_BUILD_TYPE=Release
+          cmake --build build-native --target prepare_cross_compiling
+
+      - name: Build static openssl for Android
+        run: |
+          wget -q https://www.openssl.org/source/openssl-3.0.15.tar.gz
+          tar -xzf openssl-3.0.15.tar.gz
+          cd openssl-3.0.15
+          export PATH=$NDK_TOOLCHAIN/bin:$PATH
+          ./Configure $OPENSSL_TARGET no-shared no-tests --prefix=$(pwd)/openssl-install
+          make -j$(nproc)
+          make install_sw
+          echo "OPENSSL_ROOT_DIR=$(pwd)/openssl-install" >> $GITHUB_ENV
+
+      - name: Build TDLib (Android)
+        run: |
+          cmake -G Ninja -S td -B build \
+            -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
+            -DANDROID_ABI=$ANDROID_ABI \
+            -DANDROID_PLATFORM=android-$ANDROID_API \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX:PATH=../tdlib \
+            -DOPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR \
+            -DOPENSSL_INCLUDE_DIR=$OPENSSL_ROOT_DIR/include \
+            -DOPENSSL_CRYPTO_LIBRARY=$OPENSSL_ROOT_DIR/lib/libcrypto.a \
+            -DOPENSSL_SSL_LIBRARY=$OPENSSL_ROOT_DIR/lib/libssl.a \
+            -DTD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native \
+            -DTD_ENABLE_JNI=ON
+          cmake --build build --target install/strip --parallel
+
+      - name: Prepare Artifact
+        run: |
+          mkdir -p out
+          find tdlib -type f -name "*.so*" -exec cp -P {} out/ \;
+          cd out
+          tar -czf ../TDLib-tdjson-android-${{ matrix.abi }}.tar.gz *
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.vars.outputs.version }}
+          files: TDLib-tdjson-android-${{ matrix.abi }}.tar.gz

@@ -14,7 +14,8 @@ An automated workflow to build [TDLib](https://github.com/tdlib/td) (Telegram Da
 *   **Cross-Platform Builds**:
     *   **Linux** (x86_64, arm64) - Built with `cmake`, `gperf`, `zlib`, `openssl`.
     *   **macOS** (x86_64, arm64) - Built with `brew` dependencies.
-    *   **Windows** (x64) - Built with `vcpkg` dependencies.
+    *   **Windows** (x64, arm64) - Built with `vcpkg` dependencies.
+    *   **Android** (x86_64, aarch64) - Built with Android NDK, `openssl`.
 *   **GitHub Releases Integration**:
     *   Automatically creates a new Release tagged with the TDLib version (e.g., `v1.8.0`).
     *   Uploads compiled shared libraries (`libtdjson.so`, `libtdjson.dylib`, `tdjson.dll`) as release assets.
