@@ -110,7 +110,7 @@ jobs:
             -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ \
             -DZLIB_ROOT=/tmp/zlib-arm64 \
             -DOPENSSL_ROOT_DIR=/tmp/openssl-arm64 \
-            -DTD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native \
+            -TD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native \
             -DCMAKE_BUILD_TYPE=Release
 
       - name: Build TDLib (Linux)
@@ -193,7 +193,7 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_OSX_ARCHITECTURES=x86_64 \
             -DOPENSSL_ROOT_DIR=/tmp/openssl-x86_64 \
-            -DTD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native
+            -TD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native
 
       - name: Build TDLib (macOS)
         run: |
@@ -262,22 +262,23 @@ jobs:
           if (Test-Path build-native) { Remove-Item build-native -Force -Recurse -ErrorAction SilentlyContinue }
           
           $vcpkgRoot = $env:VCPKG_INSTALLATION_ROOT
+          $gperfPath = (Get-Command gperf).Source
           
           if ("${{ matrix.arch }}" -eq "arm64") {
              mkdir build-native
              cd build-native
-             cmake -A x64 -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot/scripts/buildsystems/vcpkg.cmake" -DGPERF_EXECUTABLE="gperf" ../td
+             cmake -A x64 -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" -DVCPKG_APPLOCAL_DEPS=OFF ../td
              cmake --build . --target prepare_cross_compiling --config Release
              cd ..
           
              mkdir build
              cd build
              $nativeDir = Resolve-Path "..\build-native"
-             cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot/scripts/buildsystems/vcpkg.cmake" -DGPERF_EXECUTABLE="gperf" -DTD_PREPARE_CROSS_COMPILING_DIR="$nativeDir" ../td
+             cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" -DTD_PREPARE_CROSS_COMPILING_DIR="$nativeDir" -DVCPKG_APPLOCAL_DEPS=OFF ../td
           } else {
              mkdir build
              cd build
-             cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot/scripts/buildsystems/vcpkg.cmake" -DGPERF_EXECUTABLE="gperf" ../td
+             cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" -DVCPKG_APPLOCAL_DEPS=OFF ../td
           }
 
       - name: Build TDLib (Windows)

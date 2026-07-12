@@ -18,5 +18,4 @@ An automated workflow to build [TDLib](https://github.com/tdlib/td) (Telegram Da
     *   **Android** (x86_64, aarch64) - Built with Android NDK, `openssl`.
 *   **GitHub Releases Integration**:
     *   Automatically creates a new Release tagged with the TDLib version (e.g., `v1.8.0`).
-    *   Uploads compiled shared and static libraries as release assets.
-
+    *   Uploads separate shared and static pre-built library binaries for all platforms and architectures as release assets.
