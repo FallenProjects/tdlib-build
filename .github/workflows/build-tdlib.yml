@@ -110,7 +110,7 @@ jobs:
             -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ \
             -DZLIB_ROOT=/tmp/zlib-arm64 \
             -DOPENSSL_ROOT_DIR=/tmp/openssl-arm64 \
-            -TD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native \
+            -DTD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native \
             -DCMAKE_BUILD_TYPE=Release
 
       - name: Build TDLib (Linux)
@@ -193,7 +193,7 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_OSX_ARCHITECTURES=x86_64 \
             -DOPENSSL_ROOT_DIR=/tmp/openssl-x86_64 \
-            -TD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native
+            -DTD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native
 
       - name: Build TDLib (macOS)
         run: |
