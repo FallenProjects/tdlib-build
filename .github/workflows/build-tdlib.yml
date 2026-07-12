@@ -241,24 +241,18 @@ jobs:
           VERSION=$(grep -oE 'project\(TDLib VERSION [0-9.]+' CMakeLists.txt | awk '{print $3}')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Setup vcpkg
+      - name: Install gperf (Chocolatey)
         shell: powershell
         run: |
-          if (!(Test-Path vcpkg)) {
-             git clone https://github.com/Microsoft/vcpkg.git
-             cd vcpkg
-             git checkout bc3512a509f9d29b37346a7e7e929f9a26e66c7e
-             .\bootstrap-vcpkg.bat
-          }
+          choco install gperf
 
       - name: Install Dependencies (vcpkg)
         shell: powershell
         run: |
-          cd vcpkg
           if ("${{ matrix.arch }}" -eq "x64") {
-             .\vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
+             vcpkg install openssl:x64-windows zlib:x64-windows
           } else {
-             .\vcpkg.exe install gperf:x64-windows openssl:arm64-windows zlib:arm64-windows
+             vcpkg install openssl:arm64-windows zlib:arm64-windows
           }
 
       - name: Configure CMake
@@ -267,24 +261,23 @@ jobs:
           if (Test-Path build) { Remove-Item build -Force -Recurse -ErrorAction SilentlyContinue }
           if (Test-Path build-native) { Remove-Item build-native -Force -Recurse -ErrorAction SilentlyContinue }
           
-          $vcpkgRoot = Resolve-Path "..\vcpkg"
-          $gperfPath = Join-Path $vcpkgRoot "installed\x64-windows\tools\gperf\gperf.exe"
+          $vcpkgRoot = $env:VCPKG_INSTALLATION_ROOT
           
           if ("${{ matrix.arch }}" -eq "arm64") {
              mkdir build-native
              cd build-native
-             cmake -A x64 -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" ../td
+             cmake -A x64 -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot/scripts/buildsystems/vcpkg.cmake" -DGPERF_EXECUTABLE="gperf" ../td
              cmake --build . --target prepare_cross_compiling --config Release
              cd ..
           
              mkdir build
              cd build
              $nativeDir = Resolve-Path "..\build-native"
-             cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" -DTD_PREPARE_CROSS_COMPILING_DIR="$nativeDir" ../td
+             cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot/scripts/buildsystems/vcpkg.cmake" -DGPERF_EXECUTABLE="gperf" -DTD_PREPARE_CROSS_COMPILING_DIR="$nativeDir" ../td
           } else {
              mkdir build
              cd build
-             cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" ../td
+             cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../td/tdlib -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot/scripts/buildsystems/vcpkg.cmake" -DGPERF_EXECUTABLE="gperf" ../td
           }
 
       - name: Build TDLib (Windows)
