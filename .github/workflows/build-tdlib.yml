@@ -8,8 +8,12 @@ permissions:
 
 jobs:
   build-linux:
-    name: Linux
+    name: Linux (${{ matrix.arch }})
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86_64, arm64]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -24,6 +28,7 @@ jobs:
           path: td
 
       - name: Setup Go
+        if: matrix.arch == 'x86_64'
         uses: actions/setup-go@v5
         with:
           go-version: '1.24'
@@ -39,10 +44,12 @@ jobs:
           echo "TDLib Version: $VERSION ($COMMIT_HASH)"
 
       - name: Generate tdlib.json
+        if: matrix.arch == 'x86_64'
         run: |
           go run ./scripts/generate/ -src td/td/generate/scheme/td_api.tl -version "${{ steps.vars.outputs.version }}" -commit "${{ steps.vars.outputs.commit }}" -out tdlib.json
 
       - name: Commit tdlib.json
+        if: matrix.arch == 'x86_64'
         run: |
           git config --global user.name "AshokShau"
           git config --global user.email "AshokShau@users.noreply.github.com"
@@ -50,14 +57,64 @@ jobs:
           git commit -m "Update tdlib.json to version ${{ steps.vars.outputs.version }}" || echo "No changes to commit"
           git push origin HEAD:${{ github.ref }} || echo "Push failed"
 
-      - name: Install Build Dependencies
+      - name: Install Host Build Tools (Linux)
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake gperf zlib1g-dev libssl-dev
+          sudo apt-get install -y cmake gperf
+
+      - name: Install Native Dependencies (Linux Host)
+        run: |
+          sudo apt-get install -y zlib1g-dev libssl-dev
+
+      - name: Run Native Prepare for Cross-Compilation (Linux arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          cmake -S td -B build-native -DCMAKE_BUILD_TYPE=Release
+          cmake --build build-native --target prepare_cross_compiling
+
+      - name: Install Cross-compilation Toolchain (Linux arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+
+      - name: Build Zlib from source (Linux arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          git clone --depth 1 https://github.com/madler/zlib.git zlib-src
+          cd zlib-src
+          CHOST=aarch64-linux-gnu CC=aarch64-linux-gnu-gcc ./configure --prefix=/tmp/zlib-arm64
+          make -j$(nproc)
+          make install
+
+      - name: Build OpenSSL from source (Linux arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          git clone --depth 1 -b openssl-3.0 https://github.com/openssl/openssl.git openssl-src
+          cd openssl-src
+          ./Configure linux-aarch64 --cross-compile-prefix=aarch64-linux-gnu- --prefix=/tmp/openssl-arm64
+          make -j$(nproc)
+          make install_sw
+
+      - name: Configure CMake (Linux x86_64)
+        if: matrix.arch == 'x86_64'
+        run: |
+          cmake -S td -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Configure CMake (Linux arm64)
+        if: matrix.arch == 'arm64'
+        run: |
+          cmake -S td -B build \
+            -DCMAKE_SYSTEM_NAME=Linux \
+            -DCMAKE_SYSTEM_PROCESSOR=aarch64 \
+            -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc \
+            -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ \
+            -DZLIB_ROOT=/tmp/zlib-arm64 \
+            -DOPENSSL_ROOT_DIR=/tmp/openssl-arm64 \
+            -DTD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native \
+            -DCMAKE_BUILD_TYPE=Release
 
       - name: Build TDLib (Linux)
         run: |
-          cmake -S td -B build -DCMAKE_BUILD_TYPE=Release
           cmake --build build --target tdjson -j$(nproc)
 
       - name: Prepare Artifact
@@ -65,7 +122,7 @@ jobs:
           mkdir -p out
           find build -type f -name "libtdjson.so*" -exec cp -P {} out/ \;
           cd out
-          tar -czf ../TDLib-tdjson-linux-x86_64.tar.gz *
+          tar -czf ../TDLib-tdjson-linux-${{ matrix.arch }}.tar.gz *
 
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -75,11 +132,15 @@ jobs:
           body: |
             TDLib Version: ${{ steps.vars.outputs.version }}
             Commit: ${{ steps.vars.outputs.commit }}
-          files: TDLib-tdjson-linux-x86_64.tar.gz
+          files: TDLib-tdjson-linux-${{ matrix.arch }}.tar.gz
 
   build-macos:
-    name: macOS
+    name: macOS (${{ matrix.arch }})
     runs-on: macos-14
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [arm64, x86_64]
     steps:
       - name: Checkout TDLib
         uses: actions/checkout@v4
@@ -95,13 +156,38 @@ jobs:
           VERSION=$(grep -oE 'project\(TDLib VERSION [0-9.]+' CMakeLists.txt | awk '{print $3}')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Install Dependencies
+      - name: Install Common Dependencies (macOS)
         run: |
           brew install gperf cmake openssl
 
-      - name: Configure CMake
+      - name: Run Native Prepare for Cross-Compilation (macOS x86_64)
+        if: matrix.arch == 'x86_64'
+        run: |
+          cmake -S td -B build-native -DCMAKE_BUILD_TYPE=Release -DOPENSSL_ROOT_DIR=$(brew --prefix openssl)
+          cmake --build build-native --target prepare_cross_compiling
+
+      - name: Build OpenSSL from source (macOS x86_64)
+        if: matrix.arch == 'x86_64'
+        run: |
+          git clone --depth 1 -b openssl-3.0 https://github.com/openssl/openssl.git openssl-src
+          cd openssl-src
+          ./Configure darwin64-x86_64-cc --prefix=/tmp/openssl-x86_64
+          make -j$(sysctl -n hw.logicalcpu)
+          make install_sw
+
+      - name: Configure CMake (macOS arm64)
+        if: matrix.arch == 'arm64'
         run: |
           cmake -S td -B build -DCMAKE_BUILD_TYPE=Release -DOPENSSL_ROOT_DIR=$(brew --prefix openssl)
+
+      - name: Configure CMake (macOS x86_64)
+        if: matrix.arch == 'x86_64'
+        run: |
+          cmake -S td -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_OSX_ARCHITECTURES=x86_64 \
+            -DOPENSSL_ROOT_DIR=/tmp/openssl-x86_64 \
+            -DTD_PREPARE_CROSS_COMPILING_DIR=${{ github.workspace }}/build-native
 
       - name: Build TDLib (macOS)
         run: |
@@ -113,13 +199,13 @@ jobs:
           find build -type f -name "libtdjson.dylib" -exec cp {} out/ \;
           find build -type f -name "libtdjson.*.dylib" -exec cp {} out/ \; || true
           cd out
-          tar -czf ../TDLib-tdjson-macos.tar.gz *
+          tar -czf ../TDLib-tdjson-macos-${{ matrix.arch }}.tar.gz *
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.vars.outputs.version }}
-          files: TDLib-tdjson-macos.tar.gz
+          files: TDLib-tdjson-macos-${{ matrix.arch }}.tar.gz
 
   build-windows:
     name: Windows
@@ -187,4 +273,3 @@ jobs:
         with:
           tag_name: v${{ steps.vars.outputs.version }}
           files: TDLib-tdjson-windows-x64.zip
-
