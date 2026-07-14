@@ -252,7 +252,7 @@ jobs:
           if ("${{ matrix.arch }}" -eq "x64") {
              vcpkg install openssl:x64-windows zlib:x64-windows
           } else {
-             vcpkg install openssl:arm64-windows zlib:arm64-windows
+             vcpkg install openssl:x64-windows zlib:x64-windows openssl:arm64-windows zlib:arm64-windows
           }
 
       - name: Configure CMake
@@ -267,7 +267,7 @@ jobs:
           if ("${{ matrix.arch }}" -eq "arm64") {
              mkdir build-native
              cd build-native
-             cmake -A x64 -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" -DVCPKG_APPLOCAL_DEPS=OFF ../td
+             cmake -A x64 -DCMAKE_TOOLCHAIN_FILE="$vcpkgRoot\scripts\buildsystems\vcpkg.cmake" -DGPERF_EXECUTABLE="$gperfPath" ../td
              cmake --build . --target prepare_cross_compiling --config Release
              cd ..
           
