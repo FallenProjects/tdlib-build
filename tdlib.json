@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
-    "version": "1.8.67",
-    "commit": "bc9c263e2bfee06aaab41e82db51a103376030bc",
+    "version": "1.8.68",
+    "commit": "c15d3f5a5de6e3ba5839822c451152e5e18bb700",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -1162,6 +1162,8 @@
                 "internalLinkTypeStoryAlbum",
                 "internalLinkTypeTextCompositionStyle",
                 "internalLinkTypeTheme",
+                "internalLinkTypeTonConnect",
+                "internalLinkTypeTonWalletTransfer",
                 "internalLinkTypeUnknownDeepLink",
                 "internalLinkTypeUpgradedGift",
                 "internalLinkTypeUserPhoneNumber",
@@ -1411,6 +1413,8 @@
                 "messageGiftedStars",
                 "messageGiftedGrams",
                 "messageGiveawayPrizeStars",
+                "messageTonWalletTransfer",
+                "messageTonConnectRequest",
                 "messageGift",
                 "messageUpgradedGift",
                 "messageRefundedUpgradedGift",
@@ -1961,6 +1965,8 @@
                 "pushMessageContentPoll",
                 "pushMessageContentPremiumGiftCode",
                 "pushMessageContentGiveaway",
+                "pushMessageContentTonWalletTransfer",
+                "pushMessageContentTonConnectRequest",
                 "pushMessageContentGift",
                 "pushMessageContentUpgradedGift",
                 "pushMessageContentScreenshotTaken",
@@ -2140,6 +2146,7 @@
                 "richTextHashtag",
                 "richTextCashtag",
                 "richTextBankCardNumber",
+                "richTextTonAddress",
                 "richTextBotCommand",
                 "richTextFixed",
                 "richTextMentionName",
@@ -2498,6 +2505,7 @@
                 "suggestedActionCheckPassword",
                 "suggestedActionCheckPhoneNumber",
                 "suggestedActionViewChecksHint",
+                "suggestedActionViewFirstTonWalletTransferHint",
                 "suggestedActionConvertToBroadcastGroup",
                 "suggestedActionSetPassword",
                 "suggestedActionUpgradePremium",
@@ -2596,6 +2604,7 @@
                 "textEntityTypeEmailAddress",
                 "textEntityTypePhoneNumber",
                 "textEntityTypeBankCardNumber",
+                "textEntityTypeTonAddress",
                 "textEntityTypeBold",
                 "textEntityTypeItalic",
                 "textEntityTypeUnderline",
@@ -2635,6 +2644,51 @@
             ],
             "functions": []
         },
+        "TonCenterApiRequestType": {
+            "description": "Describes state of active stories posted by a chat",
+            "types": [
+                "tonCenterApiRequestTypeGet",
+                "tonCenterApiRequestTypePost"
+            ],
+            "functions": []
+        },
+        "TonConnectConnectItem": {
+            "description": "Represents a data item to share with a dApp",
+            "types": [
+                "tonConnectConnectItemAddress",
+                "tonConnectConnectItemProof"
+            ],
+            "functions": []
+        },
+        "TonConnectManifest": {
+            "description": "Describes manifest of the dApp that is being connected using TON Connect",
+            "types": [
+                "tonConnectManifestPending",
+                "tonConnectManifestInfo",
+                "tonConnectManifestFailed",
+                "tonConnectManifestInvalid"
+            ],
+            "functions": []
+        },
+        "TonConnectRequestState": {
+            "description": "Describes state of a request received from a dApp through TON Connect",
+            "types": [
+                "tonConnectRequestStatePending",
+                "tonConnectRequestStateAccepted",
+                "tonConnectRequestStateRejected"
+            ],
+            "functions": []
+        },
+        "TonConnectSessionState": {
+            "description": "Describes state of a TON Connect session",
+            "types": [
+                "tonConnectSessionStatePending",
+                "tonConnectSessionStateReady",
+                "tonConnectSessionStateClosing",
+                "tonConnectSessionStateClosed"
+            ],
+            "functions": []
+        },
         "TonTransactionType": {
             "description": "Describes type of transaction with TON Grams",
             "types": [
@@ -2647,6 +2701,32 @@
                 "tonTransactionTypeStakeDiceStake",
                 "tonTransactionTypeStakeDicePayout",
                 "tonTransactionTypeUnsupported"
+            ],
+            "functions": []
+        },
+        "TonWalletTransactionState": {
+            "description": "Describes state of a transaction with a TON wallet",
+            "types": [
+                "tonWalletTransactionStateSucceeded",
+                "tonWalletTransactionStateFailed"
+            ],
+            "functions": []
+        },
+        "TonWalletTransactionType": {
+            "description": "Describes type of transaction with a TON wallet",
+            "types": [
+                "tonWalletTransactionTypeOnRampDeposit",
+                "tonWalletTransactionTypeTransfer",
+                "tonWalletTransactionTypeNftTransfer",
+                "tonWalletTransactionTypeKeyChange"
+            ],
+            "functions": []
+        },
+        "TonWalletTransferReceiver": {
+            "description": "Represents expected receiver of a TON wallet transfer",
+            "types": [
+                "tonWalletTransferReceiverUser",
+                "tonWalletTransferReceiverAddress"
             ],
             "functions": []
         },
@@ -2797,6 +2877,7 @@
                 "updateChatActiveStories",
                 "updateStoryListChatCount",
                 "updateStoryStealthMode",
+                "updateAllowedBotUsernamePremiumSuffixes",
                 "updateTrustedMiniAppBots",
                 "updateOption",
                 "updateStickerSet",
@@ -2827,6 +2908,10 @@
                 "updateActiveLiveLocationMessages",
                 "updateOwnedStarCount",
                 "updateOwnedGramCount",
+                "updateTonWalletState",
+                "updateTonWalletGaslessTransfersInfo",
+                "updateTonWalletTonConnectSession",
+                "updateTonWalletTonConnectSessionDisconnectRequired",
                 "updateChatRevenueAmount",
                 "updateStarRevenueStatus",
                 "updateGramRevenueStatus",
@@ -3447,6 +3532,11 @@
                     "description": "Emoji modifier fitzpatrick type; 0-6; 0 if none",
                     "is_optional": false,
                     "type": "int32"
+                },
+                "is_regular_emoji": {
+                    "description": "True, if the emoji is a regular emoji",
+                    "is_optional": false,
+                    "type": "Bool"
                 },
                 "sound": {
                     "description": "File containing the sound to be played when the sticker is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container",
@@ -5069,7 +5159,7 @@
                     "type": "int53"
                 },
                 "custom_description": {
-                    "description": "Custom description of verification reason set by the bot. Can contain only Mention, Hashtag, Cashtag, PhoneNumber, BankCardNumber, Url, and EmailAddress entities",
+                    "description": "Custom description of verification reason set by the bot. Can contain only Mention, Hashtag, Cashtag, PhoneNumber, BankCardNumber, TonAddress, Url, and EmailAddress entities",
                     "is_optional": false,
                     "type": "formattedText"
                 },
@@ -7513,7 +7603,7 @@
             "type": "ChatEventAction"
         },
         "chatEventHasProtectedContentToggled": {
-            "description": "The has_protected_content setting of a channel was toggled",
+            "description": "The has_protected_content setting of a chat was toggled",
             "args": {
                 "has_protected_content": {
                     "description": "New value of has_protected_content",
@@ -7584,7 +7674,7 @@
             "type": "ChatEventAction"
         },
         "chatEventIsForumToggled": {
-            "description": "The is_forum setting of a channel was toggled",
+            "description": "The is_forum setting of a supergroup was toggled",
             "args": {
                 "is_forum": {
                     "description": "New value of is_forum",
@@ -8386,7 +8476,7 @@
                     "type": "string"
                 },
                 "is_primary": {
-                    "description": "True, if the link is primary. Primary invite link can't have name, expiration date, or usage limit. There is exactly one primary invite link for each administrator with can_invite_users right at a given time",
+                    "description": "True, if the link is primary. Primary invite link can't have name, expiration date, or usage limit. Primary link can create join requests only if this is set up using toggleSupergroupJoinByRequest.",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -9332,7 +9422,7 @@
                     "type": "StatisticalGraph"
                 },
                 "usd_rate": {
-                    "description": "Current conversion rate of the cryptocurrency in which revenue is calculated to USD",
+                    "description": "Current exchange rate of the cryptocurrency in which revenue is calculated to USD",
                     "is_optional": false,
                     "type": "double"
                 }
@@ -10530,6 +10620,44 @@
                 }
             },
             "type": "CreatedBasicGroupChat"
+        },
+        "currencies": {
+            "description": "Represents a list of currencies",
+            "args": {
+                "currencies": {
+                    "description": "A list of ISO 4217 currency codes",
+                    "is_optional": false,
+                    "type": "vector\u003cstring\u003e"
+                }
+            },
+            "type": "Currencies"
+        },
+        "currencyExchangeRate": {
+            "description": "Describes exchange rate of a currency to USD",
+            "args": {
+                "currency": {
+                    "description": "ISO 4217 currency code of the payment currency",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "rate": {
+                    "description": "Exchange rate of the currency to USD",
+                    "is_optional": false,
+                    "type": "double"
+                }
+            },
+            "type": "CurrencyExchangeRate"
+        },
+        "currencyExchangeRates": {
+            "description": "Represents a list of currency exchange rates",
+            "args": {
+                "rates": {
+                    "description": "A list of currency exchange rates",
+                    "is_optional": false,
+                    "type": "vector\u003ccurrencyExchangeRate\u003e"
+                }
+            },
+            "type": "CurrencyExchangeRates"
         },
         "currentWeather": {
             "description": "Describes the current weather",
@@ -13235,7 +13363,7 @@
                     "type": "gramRevenueStatus"
                 },
                 "usd_rate": {
-                    "description": "Current conversion rate of nanogram to USD cents",
+                    "description": "Current exchange rate of nanogram to USD cents",
                     "is_optional": false,
                     "type": "double"
                 }
@@ -17998,7 +18126,7 @@
                     "type": "string"
                 },
                 "suggested_bot_username": {
-                    "description": "Suggested username for the bot; always ends with \"bot\" case-insensitive",
+                    "description": "Suggested username for the bot; always ends with \"bot\" or a string from updateAllowedBotUsernamePremiumSuffixes case-insensitive",
                     "is_optional": false,
                     "type": "string"
                 }
@@ -18113,6 +18241,58 @@
                     "description": "Name of the theme",
                     "is_optional": false,
                     "type": "string"
+                }
+            },
+            "type": "InternalLinkType"
+        },
+        "internalLinkTypeTonConnect": {
+            "description": "The link is a universal TON Connect link",
+            "args": {
+                "connect_request": {
+                    "description": "TON Connect connect request",
+                    "is_optional": false,
+                    "type": "tonConnectConnectRequest"
+                },
+                "dapp_client_id": {
+                    "description": "Hex-encoded public X25519 key of the dApp",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "return_strategy": {
+                    "description": "Request return strategy; one of \"back\", \"none\", or a URL to open",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "rpc_request": {
+                    "description": "Embedded RPC request represented as base64url-encoded JSON",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "trace_id": {
+                    "description": "Identifier to trace the connection request",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "version": {
+                    "description": "TON Connect version",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InternalLinkType"
+        },
+        "internalLinkTypeTonWalletTransfer": {
+            "description": "The link is a link for sending Grams from the user's TON wallet",
+            "args": {
+                "gram_amount": {
+                    "description": "The pre-filled amount of TON Grams to send; in the smallest units of the cryptocurrency",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "receiver": {
+                    "description": "Chosen receiver of the transfer; may be null if none",
+                    "is_optional": true,
+                    "type": "TonWalletTransferReceiver"
                 }
             },
             "type": "InternalLinkType"
@@ -22180,6 +22360,11 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "custom_emoji_ids": {
+                    "description": "Identifiers of custom emoji used in the message",
+                    "is_optional": false,
+                    "type": "vector\u003cint64\u003e"
+                },
                 "has_protected_content_by_current_user": {
                     "description": "True, if content of the message can't be saved locally, because it is protected by the current user; if true, then can_be_saved is false",
                     "is_optional": false,
@@ -22959,6 +23144,73 @@
                 }
             },
             "type": "MessageThreadInfo"
+        },
+        "messageTonConnectRequest": {
+            "description": "A request from a dApp was received through TON Connect",
+            "args": {
+                "dapp_name": {
+                    "description": "Name of the dApp; may be empty if unknown",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "session_id": {
+                    "description": "Unique identifier of the TON Connect session",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "state": {
+                    "description": "State of the request",
+                    "is_optional": false,
+                    "type": "TonConnectRequestState"
+                },
+                "topic": {
+                    "description": "Topic of the request; may be empty if none",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "trace_id": {
+                    "description": "Identifier to trace the request; may be empty if none",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "MessageContent"
+        },
+        "messageTonWalletTransfer": {
+            "description": "Represents a transfer with the TON wallet of the current user",
+            "args": {
+                "amount": {
+                    "description": "The amount of received cryptocurrency, in the smallest units of the cryptocurrency; negative for outgoing transactions",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "comment": {
+                    "description": "Comment added to the transaction",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "is_comment_encrypted": {
+                    "description": "True, if the comment is encrypted and must be decrypted using the receiver's or sender's private key",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "peer_address": {
+                    "description": "Address in the TON blockchain of the transaction peer",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "sender_user_id": {
+                    "description": "Sender of the transfer; 0 if unknown",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "transaction_id": {
+                    "description": "Unique identifier of the transaction; may be empty if the transfer isn't send yet. Use getTonWalletTransaction to get additional information about the transaction",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "MessageContent"
         },
         "messageTopicDirectMessages": {
             "description": "A topic in a channel direct messages chat administered by the current user",
@@ -23818,6 +24070,203 @@
             "description": "An object of this type is returned on a successful function call for certain functions",
             "args": {},
             "type": "Ok"
+        },
+        "onRampPaymentAvailability": {
+            "description": "Describes availability of cryptocurrency purchase through an on-ramp provider",
+            "args": {
+                "country_code": {
+                    "description": "A two-letter ISO 3166-1 alpha-2 country code of the current user's country",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "is_allowed": {
+                    "description": "True, if the current user can use the provider",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_purchase_allowed": {
+                    "description": "True, if the current user can purchase through the provider",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "methods": {
+                    "description": "The list of available payment methods",
+                    "is_optional": false,
+                    "type": "vector\u003conRampPaymentMethod\u003e"
+                },
+                "state": {
+                    "description": "Code of the state of the current user; may be empty if unknown",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampPaymentAvailability"
+        },
+        "onRampPaymentLimits": {
+            "description": "Describes limits for an on-ramp purchase",
+            "args": {
+                "base_currency_max_amount": {
+                    "description": "The maximum allowed amount of the base currency",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "base_currency_min_amount": {
+                    "description": "The minimum allowed amount of the base currency",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency_max_amount": {
+                    "description": "The maximum allowed amount of the bought cryptocurrency",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency_min_amount": {
+                    "description": "The minimum allowed amount of the bought cryptocurrency",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "payment_method": {
+                    "description": "The payment method to be used",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampPaymentLimits"
+        },
+        "onRampPaymentMethod": {
+            "description": "Describes a payment method of an on-ramp provider",
+            "args": {
+                "is_available": {
+                    "description": "True, if the method is available to the user",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "name": {
+                    "description": "Name of the method",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampPaymentMethod"
+        },
+        "onRampPaymentQuote": {
+            "description": "Describes a quote for an on-ramp purchase",
+            "args": {
+                "base_currency_amount": {
+                    "description": "Paid amount of the base currency",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency_amount": {
+                    "description": "Purchased amount of the cryptocurrency",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency_price": {
+                    "description": "The price of the cryptocurrency",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "expiration_date": {
+                    "description": "Point in time (Unix timestamp) when the quote will expire",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "extra_fee_amount": {
+                    "description": "Extra fee amount",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "fee_amount": {
+                    "description": "Fee amount",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "network_fee_amount": {
+                    "description": "Network fee amount",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "payment_method": {
+                    "description": "The payment method to be used",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "total_amount": {
+                    "description": "Total paid amount",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampPaymentQuote"
+        },
+        "onRampPaymentSession": {
+            "description": "Describes a session for an on-ramp purchase",
+            "args": {
+                "expiration_date": {
+                    "description": "Point in time (Unix timestamp) when the session will expire",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "session_id": {
+                    "description": "Identifier of the session",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "url": {
+                    "description": "HTTPS URL to be opened in a WebView to complete the purchase",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampPaymentSession"
+        },
+        "onRampProvider": {
+            "description": "Describes an on-ramp provider",
+            "args": {
+                "cryptocurrencies": {
+                    "description": "List of cryptocurrencies supported by the provider",
+                    "is_optional": false,
+                    "type": "vector\u003cstring\u003e"
+                },
+                "id": {
+                    "description": "Unique identifier of the provider",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of the provider",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "supports_base_currencies": {
+                    "description": "True, if the provider supports base currencies and can be used in the method getOnRampProviderBaseCurrencies",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "supports_limits": {
+                    "description": "True, if the provider supports limits retrieval using the method getOnRampPaymentLimits",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "supports_quote": {
+                    "description": "True, if the provider supports quote retrieval using the method getOnRampPaymentQuote",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "OnRampProvider"
+        },
+        "onRampProviders": {
+            "description": "Represents a list of on-ramp providers",
+            "args": {
+                "providers": {
+                    "description": "A list of providers",
+                    "is_optional": false,
+                    "type": "vector\u003conRampProvider\u003e"
+                }
+            },
+            "type": "OnRampProviders"
         },
         "optionValueBoolean": {
             "description": "Represents a boolean option",
@@ -27724,6 +28173,38 @@
             },
             "type": "PushMessageContent"
         },
+        "pushMessageContentTonConnectRequest": {
+            "description": "A message with a request from a dApp was received through TON Connect",
+            "args": {
+                "dapp_name": {
+                    "description": "Name of the dApp; may be empty if unknown",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "PushMessageContent"
+        },
+        "pushMessageContentTonWalletTransfer": {
+            "description": "A message with a TON wallet transfer",
+            "args": {
+                "amount": {
+                    "description": "String representation of the received amount",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "comment": {
+                    "description": "Comment added to the transaction if it is public",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "sender_user_id": {
+                    "description": "Sender of the transfer; 0 if unknown",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "PushMessageContent"
+        },
         "pushMessageContentUpgradedGift": {
             "description": "A message with an upgraded gift",
             "args": {
@@ -29023,6 +29504,22 @@
             },
             "type": "RichText"
         },
+        "richTextTonAddress": {
+            "description": "An address in the TON blockchain",
+            "args": {
+                "address": {
+                    "description": "The address",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "RichText"
+        },
         "richTextUnderline": {
             "description": "An underlined rich text",
             "args": {
@@ -30299,7 +30796,7 @@
                     "type": "starRevenueStatus"
                 },
                 "usd_rate": {
-                    "description": "Current conversion rate of a Telegram Star to USD",
+                    "description": "Current exchange rate of a Telegram Star to USD",
                     "is_optional": false,
                     "type": "double"
                 }
@@ -32781,6 +33278,11 @@
             "args": {},
             "type": "SuggestedAction"
         },
+        "suggestedActionViewFirstTonWalletTransferHint": {
+            "description": "Suggests the user to view a hint about receiving of the first TON wallet transfer",
+            "args": {},
+            "type": "SuggestedAction"
+        },
         "suggestedPostInfo": {
             "description": "Contains information about a suggested post. If the post can be approved or declined, then changes to the post can be also suggested. Use sendMessage with reply to the message",
             "args": {
@@ -33580,7 +34082,7 @@
                     "type": "int53"
                 },
                 "chat_id": {
-                    "description": "Identifier of the chat that is supposed to receive the Telegram Stars; pass 0 if none",
+                    "description": "Identifier of the chat that is supposed to receive the Telegram Stars; pass 0 if none. If non-zero and getOption(\"star_top_up_disabled\"),",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -33967,6 +34469,11 @@
             },
             "type": "TextEntityType"
         },
+        "textEntityTypeTonAddress": {
+            "description": "An address in the TON blockchain",
+            "args": {},
+            "type": "TextEntityType"
+        },
         "textEntityTypeUnderline": {
             "description": "An underlined text",
             "args": {},
@@ -34118,8 +34625,13 @@
                     "is_optional": false,
                     "type": "BuiltInTheme"
                 },
+                "has_outgoing_message_accent_color": {
+                    "description": "True, if there is chosen accent color for outgoing messages; otherwise, the color must be deduced from other theme settings",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "outgoing_message_accent_color": {
-                    "description": "Accent color of outgoing messages in ARGB format",
+                    "description": "Accent color of outgoing messages in ARGB format; must be ignored if has_outgoing_message_accent_color is false",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -34223,6 +34735,388 @@
                 }
             },
             "type": "TimeZones"
+        },
+        "tonCenterApiRequestTypeGet": {
+            "description": "A GET request",
+            "args": {
+                "query": {
+                    "description": "URL-encoded query of the request",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonCenterApiRequestType"
+        },
+        "tonCenterApiRequestTypePost": {
+            "description": "A POST request",
+            "args": {
+                "payload": {
+                    "description": "Payload of the request",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonCenterApiRequestType"
+        },
+        "tonCenterStreamingApiUrl": {
+            "description": "Contains an HTTP URL for TON Center Streaming API",
+            "args": {
+                "expires_in": {
+                    "description": "Time after which the URL expires",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "url": {
+                    "description": "The URL",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonCenterStreamingApiUrl"
+        },
+        "tonConnectChallenge": {
+            "description": "Represents a TON Connect challenge",
+            "args": {
+                "challenge": {
+                    "description": "104-byte challenge",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "event_id": {
+                    "description": "Unique identifier of the first outgoing event",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
+            "type": "TonConnectChallenge"
+        },
+        "tonConnectConnectItemAddress": {
+            "description": "Address of the wallet",
+            "args": {
+                "network": {
+                    "description": "Stringified TON network global_id (e.g. \"-239\" for mainnet); may be empty",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "TonConnectConnectItem"
+        },
+        "tonConnectConnectItemProof": {
+            "description": "Proof of the wallet ownership",
+            "args": {
+                "payload": {
+                    "description": "Payload to be used for the proof (e.g. nonce + expiration timestamp)",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonConnectConnectItem"
+        },
+        "tonConnectConnectRequest": {
+            "description": "Contains information about a request to connect the user's TON wallet to a dApp using TON Connect",
+            "args": {
+                "items": {
+                    "description": "Items requested from the wallet",
+                    "is_optional": false,
+                    "type": "vector\u003cTonConnectConnectItem\u003e"
+                },
+                "manifest_url": {
+                    "description": "URL of the manifest of the dApp",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonConnectConnectRequest"
+        },
+        "tonConnectManifestFailed": {
+            "description": "The manifest has failed to download",
+            "args": {},
+            "type": "TonConnectManifest"
+        },
+        "tonConnectManifestInfo": {
+            "description": "The manifest is available",
+            "args": {
+                "icon": {
+                    "description": "App icon in PNG or ICO format",
+                    "is_optional": false,
+                    "type": "document"
+                },
+                "name": {
+                    "description": "Name of the dApp",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "url": {
+                    "description": "URL of the dApp",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonConnectManifest"
+        },
+        "tonConnectManifestInvalid": {
+            "description": "The manifest is invalid",
+            "args": {},
+            "type": "TonConnectManifest"
+        },
+        "tonConnectManifestPending": {
+            "description": "The manifest is being downloaded",
+            "args": {},
+            "type": "TonConnectManifest"
+        },
+        "tonConnectRequest": {
+            "description": "Represents a pending TON Connect request",
+            "args": {
+                "body": {
+                    "description": "Body of the request",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "expiration_date": {
+                    "description": "Point in time (Unix timestamp) when the request will expire; 0 if never",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "message_id": {
+                    "description": "Unique identifier of the service message in the chat 777000 with the request",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "session_id": {
+                    "description": "Unique identifier of the session",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "topic": {
+                    "description": "Topic of the request; may be empty if none",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "trace_id": {
+                    "description": "Identifier to trace the request; may be empty if none",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "TonConnectRequest"
+        },
+        "tonConnectRequestStateAccepted": {
+            "description": "The request was accepted",
+            "args": {},
+            "type": "TonConnectRequestState"
+        },
+        "tonConnectRequestStatePending": {
+            "description": "The request must be accepted or rejected if it isn't expired yet",
+            "args": {
+                "expiration_date": {
+                    "description": "Point in time (Unix timestamp) when the request will expire or has expired",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "TonConnectRequestState"
+        },
+        "tonConnectRequestStateRejected": {
+            "description": "The request was rejected",
+            "args": {},
+            "type": "TonConnectRequestState"
+        },
+        "tonConnectRequests": {
+            "description": "Represents a session with its pending TON Connect requests",
+            "args": {
+                "requests": {
+                    "description": "The requests",
+                    "is_optional": false,
+                    "type": "vector\u003ctonConnectRequest\u003e"
+                },
+                "session": {
+                    "description": "The session",
+                    "is_optional": false,
+                    "type": "tonConnectSession"
+                }
+            },
+            "type": "TonConnectRequests"
+        },
+        "tonConnectSession": {
+            "description": "Represents a TON Connect session. See https://github.com/ton-blockchain/ton-connect/tree/main/spec for full TON Connect protocol documentation",
+            "args": {
+                "creation_date": {
+                    "description": "Point in time (Unix timestamp) when the session was created",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "dapp_client_id": {
+                    "description": "Hex-encoded public X25519 key of the dApp",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Unique identifier of the session",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "manifest": {
+                    "description": "Manifest of the dApp",
+                    "is_optional": false,
+                    "type": "TonConnectManifest"
+                },
+                "nonce": {
+                    "description": "Nonce used for the session",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "state": {
+                    "description": "Session state",
+                    "is_optional": false,
+                    "type": "TonConnectSessionState"
+                },
+                "wallet_client_id": {
+                    "description": "Hex-encoded public X25519 key of the current user's application; may be empty if none",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "TonConnectSession"
+        },
+        "tonConnectSessionEventId": {
+            "description": "Represents identifier of an event in a TON Connect session",
+            "args": {
+                "event_id": {
+                    "description": "The event identifier",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
+            "type": "TonConnectSessionEventId"
+        },
+        "tonConnectSessionStateClosed": {
+            "description": "The session is closed",
+            "args": {},
+            "type": "TonConnectSessionState"
+        },
+        "tonConnectSessionStateClosing": {
+            "description": "The session is being closed",
+            "args": {},
+            "type": "TonConnectSessionState"
+        },
+        "tonConnectSessionStatePending": {
+            "description": "The session is pending",
+            "args": {},
+            "type": "TonConnectSessionState"
+        },
+        "tonConnectSessionStateReady": {
+            "description": "The session is ready",
+            "args": {},
+            "type": "TonConnectSessionState"
+        },
+        "tonConnectSessions": {
+            "description": "Contains a list of TON Connect sessions",
+            "args": {
+                "sessions": {
+                    "description": "The list of sessions",
+                    "is_optional": false,
+                    "type": "vector\u003ctonConnectSession\u003e"
+                }
+            },
+            "type": "TonConnectSessions"
+        },
+        "tonNft": {
+            "description": "Represents an NFT in the TON blockchain",
+            "args": {
+                "address": {
+                    "description": "Address of the NFT",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "attributes": {
+                    "description": "Attributes of the NFT",
+                    "is_optional": false,
+                    "type": "vector\u003ctonNftAttribute\u003e"
+                },
+                "collection_address": {
+                    "description": "Address of the collection to which the NFT belongs; may be empty if unknown",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "content": {
+                    "description": "Content of the NFT; may be null if none",
+                    "is_optional": true,
+                    "type": "document"
+                },
+                "description": {
+                    "description": "Description of the NFT",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "extra": {
+                    "description": "Additional data about the NFT; may be null if none",
+                    "is_optional": true,
+                    "type": "JsonValue"
+                },
+                "image": {
+                    "description": "Image of the NFT; may be null if none",
+                    "is_optional": true,
+                    "type": "photoSize"
+                },
+                "index": {
+                    "description": "Index of the NFT among all NFTs from the collection as a decimal number",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of the NFT",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "owner_address": {
+                    "description": "Address of the owner of the NFT",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "sticker": {
+                    "description": "Sticker of the NFT; may be null if none",
+                    "is_optional": true,
+                    "type": "sticker"
+                },
+                "thumbnail": {
+                    "description": "Thumbnail of the NFT; may be null if none",
+                    "is_optional": true,
+                    "type": "photoSize"
+                }
+            },
+            "type": "TonNft"
+        },
+        "tonNftAttribute": {
+            "description": "Represents an attribute of an NFT in the TON blockchain",
+            "args": {
+                "trait_type": {
+                    "description": "Trait type",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "value": {
+                    "description": "Value of the attribute",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonNftAttribute"
+        },
+        "tonNfts": {
+            "description": "Represents a list of TON NFTs",
+            "args": {
+                "next_offset": {
+                    "description": "The offset for the next request. If empty, then there are no more results",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "nfts": {
+                    "description": "List of NFTs",
+                    "is_optional": false,
+                    "type": "vector\u003ctonNft\u003e"
+                }
+            },
+            "type": "TonNfts"
         },
         "tonTransaction": {
             "description": "Represents a transaction changing the amount of owned TON Grams",
@@ -34386,6 +35280,304 @@
                 }
             },
             "type": "TonTransactions"
+        },
+        "tonWalletGaslessTransfersInfo": {
+            "description": "Represents state of gasless transfers for the current user",
+            "args": {
+                "left_count": {
+                    "description": "Number of left gasless transfers. The daily available number of gasless transfers is available as getOption(\"ton_wallet_gasless_transfer_daily_count_max\")",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "relayer_address": {
+                    "description": "Address of the relayer for gasless transfers; may be empty if unavailable",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "reset_date": {
+                    "description": "Point in time (Unix timestamp) when the number of left transfers will be reset; 0 if never",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "TonWalletGaslessTransfersInfo"
+        },
+        "tonWalletOwnershipProof": {
+            "description": "Represents a proof of TON wallet ownership",
+            "args": {
+                "public_key": {
+                    "description": "Public key of the wallet",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "signature": {
+                    "description": "The signature prooving the ownership",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "timestamp": {
+                    "description": "The current UNIX timestamp which was used to create the proof",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "TonWalletOwnershipProof"
+        },
+        "tonWalletOwnershipProofChallenge": {
+            "description": "Represents a challenge for TON wallet ownership proof",
+            "args": {
+                "domain": {
+                    "description": "Domain of the proof requester",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "payload": {
+                    "description": "Payload of the challenge",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonWalletOwnershipProofChallenge"
+        },
+        "tonWalletState": {
+            "description": "Describes state of the wallet of the current user in the TON blockchain",
+            "args": {
+                "address": {
+                    "description": "Address of the wallet; may be empty if none",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "can_enable_backup": {
+                    "description": "True, if the user can enable backup for the wallet key",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_export_phrase": {
+                    "description": "True, if the wallet key can be exported using getTonWalletSecretPhrase",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "gram_amount": {
+                    "description": "The total amount of owned TON Grams, in the smallest units of the cryptocurrency",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "is_backup_enabled": {
+                    "description": "True, if backup for the wallet key is enabled",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_being_created": {
+                    "description": "True, if the wallet is being created",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "public_key": {
+                    "description": "Public key of the wallet; may be empty if none",
+                    "is_optional": true,
+                    "type": "bytes"
+                }
+            },
+            "type": "TonWalletState"
+        },
+        "tonWalletTransaction": {
+            "description": "Represents a transaction with the TON wallet of the current user",
+            "args": {
+                "date": {
+                    "description": "Point in time (Unix timestamp) when the transaction was completed",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "fee_amount": {
+                    "description": "The fee amount paid for the transaction in TON Grams, in the smallest units of the cryptocurrency",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "id": {
+                    "description": "Unique identifier of the transaction",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "peer_address": {
+                    "description": "Address in the TON blockchain of the transaction peer; may be empty if the transaction isn't a wallet transfer",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "peer_domain": {
+                    "description": "Identifier of the domain assigned to the peer address; may be empty if none",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "peer_user_id": {
+                    "description": "Identifier of the other user who participated in the transaction; 0 if unknown",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "state": {
+                    "description": "State of the transaction",
+                    "is_optional": false,
+                    "type": "TonWalletTransactionState"
+                },
+                "type": {
+                    "description": "Type of the transaction",
+                    "is_optional": false,
+                    "type": "TonWalletTransactionType"
+                }
+            },
+            "type": "TonWalletTransaction"
+        },
+        "tonWalletTransactionStateFailed": {
+            "description": "The transaction failed",
+            "args": {},
+            "type": "TonWalletTransactionState"
+        },
+        "tonWalletTransactionStateSucceeded": {
+            "description": "The transaction succeeded",
+            "args": {
+                "tx_hash": {
+                    "description": "Hash of the transaction",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonWalletTransactionState"
+        },
+        "tonWalletTransactionTypeKeyChange": {
+            "description": "Change of the wallet key",
+            "args": {},
+            "type": "TonWalletTransactionType"
+        },
+        "tonWalletTransactionTypeNftTransfer": {
+            "description": "A transfer of a TON NFT to or from the wallet",
+            "args": {
+                "comment": {
+                    "description": "Comment added to the transaction",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "is_comment_encrypted": {
+                    "description": "True, if the comment is encrypted and must be decrypted using the user's private key",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_outgoing": {
+                    "description": "True, if the transfer is outgoing",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "nft": {
+                    "description": "The transferred NFT",
+                    "is_optional": false,
+                    "type": "tonNft"
+                }
+            },
+            "type": "TonWalletTransactionType"
+        },
+        "tonWalletTransactionTypeOnRampDeposit": {
+            "description": "The transaction is a deposit from an on-ramp provider",
+            "args": {
+                "amount": {
+                    "description": "The amount of received cryptocurrency, in the smallest units of the cryptocurrency",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "provider_name": {
+                    "description": "Name of the on-ramp provider",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonWalletTransactionType"
+        },
+        "tonWalletTransactionTypeTransfer": {
+            "description": "A transfer of TON Grams to or from the wallet",
+            "args": {
+                "amount": {
+                    "description": "The amount of received cryptocurrency, in the smallest units of the cryptocurrency; negative for outgoing transactions",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "comment": {
+                    "description": "Comment added to the transaction",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "is_comment_encrypted": {
+                    "description": "True, if the comment is encrypted and must be decrypted using the user's private key",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_gasless": {
+                    "description": "True, if the fee was paid by Telegram",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "TonWalletTransactionType"
+        },
+        "tonWalletTransactions": {
+            "description": "Represents a list of TON Gram transactions",
+            "args": {
+                "gram_amount": {
+                    "description": "The total amount of owned TON Grams, in the smallest units of the cryptocurrency",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "next_offset": {
+                    "description": "The offset for the next request. If empty, then there are no more results",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "transactions": {
+                    "description": "List of transactions",
+                    "is_optional": false,
+                    "type": "vector\u003ctonWalletTransaction\u003e"
+                }
+            },
+            "type": "TonWalletTransactions"
+        },
+        "tonWalletTransferReceiverAddress": {
+            "description": "The receiver is specified by its address",
+            "args": {
+                "address": {
+                    "description": "Address of the receiver. Use getAddressTonWallet to get information about the user's TON wallet",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonWalletTransferReceiver"
+        },
+        "tonWalletTransferReceiverUser": {
+            "description": "The receiver is specified by its username",
+            "args": {
+                "username": {
+                    "description": "Username of the user. Use searchPublicChat to find the user, check that it is a regular user,",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonWalletTransferReceiver"
+        },
+        "tonWalletTransferResult": {
+            "description": "Represents result of cryptocurrency transfer from the current user's TON wallet",
+            "args": {
+                "is_gasless": {
+                    "description": "True, if the transfer is gasless",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "msg_hash": {
+                    "description": "Unique identifier of the sent message; use getTonWalletTransactionByMsgHash to poll information about the transaction",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "transaction": {
+                    "description": "The completed transaction; may be null if the transaction is still pending",
+                    "is_optional": true,
+                    "type": "tonWalletTransaction"
+                }
+            },
+            "type": "TonWalletTransferResult"
         },
         "topChatCategoryBots": {
             "description": "A category containing frequently used private chats with bot users",
@@ -35745,6 +36937,38 @@
             },
             "type": "UserSupportInfo"
         },
+        "userTonWalletAddress": {
+            "description": "Contains TON wallet address of a user",
+            "args": {
+                "public_key": {
+                    "description": "Public key of the user",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "user_id": {
+                    "description": "Identifier of the user; 0 if unknown",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "wallet_address": {
+                    "description": "Address of the user's wallet in the TON blockchain",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "UserTonWalletAddress"
+        },
+        "userTonWalletAddresses": {
+            "description": "Represents a list of TON wallet addresses of users",
+            "args": {
+                "addresses": {
+                    "description": "A list of TON wallet addresses",
+                    "is_optional": false,
+                    "type": "vector\u003cuserTonWalletAddress\u003e"
+                }
+            },
+            "type": "UserTonWalletAddresses"
+        },
         "userTypeBot": {
             "description": "A bot (see https://core.telegram.org/bots)",
             "args": {
@@ -35861,6 +37085,11 @@
                 },
                 "editable_username": {
                     "description": "Active or disabled username, which may be changed with setUsername or setSupergroupUsername",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "secondary_username": {
+                    "description": "Secondary non-collectible username; for bots only. Can't be used in toggleBotUsernameIsActive; use addBotSecondaryUsername or deleteBotSecondaryUsername to edit it.",
                     "is_optional": false,
                     "type": "string"
                 }
@@ -36235,6 +37464,22 @@
             },
             "type": "VoiceNote"
         },
+        "walletBotBalance": {
+            "description": "Describes balance of the current user in the bot https://t.me/walt",
+            "args": {
+                "has_balance": {
+                    "description": "True, if the user has positive TON Gram balance",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "url": {
+                    "description": "The URL to open to launch the bot; may be empty if none",
+                    "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "WalletBotBalance"
+        },
         "webApp": {
             "description": "Describes a Web App. Use getInternalLink with internalLinkTypeWebApp to share the Web App",
             "args": {
@@ -36517,6 +37762,17 @@
                     "description": "Parameters for the age verification; may be null if age verification isn't needed",
                     "is_optional": true,
                     "type": "ageVerificationParameters"
+                }
+            },
+            "type": "Update"
+        },
+        "updateAllowedBotUsernamePremiumSuffixes": {
+            "description": "Lists of suffixes allowed in secondary bot usernames, which can be added additionally to the main username if the bot's owner has a Telegram Premium subscription",
+            "args": {
+                "suffixes": {
+                    "description": "The list of allowed suffixes",
+                    "is_optional": false,
+                    "type": "vector\u003cstring\u003e"
                 }
             },
             "type": "Update"
@@ -39555,6 +40811,50 @@
             },
             "type": "Update"
         },
+        "updateTonWalletGaslessTransfersInfo": {
+            "description": "The information about gasless transfers has changed",
+            "args": {
+                "info": {
+                    "description": "The new state of the wallet",
+                    "is_optional": false,
+                    "type": "tonWalletGaslessTransfersInfo"
+                }
+            },
+            "type": "Update"
+        },
+        "updateTonWalletState": {
+            "description": "The state of the TON wallet of the current user has changed",
+            "args": {
+                "state": {
+                    "description": "The new state of the wallet",
+                    "is_optional": false,
+                    "type": "tonWalletState"
+                }
+            },
+            "type": "Update"
+        },
+        "updateTonWalletTonConnectSession": {
+            "description": "A session of a TON Connect has changed",
+            "args": {
+                "session": {
+                    "description": "The new state of the session",
+                    "is_optional": false,
+                    "type": "tonConnectSession"
+                }
+            },
+            "type": "Update"
+        },
+        "updateTonWalletTonConnectSessionDisconnectRequired": {
+            "description": "TON Connect sessions must be disconnected in a regular way",
+            "args": {
+                "session_ids": {
+                    "description": "Identifiers of the sessions",
+                    "is_optional": false,
+                    "type": "vector\u003cint64\u003e"
+                }
+            },
+            "type": "Update"
+        },
         "updateTopicMessageCount": {
             "description": "Number of messages in a topic has changed; for Saved Messages and channel direct messages chat topics only",
             "args": {
@@ -39895,6 +41195,22 @@
                 }
             },
             "type": "BotMediaPreview"
+        },
+        "addBotSecondaryUsername": {
+            "description": "Adds a secondary username to a bot. Can be called only if userTypeBot.can_be_edited, the bot has no secondary username and the current user has Telegram Premium subscription.",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the target bot",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "username": {
+                    "description": "The new secondary username; must be non-empty. Use checkBotUsername to check username validness",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
         },
         "addChatFolderByInviteLink": {
             "description": "Adds a chat folder by an invite link",
@@ -40688,6 +42004,32 @@
             },
             "type": "Ok"
         },
+        "answerTonConnectRequest": {
+            "description": "Sends an answer for a request received through TON Connect",
+            "args": {
+                "body": {
+                    "description": "Body of the response",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "message_id": {
+                    "description": "Identifier of the message with the request",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "session_id": {
+                    "description": "Unique identifier of the TON Connect session",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "trace_id": {
+                    "description": "Identifier to trace the request",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
         "answerWebAppQuery": {
             "description": "Sets the result of interaction with a Web App and sends corresponding message on behalf of the user to the chat from which the query originated; for bots only",
             "args": {
@@ -41131,8 +42473,13 @@
             "type": "Ok"
         },
         "checkBotUsername": {
-            "description": "Checks whether a username can be set for a new bot. Use checkChatUsername to check username for other chat types",
+            "description": "Checks whether a username can be set for a new bot or assigned as a secondary username to an existing bot. Use checkChatUsername to check username for other chat types",
             "args": {
+                "is_secondary": {
+                    "description": "Pass true to check whether the username is suitable as a secondary username for an existing bot; pass false to check whether the username is suitable for createBot",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "username": {
                     "description": "Username to be checked",
                     "is_optional": false,
@@ -41294,6 +42641,11 @@
             },
             "type": "CheckStickerSetNameResult"
         },
+        "checkWalletBotBalance": {
+            "description": "Returns information about balance of the current user in the bot https://t.me/walt; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {},
+            "type": "WalletBotBalance"
+        },
         "checkWebAppFileDownload": {
             "description": "Checks whether a file can be downloaded and saved locally by Web App request",
             "args": {
@@ -41311,6 +42663,32 @@
                     "description": "URL of the file",
                     "is_optional": false,
                     "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
+        "claimTonConnectRequest": {
+            "description": "Claims a request received through TON Connect for processing on this device",
+            "args": {
+                "dapp_request_id": {
+                    "description": "Identifier of the request assigned by the dApp",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "is_rejected": {
+                    "description": "Pass true to reject the request",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "message_id": {
+                    "description": "Identifier of the message with the request",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "session_id": {
+                    "description": "Unique identifier of the TON Connect session",
+                    "is_optional": false,
+                    "type": "int64"
                 }
             },
             "type": "Ok"
@@ -41681,7 +43059,7 @@
                     "type": "string"
                 },
                 "username": {
-                    "description": "Username of the bot. The username must end with \"bot\". Use checkBotUsername to find whether the name is suitable",
+                    "description": "Username of the bot. The username must end with \"bot\" or a string from updateAllowedBotUsernamePremiumSuffixes case-insensitive.",
                     "is_optional": false,
                     "type": "string"
                 },
@@ -42018,6 +43396,67 @@
             },
             "type": "Chat"
         },
+        "createOnRampPaymentSession": {
+            "description": "Creates a session for an on-ramp payment",
+            "args": {
+                "address": {
+                    "description": "Address to which the cryptocurrency will be sent",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "base_currency": {
+                    "description": "ISO 4217 currency code of the currency that will be used for the purchase; pass an empty string if unknown",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "base_currency_amount": {
+                    "description": "The amount of the base currency to spend; pass an empty string if the user selected cryptocurrency_amount",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency": {
+                    "description": "The cryptocurrency that will be bought",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency_amount": {
+                    "description": "The amount of the cryptocurrency to buy; pass an empty string if the user selected base_currency_amount",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "fail_return_url": {
+                    "description": "The URL opened on failed payment; pass an empty string if none",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "memo": {
+                    "description": "Memo for the query; pass an empty string if none",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "payment_method_name": {
+                    "description": "Name of the chosen payment method; pass an empty string if none",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "provider_id": {
+                    "description": "Unique identifier of the on-ramp provider",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "success_return_url": {
+                    "description": "The URL opened on successful payment; pass an empty string if none",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "theme": {
+                    "description": "Preferred theme for the WebView; pass \"light\" for a light theme, \"dark\" for a dark theme, or leave empty for a default theme",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampPaymentSession"
+        },
         "createPrivateChat": {
             "description": "Returns an existing chat corresponding to a given user",
             "args": {
@@ -42144,6 +43583,33 @@
                 }
             },
             "type": "TextCompositionStyle"
+        },
+        "createTonConnectSession": {
+            "description": "Creates a TON Connect session; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {
+                "dapp_client_id": {
+                    "description": "Hex-encoded public X25519 key of the dApp",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "manifest_url": {
+                    "description": "URL of the manifest of the dApp",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonConnectSession"
+        },
+        "createUserTonWallet": {
+            "description": "Creates a TON wallet for the specified regular user; can be used only if getOption(\"can_use_ton_wallet\"). The current user must have positive TON wallet balance",
+            "args": {
+                "user_id": {
+                    "description": "Identifier of the user",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "UserTonWalletAddress"
         },
         "createVideoChat": {
             "description": "Creates a video chat (a group call bound to a chat); for basic groups, supergroups and channels only; requires can_manage_video_chats administrator right",
@@ -42332,6 +43798,17 @@
                     "description": "Language code of the media previews to delete",
                     "is_optional": false,
                     "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
+        "deleteBotSecondaryUsername": {
+            "description": "Removes a secondary username from a bot. Can be called only if userTypeBot.can_be_edited == true and the bot has a secondary username",
+            "args": {
+                "bot_user_id": {
+                    "description": "Identifier of the target bot",
+                    "is_optional": false,
+                    "type": "int53"
                 }
             },
             "type": "Ok"
@@ -42556,6 +44033,17 @@
                     "description": "The scope to which the commands are relevant; pass null to delete commands in the default bot command scope",
                     "is_optional": true,
                     "type": "BotCommandScope"
+                }
+            },
+            "type": "Ok"
+        },
+        "deleteCommunity": {
+            "description": "Deletes a community; requires owner privileges",
+            "args": {
+                "community_id": {
+                    "description": "Identifier of the community",
+                    "is_optional": false,
+                    "type": "int53"
                 }
             },
             "type": "Ok"
@@ -42970,6 +44458,17 @@
             },
             "type": "Ok"
         },
+        "deleteTonWallet": {
+            "description": "Deletes the current TON wallet of the user and creates a new one; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {
+                "password": {
+                    "description": "Password of the current user; pass an empty string unless receive an error with a message \"PASSWORD_MISSING\" for a passwordless request",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
         "destroy": {
             "description": "Closes the TDLib instance, destroying all local data without a proper logout. The current user session will remain in the list of all active sessions. All local data will be destroyed.",
             "args": {},
@@ -42989,6 +44488,28 @@
         "disableProxy": {
             "description": "Disables the currently enabled proxy. Can be called before authorization",
             "args": {},
+            "type": "Ok"
+        },
+        "disableTonWalletBackup": {
+            "description": "Disables backup of the TON wallet of the user. Works only if tonWalletState.is_backup_enabled is true",
+            "args": {
+                "password": {
+                    "description": "Password of the current user; pass an empty string unless receive an error with a message \"PASSWORD_MISSING\" for a passwordless request",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
+        "disableTonWalletBackupWithProof": {
+            "description": "Disables backup of the TON wallet of the user using proof of wallet ownership instead of the password. Works only if tonWalletState.is_backup_enabled is true",
+            "args": {
+                "proof": {
+                    "description": "Proof of the TON wallet ownership; use getTonWalletOwnershipProofChallenge to get a challenge for the proof",
+                    "is_optional": false,
+                    "type": "tonWalletOwnershipProof"
+                }
+            },
             "type": "Ok"
         },
         "discardCall": {
@@ -43048,6 +44569,22 @@
             "args": {},
             "type": "Ok"
         },
+        "disconnectTonConnectSession": {
+            "description": "Closes a TON Connect session",
+            "args": {
+                "body": {
+                    "description": "Encrypted body of the disconnect event; may be empty if the session has already been closed. Use getTonConnectSessionNextEventId to get event identifier for the event",
+                    "is_optional": true,
+                    "type": "bytes"
+                },
+                "session_id": {
+                    "description": "Unique identifier of the TON Connect session to close",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
+            "type": "Ok"
+        },
         "disconnectWebsite": {
             "description": "Disconnects website from the current user's Telegram account",
             "args": {
@@ -43055,6 +44592,17 @@
                     "description": "Website identifier",
                     "is_optional": false,
                     "type": "int64"
+                }
+            },
+            "type": "Ok"
+        },
+        "dismissWebToken": {
+            "description": "Dismissess a received web token without consumption; for official Telegram apps only",
+            "args": {
+                "token": {
+                    "description": "The token to dismiss",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "Ok"
@@ -43369,32 +44917,6 @@
                 }
             },
             "type": "Story"
-        },
-        "editCallbackQueryMessage": {
-            "description": "Edits the message from which a callback query has originated with an ephemeral message; for bots only",
-            "args": {
-                "callback_query_id": {
-                    "description": "Identifier of the callback query",
-                    "is_optional": false,
-                    "type": "int64"
-                },
-                "input_message_content": {
-                    "description": "New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation,",
-                    "is_optional": false,
-                    "type": "InputMessageContent"
-                },
-                "protect_content": {
-                    "description": "Pass true if the content of the message must be protected from forwarding and saving",
-                    "is_optional": false,
-                    "type": "Bool"
-                },
-                "reply_markup": {
-                    "description": "The new message reply markup; pass null if none",
-                    "is_optional": true,
-                    "type": "ReplyMarkup"
-                }
-            },
-            "type": "Ok"
         },
         "editChatFolder": {
             "description": "Edits existing chat folder. Returns information about the edited chat folder",
@@ -44085,6 +45607,22 @@
             },
             "type": "Ok"
         },
+        "enableTonWalletBackup": {
+            "description": "Enables backup of the TON wallet of the user. Works only if tonWalletState.can_enable_backup is true",
+            "args": {
+                "proof": {
+                    "description": "Proof of the TON wallet ownership; use getTonWalletOwnershipProofChallenge to get a challenge for the proof",
+                    "is_optional": false,
+                    "type": "tonWalletOwnershipProof"
+                },
+                "secret_phrase": {
+                    "description": "The secret phrase of the user's TON wallet as a space separated list of words",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
         "encryptGroupCallData": {
             "description": "Encrypts group call data before sending them over network using tgcalls",
             "args": {
@@ -44232,6 +45770,17 @@
             "description": "Returns all active sessions of the current user. Additionally, getBusinessConnectedBot must be used to show the bot on top of active sessions",
             "args": {},
             "type": "Sessions"
+        },
+        "getAddressTonWallet": {
+            "description": "Returns information about a TON wallet with the given address; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {
+                "address": {
+                    "description": "Address in the TON blockchain",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "UserTonWalletAddress"
         },
         "getAllPassportElements": {
             "description": "Returns all available Telegram Passport elements",
@@ -45497,6 +47046,17 @@
             },
             "type": "BotCommands"
         },
+        "getCommunityFullInfo": {
+            "description": "Returns full information about a community",
+            "args": {
+                "community_id": {
+                    "description": "Community identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "CommunityFullInfo"
+        },
         "getConnectedAffiliateProgram": {
             "description": "Returns an affiliate program that was connected to the given affiliate by identifier of the bot that created the program",
             "args": {
@@ -45586,6 +47146,11 @@
                 }
             },
             "type": "Chats"
+        },
+        "getCurrencyExchangeRates": {
+            "description": "Returns exchange rates of currencies to USD",
+            "args": {},
+            "type": "CurrencyExchangeRates"
         },
         "getCurrentState": {
             "description": "Returns all updates needed to restore current TDLib state, i.e. all actual updateAuthorizationState/updateUser/updateNewChat and others. This is especially useful if TDLib is run in a separate process. Can be called before initialization",
@@ -47124,6 +48689,116 @@
             },
             "type": "OauthLinkInfo"
         },
+        "getOnRampPaymentAvailability": {
+            "description": "Returns the available on-ramp payment methods based on the current user location",
+            "args": {
+                "base_currency": {
+                    "description": "ISO 4217 currency code of the currency that will be used for the purchase; pass an empty string if unknown",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency": {
+                    "description": "The cryptocurrency that will be bought",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "provider_id": {
+                    "description": "Unique identifier of the on-ramp provider",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampPaymentAvailability"
+        },
+        "getOnRampPaymentLimits": {
+            "description": "Returns the limits for an on-ramp payment; only for providers that supports limits retrieval",
+            "args": {
+                "base_currency": {
+                    "description": "ISO 4217 currency code of the currency that will be used for the purchase",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency": {
+                    "description": "The cryptocurrency that will be bought",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "payment_method_name": {
+                    "description": "Name of the chosen payment method; pass an empty string if none",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "provider_id": {
+                    "description": "Unique identifier of the on-ramp provider",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampPaymentLimits"
+        },
+        "getOnRampPaymentQuote": {
+            "description": "Returns a quote for an on-ramp payment; only for providers that supports quote retrieval",
+            "args": {
+                "base_currency": {
+                    "description": "ISO 4217 currency code of the currency that will be used for the purchase",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "base_currency_amount": {
+                    "description": "The amount of the base currency to spend; pass an empty string if the user selected cryptocurrency_amount",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency": {
+                    "description": "The cryptocurrency that will be bought",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "cryptocurrency_amount": {
+                    "description": "The amount of the cryptocurrency to buy; pass an empty string if the user selected base_currency_amount",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "payment_method_name": {
+                    "description": "Name of the chosen payment method; pass an empty string if none",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "provider_id": {
+                    "description": "Unique identifier of the on-ramp provider",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampPaymentQuote"
+        },
+        "getOnRampProviderBaseCurrencies": {
+            "description": "Returns the list of fiat currencies supported by an on-ramp provider for the given cryptocurrency",
+            "args": {
+                "cryptocurrency": {
+                    "description": "The cryptocurrency that will be bought",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "provider_id": {
+                    "description": "Unique identifier of the on-ramp provider; only for providers that supports base currencies",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Currencies"
+        },
+        "getOnRampProviders": {
+            "description": "Returns available on-ramp providers",
+            "args": {
+                "cryptocurrency": {
+                    "description": "Pass a cryptocurrency to receive only providers that support it; pass an empty string to receive all providers",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "OnRampProviders"
+        },
         "getOption": {
             "description": "Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options \"version\" and \"commit_hash\"",
             "args": {
@@ -48366,7 +50041,7 @@
             "type": "TextCompositionStyleExample"
         },
         "getTextEntities": {
-            "description": "Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously",
+            "description": "Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, TON blockchain addresses, URLs, and email addresses) found in the text. Can be called synchronously",
             "args": {
                 "text": {
                     "description": "The text in which to look for entities",
@@ -48402,8 +50077,51 @@
             "args": {},
             "type": "TimeZones"
         },
+        "getTonCenterStreamingApiUrl": {
+            "description": "Returns a URL for TON Center Streaming API",
+            "args": {},
+            "type": "TonCenterStreamingApiUrl"
+        },
+        "getTonConnectDAppPendingRequests": {
+            "description": "Returns pending requests with a dApp through TON Connect",
+            "args": {
+                "dapp_client_id": {
+                    "description": "Hex-encoded public X25519 key of the dApp",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonConnectRequests"
+        },
+        "getTonConnectSessionNextEventId": {
+            "description": "Returns the next event identifier for the given TON Connect session",
+            "args": {
+                "session_id": {
+                    "description": "Unique identifier of the TON Connect session",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
+            "type": "TonConnectSessionEventId"
+        },
+        "getTonConnectSessionPendingRequests": {
+            "description": "Returns pending requests in a TON Connect session",
+            "args": {
+                "session_id": {
+                    "description": "Unique identifier of the session",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
+            "type": "TonConnectRequests"
+        },
+        "getTonConnectSessions": {
+            "description": "Returns active TON Connect sessions; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {},
+            "type": "TonConnectSessions"
+        },
         "getTonTransactions": {
-            "description": "Returns the list of TON blockchain transactions of the current user",
+            "description": "Returns the list of TON Gram transactions of the current user",
             "args": {
                 "direction": {
                     "description": "Direction of the transactions to receive; pass null to get all transactions",
@@ -48422,6 +50140,81 @@
                 }
             },
             "type": "TonTransactions"
+        },
+        "getTonWalletNfts": {
+            "description": "Returns NFTs stored on the TON wallet of the user; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {
+                "limit": {
+                    "description": "The maximum number of NFTs to be returned; must be positive and can't be greater than 20",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "offset": {
+                    "description": "Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonNfts"
+        },
+        "getTonWalletOwnershipProofChallenge": {
+            "description": "Returns a challenge which may be used to proof ownership of a TON wallet; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {},
+            "type": "TonWalletOwnershipProofChallenge"
+        },
+        "getTonWalletSecretPhrase": {
+            "description": "Returns the secret phrase of the user's TON wallet as a space separated list of words. Works only if tonWalletState.can_export_phrase is true",
+            "args": {
+                "password": {
+                    "description": "Password of the current user; pass an empty string unless receive an error with a message \"PASSWORD_MISSING\" for a passwordless request",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Text"
+        },
+        "getTonWalletTransaction": {
+            "description": "Returns a TON wallet transaction by their identifier",
+            "args": {
+                "transaction_id": {
+                    "description": "Identifier of the transaction",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonWalletTransaction"
+        },
+        "getTonWalletTransactionByMsgHash": {
+            "description": "Returns a TON wallet transaction by their msg_hash; return an error if the transaction isn't finalized yet",
+            "args": {
+                "msg_hash": {
+                    "description": "Value of msg_hash of the transaction",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonWalletTransaction"
+        },
+        "getTonWalletTransactions": {
+            "description": "Returns the list of TON wallet transactions of the current user; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {
+                "direction": {
+                    "description": "Direction of the transactions to receive; pass null to get all transactions",
+                    "is_optional": true,
+                    "type": "TransactionDirection"
+                },
+                "limit": {
+                    "description": "The maximum number of transactions to return",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "offset": {
+                    "description": "Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonWalletTransactions"
         },
         "getTopChats": {
             "description": "Returns a list of frequently used chats",
@@ -48635,6 +50428,17 @@
                 }
             },
             "type": "UserSupportInfo"
+        },
+        "getUserTonWalletAddresses": {
+            "description": "Returns TON wallet addresses of the specified users; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {
+                "user_ids": {
+                    "description": "Identifiers of the users whose wallet addresses have to be returned. If a user has no TON wallet, it will be skipped in the result",
+                    "is_optional": false,
+                    "type": "vector\u003cint53\u003e"
+                }
+            },
+            "type": "UserTonWalletAddresses"
         },
         "getVideoChatAvailableParticipants": {
             "description": "Returns the list of participant identifiers, on whose behalf a video chat in the chat can be joined",
@@ -49099,17 +50903,6 @@
             },
             "type": "Ok"
         },
-        "loadCommunityFullInfo": {
-            "description": "Returns full information about a community. The data will be sent through update.",
-            "args": {
-                "community_id": {
-                    "description": "Community identifier",
-                    "is_optional": false,
-                    "type": "int53"
-                }
-            },
-            "type": "Ok"
-        },
         "loadDirectMessagesChatTopics": {
             "description": "Loads more topics in a channel direct messages chat administered by the current user. The loaded topics will be sent through updateDirectMessagesChatTopic.",
             "args": {
@@ -49167,6 +50960,16 @@
                     "type": "int32"
                 }
             },
+            "type": "Ok"
+        },
+        "loadTonWalletGaslessTransfersInfo": {
+            "description": "Loads or reloads the current state of gasless transfers for the current user; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {},
+            "type": "Ok"
+        },
+        "loadTonWalletState": {
+            "description": "Loads state of the TON wallet of the current user; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {},
             "type": "Ok"
         },
         "logOut": {
@@ -50577,6 +52380,27 @@
             },
             "type": "Ok"
         },
+        "replaceTonWallet": {
+            "description": "Replaces the current TON wallet with another existing v6r2 wallet or changes private key of the current TON wallet; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {
+                "anchor_public_key": {
+                    "description": "Original public key of the new TON wallet",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "password": {
+                    "description": "Password of the current user; pass an empty string unless receive an error with a message \"PASSWORD_MISSING\" for a passwordless request",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "proof": {
+                    "description": "Proof of ownership of the new private key of the TON wallet; use getTonWalletOwnershipProofChallenge to get a challenge for the proof",
+                    "is_optional": false,
+                    "type": "tonWalletOwnershipProof"
+                }
+            },
+            "type": "Ok"
+        },
         "replaceVideoChatRtmpUrl": {
             "description": "Replaces the current RTMP URL for streaming to the video chat of a chat; requires owner privileges in the chat",
             "args": {
@@ -50587,6 +52411,37 @@
                 }
             },
             "type": "RtmpUrl"
+        },
+        "replyToCallbackQueryWithEphemeralMessage": {
+            "description": "Replies to a callback query with an ephemeral message; for bots only",
+            "args": {
+                "callback_query_id": {
+                    "description": "Identifier of the callback query",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "input_message_content": {
+                    "description": "New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation,",
+                    "is_optional": false,
+                    "type": "InputMessageContent"
+                },
+                "protect_content": {
+                    "description": "Pass true if the content of the message must be protected from forwarding and saving",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "replace_callback_query_message": {
+                    "description": "Pass true if the ephemeral message must replace the message from which the callback query originated",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "reply_markup": {
+                    "description": "The new message reply markup; pass null if none",
+                    "is_optional": true,
+                    "type": "ReplyMarkup"
+                }
+            },
+            "type": "Ok"
         },
         "reportAuthenticationCodeMissing": {
             "description": "Reports that authentication code wasn't delivered via SMS; for official mobile applications only. Works only when the current authorization state is authorizationStateWaitCode",
@@ -50600,7 +52455,7 @@
             "type": "Ok"
         },
         "reportChat": {
-            "description": "Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.can_be_reported",
+            "description": "Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, if chat.can_be_reported, or if messageProperties.can_report_chat",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
@@ -52568,6 +54423,99 @@
             },
             "type": "Ok"
         },
+        "sendTonCenterApiRequest": {
+            "description": "Sends a request to TON Center API and returns its response in JSON format",
+            "args": {
+                "endpoint": {
+                    "description": "The path of the requested endpoint. See https://toncenter.com/api/v3/index.html for the list of supported endpoints",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of the request",
+                    "is_optional": false,
+                    "type": "TonCenterApiRequestType"
+                }
+            },
+            "type": "Text"
+        },
+        "sendTonConnectSessionConnectResult": {
+            "description": "Accepts or rejects a TON Connect session",
+            "args": {
+                "body": {
+                    "description": "Body of the result",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "challenge_answer": {
+                    "description": "Answer to the challenge received from setTonConnectSessionWalletClientId",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "is_error": {
+                    "description": "Pass true to reject the request; pass false to accept it",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "session_id": {
+                    "description": "Unique identifier of the session",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "trace_id": {
+                    "description": "Identifier to trace the connection request",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
+        "sendTonWalletTransfer": {
+            "description": "Sends a cryptocurrency from the user's TON wallet; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {
+                "address": {
+                    "description": "Address in the TON blockchain of the transaction peer",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "amount": {
+                    "description": "The amount of the sent cryptocurrency, in the smallest units of the cryptocurrency",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "comment": {
+                    "description": "Comment added to the transaction",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "gasless_transfer_data": {
+                    "description": "Serialized data for gasless cryptocurrency transfer request; pass an empty string to force a regular request.",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "is_comment_encrypted": {
+                    "description": "Pass true if the comment is encrypted and must be decrypted using the receiver's or sender's private key",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "regular_transfer_data": {
+                    "description": "Serialized data for regular cryptocurrency transfer request. The minimum allowed transfer amount is getOption(\"ton_wallet_transfer_amount_min\")",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "sending_id": {
+                    "description": "Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "user_id": {
+                    "description": "Identifier of the user who will receive the transfer; pass 0 if unknown",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "TonWalletTransferResult"
+        },
         "sendWebAppCustomRequest": {
             "description": "Sends a custom request from a Web App",
             "args": {
@@ -53557,6 +55505,38 @@
             },
             "type": "Ok"
         },
+        "setCommunityPermissions": {
+            "description": "Changes permissions of regular members in the given community; requires can_ban_members administrator right in the community",
+            "args": {
+                "community_id": {
+                    "description": "Identifier of the community",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "permissions": {
+                    "description": "New permissions of the community",
+                    "is_optional": false,
+                    "type": "communityPermissions"
+                }
+            },
+            "type": "Ok"
+        },
+        "setCommunityPhoto": {
+            "description": "Changes the photo of a community; requires can_change_info administrator right in the community",
+            "args": {
+                "community_id": {
+                    "description": "Identifier of the community",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "photo": {
+                    "description": "New chat photo; pass null to delete the chat photo",
+                    "is_optional": true,
+                    "type": "InputChatPhoto"
+                }
+            },
+            "type": "Ok"
+        },
         "setCustomEmojiStickerSetThumbnail": {
             "description": "Sets a custom emoji sticker set thumbnail",
             "args": {
@@ -54119,9 +56099,9 @@
                     "type": "int53"
                 },
                 "custom_description": {
-                    "description": "Custom description of verification reason; 0-getOption(\"bot_verification_custom_description_length_max\").",
+                    "description": "Custom description of verification reason; 0-getOption(\"bot_verification_custom_description_length_max\") characters. Only TextUrl entities are supported.",
                     "is_optional": false,
-                    "type": "string"
+                    "type": "formattedText"
                 },
                 "verified_id": {
                     "description": "Identifier of the user or the supergroup or channel chat, which will be verified by the bot",
@@ -54818,6 +56798,22 @@
                 }
             },
             "type": "Ok"
+        },
+        "setTonConnectSessionWalletClientId": {
+            "description": "Sets wallet_client_id for a pending TON Connect session. Then, sendTonConnectSessionConnectResult must be used to accept or reject the session",
+            "args": {
+                "session_id": {
+                    "description": "Unique identifier of the session",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "wallet_client_id": {
+                    "description": "Hex-encoded public X25519 key of the current user's application calculated from the TON wallet private key and session parameters",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonConnectChallenge"
         },
         "setUpgradedGiftColors": {
             "description": "Changes color scheme for the current user based on an owned or a hosted upgraded gift; for Telegram Premium users only",
