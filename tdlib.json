@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
     "version": "1.8.68",
-    "commit": "c15d3f5a5de6e3ba5839822c451152e5e18bb700",
+    "commit": "26766da73c9208519e1e1185a117e6e2b453d619",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -11703,8 +11703,8 @@
                     "type": "vector\u003cdatedFile\u003e"
                 },
                 "front_side": {
-                    "description": "The front side of an identity document",
-                    "is_optional": false,
+                    "description": "The front side of an identity document; may be null if the element isn't an identity document",
+                    "is_optional": true,
                     "type": "datedFile"
                 },
                 "hash": {
@@ -12632,8 +12632,8 @@
                     "type": "giftAuction"
                 },
                 "background": {
-                    "description": "Background of the gift",
-                    "is_optional": false,
+                    "description": "Background of the gift; may be null if the gift has no background",
+                    "is_optional": true,
                     "type": "giftBackground"
                 },
                 "default_sell_star_count": {
@@ -31099,8 +31099,8 @@
             "description": "The transaction is a purchase of a subscription from a bot or a business account by the current user; relevant for regular users only",
             "args": {
                 "product_info": {
-                    "description": "Information about the bought subscription",
-                    "is_optional": false,
+                    "description": "Information about the bought subscription; may be null if no information about the subscription is available",
+                    "is_optional": true,
                     "type": "productInfo"
                 },
                 "subscription_period": {
@@ -31130,8 +31130,8 @@
                     "type": "bytes"
                 },
                 "product_info": {
-                    "description": "Information about the bought subscription",
-                    "is_optional": false,
+                    "description": "Information about the bought subscription; may be null if no information about the subscription is available",
+                    "is_optional": true,
                     "type": "productInfo"
                 },
                 "subscription_period": {
@@ -37089,7 +37089,7 @@
                     "type": "string"
                 },
                 "secondary_username": {
-                    "description": "Secondary non-collectible username; for bots only. Can't be used in toggleBotUsernameIsActive; use addBotSecondaryUsername or deleteBotSecondaryUsername to edit it.",
+                    "description": "Secondary non-collectible username. Currently, must be non-empty only for bot accounts. Can't be used in toggleBotUsernameIsActive;",
                     "is_optional": false,
                     "type": "string"
                 }
@@ -41887,12 +41887,12 @@
                     "type": "int64"
                 },
                 "result": {
-                    "description": "The result",
+                    "description": "The result; must be null if a URL is passed",
                     "is_optional": false,
                     "type": "ChatJoinRequestResult"
                 },
                 "url": {
-                    "description": "URL of the Web App to open",
+                    "description": "URL of the Web App to open; must be null if a result is passed",
                     "is_optional": false,
                     "type": "string"
                 }
@@ -56987,7 +56987,7 @@
             "type": "Ok"
         },
         "shareUsersWithBot": {
-            "description": "Shares users after pressing a keyboardButtonTypeRequestUsers button with the bot",
+            "description": "Shares users after pressing a keyboardButtonTypeRequestUsers or keyboardButtonTypeRequestManagedBot button with the bot",
             "args": {
                 "button_id": {
                     "description": "Identifier of the button",
