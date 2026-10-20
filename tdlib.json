@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
     "version": "1.8.68",
-    "commit": "631edce27b702691e9a603059c78550b6b533a64",
+    "commit": "https://github.com/tdlib/td/commit/175048b69616ebc81b59ce71aa42abedbab9fe54",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -16412,7 +16412,7 @@
                     "type": "Bool"
                 },
                 "type": {
-                    "description": "Type of the item numbering type; must be one of \"a\" for a lowercase letter, \"A\" for an uppercase letter, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals,",
+                    "description": "Type of item numbering; pass \"a\" for lowercase letters, \"A\" for uppercase letters, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals,",
                     "is_optional": false,
                     "type": "string"
                 },
@@ -24736,7 +24736,7 @@
                     "type": "string"
                 },
                 "type": {
-                    "description": "Type of the item numbering type; must be one of \"a\" for lowercase letters, \"A\" for uppercase letters, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals,",
+                    "description": "Type of item numbering; must be one of \"a\" for lowercase letters, \"A\" for uppercase letters, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals,",
                     "is_optional": false,
                     "type": "string"
                 },
@@ -50888,7 +50888,7 @@
             "type": "Ok"
         },
         "loadChats": {
-            "description": "Loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. Returns a 404 error if all chats have been loaded",
+            "description": "Loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chatPosition.order, chat.id) in descending order. Returns a 404 error if all chats have been loaded",
             "args": {
                 "chat_list": {
                     "description": "The chat list in which to load chats; pass null to load chats from the main chat list",
