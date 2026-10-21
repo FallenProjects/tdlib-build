@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
-    "version": "1.8.68",
-    "commit": "https://github.com/tdlib/td/commit/175048b69616ebc81b59ce71aa42abedbab9fe54",
+    "version": "1.8.69",
+    "commit": "https://github.com/tdlib/td/commit/9d92b49bc5d0d2e29fe518239af647a88f8680e6",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -690,6 +690,14 @@
             ],
             "functions": []
         },
+        "EmojiType": {
+            "description": "Describes an emoji",
+            "types": [
+                "emojiTypeRegular",
+                "emojiTypeCustomEmoji"
+            ],
+            "functions": []
+        },
         "FileType": {
             "description": "Represents the type of file",
             "types": [
@@ -1086,6 +1094,14 @@
             ],
             "functions": []
         },
+        "InputProfileShareTheme": {
+            "description": "Describes a theme of the screen for sharing a link to a user or a chat to be set",
+            "types": [
+                "inputProfileShareThemeEmoji",
+                "inputProfileShareThemeUpgradedGift"
+            ],
+            "functions": []
+        },
         "InputStoryAreaType": {
             "description": "Describes type of clickable area on a story media to be added",
             "types": [
@@ -1423,6 +1439,7 @@
                 "messagePaidMessagesRefunded",
                 "messagePaidMessagePriceChanged",
                 "messageDirectMessagePriceChanged",
+                "messageUnpaidMessagesAllowedByLink",
                 "messageChecklistTasksDone",
                 "messageChecklistTasksAdded",
                 "messageSuggestedPostApprovalFailed",
@@ -1908,6 +1925,14 @@
             ],
             "functions": []
         },
+        "ProfileShareTheme": {
+            "description": "Describes a theme of the screen for sharing a link to a user or a chat",
+            "types": [
+                "profileShareThemeEmoji",
+                "profileShareThemeUpgradedGift"
+            ],
+            "functions": []
+        },
         "ProfileTab": {
             "description": "Describes a tab shown in a user or a chat profile",
             "types": [
@@ -1927,7 +1952,8 @@
             "types": [
                 "proxyTypeSocks5",
                 "proxyTypeHttp",
-                "proxyTypeMtproto"
+                "proxyTypeMtproto",
+                "proxyTypeWeb"
             ],
             "functions": []
         },
@@ -2645,7 +2671,7 @@
             "functions": []
         },
         "TonCenterApiRequestType": {
-            "description": "Describes type of a request to TON Center API",
+            "description": "Describes a type of request to the TON Center API",
             "types": [
                 "tonCenterApiRequestTypeGet",
                 "tonCenterApiRequestTypePost"
@@ -2718,6 +2744,7 @@
                 "tonWalletTransactionTypeOnRampDeposit",
                 "tonWalletTransactionTypeTransfer",
                 "tonWalletTransactionTypeNftTransfer",
+                "tonWalletTransactionTypeTelegramGiftTransfer",
                 "tonWalletTransactionTypeKeyChange"
             ],
             "functions": []
@@ -2894,6 +2921,9 @@
                 "updateWebBrowserSettings",
                 "updateLanguagePackStrings",
                 "updateConnectionState",
+                "updateWebProxyCarrierOpened",
+                "updateWebProxyCarrierData",
+                "updateWebProxyCarrierClosed",
                 "updateFreezeState",
                 "updateAgeVerificationParameters",
                 "updateTermsOfService",
@@ -3073,6 +3103,25 @@
             "functions": [
                 "getLinkWebBrowserType"
             ]
+        },
+        "WebProxyCarrierError": {
+            "description": "Describes the reason why a web proxy carrier failed",
+            "types": [
+                "webProxyCarrierErrorUnsupported",
+                "webProxyCarrierErrorPaused",
+                "webProxyCarrierErrorLoadFailed",
+                "webProxyCarrierErrorTerminated",
+                "webProxyCarrierErrorRefused"
+            ],
+            "functions": []
+        },
+        "WebProxyCarrierMessage": {
+            "description": "Describes a message passed by the page of a web proxy carrier to postMessage of the bridge object",
+            "types": [
+                "webProxyCarrierMessageText",
+                "webProxyCarrierMessageBinary"
+            ],
+            "functions": []
         }
     },
     "types": {
@@ -3643,6 +3692,42 @@
                 }
             },
             "type": "ArchiveChatListSettings"
+        },
+        "areaPosition": {
+            "description": "Describes position of a rectangle area on a story media or a TON wallet card",
+            "args": {
+                "corner_radius_percentage": {
+                    "description": "The radius of the rectangle corner rounding, as a percentage of the media or the card width",
+                    "is_optional": false,
+                    "type": "double"
+                },
+                "height_percentage": {
+                    "description": "The height of the rectangle, as a percentage of the media or the card height",
+                    "is_optional": false,
+                    "type": "double"
+                },
+                "rotation_angle": {
+                    "description": "Clockwise rotation angle of the rectangle, in degrees; 0-360",
+                    "is_optional": false,
+                    "type": "double"
+                },
+                "width_percentage": {
+                    "description": "The width of the rectangle, as a percentage of the media or the card width",
+                    "is_optional": false,
+                    "type": "double"
+                },
+                "x_percentage": {
+                    "description": "The abscissa of the rectangle's center, as a percentage of the media or the card width",
+                    "is_optional": false,
+                    "type": "double"
+                },
+                "y_percentage": {
+                    "description": "The ordinate of the rectangle's center, as a percentage of the media or the card height",
+                    "is_optional": false,
+                    "type": "double"
+                }
+            },
+            "type": "AreaPosition"
         },
         "attachmentMenuBot": {
             "description": "Represents a bot, which can be added to attachment or side menu",
@@ -4321,7 +4406,7 @@
             "type": "AuthorizationState"
         },
         "authorizationStateWaitRegistration": {
-            "description": "The user is unregistered and needs to accept terms of service and enter their first name and last name to finish registration. Call registerUser to accept the terms of service and provide the data",
+            "description": "The user is unregistered and needs to accept terms of service and enter their first name and last name to finish registration.",
             "args": {
                 "terms_of_service": {
                     "description": "Telegram terms of service",
@@ -5386,7 +5471,7 @@
                     "type": "Bool"
                 },
                 "can_sell_gifts": {
-                    "description": "True, if the bot can sell regular gifts received by the business account",
+                    "description": "True, if the bot can sell or delete regular gifts received by the business account",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -6512,7 +6597,7 @@
                     "type": "int53"
                 },
                 "message_auto_delete_time": {
-                    "description": "Current message auto-delete or self-destruct timer setting for the chat, in seconds; 0 if disabled. Self-destruct timer in secret chats starts after the message or its content is viewed. Auto-delete timer in other chats starts from the send date",
+                    "description": "Current message auto-delete or self-destruct timer setting for the chat, in seconds; 0 if disabled.",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -8264,7 +8349,7 @@
                     "type": "Bool"
                 },
                 "excluded_chat_ids": {
-                    "description": "The chat identifiers of always excluded chats in the folder. There can be up to getOption(\"chat_folder_chosen_chat_count_max\") always excluded non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium",
+                    "description": "The chat identifiers of always excluded chats in the folder. There can be up to getOption(\"chat_folder_chosen_chat_count_max\") always excluded non-secret chats",
                     "is_optional": false,
                     "type": "vector\u003cint53\u003e"
                 },
@@ -8299,7 +8384,7 @@
                     "type": "Bool"
                 },
                 "included_chat_ids": {
-                    "description": "The chat identifiers of always included chats in the folder. There can be up to getOption(\"chat_folder_chosen_chat_count_max\") pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium",
+                    "description": "The chat identifiers of always included chats in the folder. There can be up to getOption(\"chat_folder_chosen_chat_count_max\") pinned",
                     "is_optional": false,
                     "type": "vector\u003cint53\u003e"
                 },
@@ -8314,7 +8399,7 @@
                     "type": "chatFolderName"
                 },
                 "pinned_chat_ids": {
-                    "description": "The chat identifiers of pinned chats in the folder. There can be up to getOption(\"chat_folder_chosen_chat_count_max\") pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium",
+                    "description": "The chat identifiers of pinned chats in the folder. There can be up to getOption(\"chat_folder_chosen_chat_count_max\") pinned",
                     "is_optional": false,
                     "type": "vector\u003cint53\u003e"
                 }
@@ -8899,7 +8984,7 @@
             "description": "The user or the chat was banned (and hence is not a member of the chat). Implies the user can't return to the chat, view messages, or be used as a participant identifier to join a video chat of the chat",
             "args": {
                 "banned_until_date": {
-                    "description": "Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Always 0 in basic groups",
+                    "description": "Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -8952,7 +9037,7 @@
                     "type": "chatPermissions"
                 },
                 "restricted_until_date": {
-                    "description": "Point in time (Unix timestamp) when restrictions will be lifted from the user; 0 if never. If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever",
+                    "description": "Point in time (Unix timestamp) when restrictions will be lifted from the user; 0 if never.",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -11656,6 +11741,28 @@
                 }
             },
             "type": "EmojiStatuses"
+        },
+        "emojiTypeCustomEmoji": {
+            "description": "A custom emoji",
+            "args": {
+                "custom_emoji_id": {
+                    "description": "Identifier of the custom emoji",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
+            "type": "EmojiType"
+        },
+        "emojiTypeRegular": {
+            "description": "A regular emoji",
+            "args": {
+                "emoji": {
+                    "description": "Text representation of the emoji",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "EmojiType"
         },
         "emojis": {
             "description": "Represents a list of emojis",
@@ -14999,7 +15106,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAnimation, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15065,7 +15172,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15121,7 +15228,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAudio, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15157,7 +15264,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15203,7 +15310,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageDocument, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15270,7 +15377,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15326,7 +15433,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessagePhoto, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15372,7 +15479,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageSticker, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15413,7 +15520,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15459,7 +15566,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVideo, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -15515,7 +15622,7 @@
                     "type": "string"
                 },
                 "input_message_content": {
-                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVoiceNote, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact",
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -17181,6 +17288,38 @@
             },
             "type": "InputPollType"
         },
+        "inputProfileShareThemeEmoji": {
+            "description": "A theme with emoji placed on a background",
+            "args": {
+                "background_backdrop_id": {
+                    "description": "Identifier of the backdrop to be used as background; ignored if use_default_background is true. Use getProfileShareThemeBackdrops to get the list of available backdrops",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "emojis": {
+                    "description": "The emoji; 0-6 regular or custom emoji. If empty, then use_default_background must be false",
+                    "is_optional": false,
+                    "type": "vector\u003cEmojiType\u003e"
+                },
+                "use_default_background": {
+                    "description": "Pass true to use the default background; otherwise, the backdrop with identifier background_backdrop_id will be used as background",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "InputProfileShareTheme"
+        },
+        "inputProfileShareThemeUpgradedGift": {
+            "description": "A theme based on an upgraded gift",
+            "args": {
+                "received_gift_id": {
+                    "description": "Identifier of the upgraded gift, which is owned by the user or the chat, for which the theme is set",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InputProfileShareTheme"
+        },
         "inputRichMessage": {
             "description": "A rich message to send. Total length of all texts, including custom emoji alternative text and formula source, must not exceed getOption(\"rich_message_text_length_max\").",
             "args": {
@@ -17250,7 +17389,7 @@
                 "position": {
                     "description": "Position of the area",
                     "is_optional": false,
-                    "type": "storyAreaPosition"
+                    "type": "areaPosition"
                 },
                 "type": {
                     "description": "Type of the area",
@@ -17466,12 +17605,17 @@
             "description": "Describes manually chosen quote from another message",
             "args": {
                 "position": {
-                    "description": "Quote position in the original message in UTF-16 code units",
+                    "description": "Quote position in the original message in UTF-16 code units. For quotes from rich messages, it is the position in the text formed by joining plain texts",
                     "is_optional": false,
                     "type": "int32"
                 },
+                "rich_texts": {
+                    "description": "Quote from a rich message; pass an empty array if the quote isn't chosen from a rich message. Must contain one element for each quoted text of the message in the order of their appearance.",
+                    "is_optional": false,
+                    "type": "vector\u003cRichText\u003e"
+                },
                 "text": {
-                    "description": "Text of the quote; 0-getOption(\"message_reply_quote_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed to be kept and must be kept in the quote",
+                    "description": "Text of the quote; 0-getOption(\"message_reply_quote_length_max\") characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed to be kept and must be kept in the quote.",
                     "is_optional": false,
                     "type": "formattedText"
                 }
@@ -17498,6 +17642,22 @@
                 }
             },
             "type": "InputThumbnail"
+        },
+        "inputTonWalletCardSticker": {
+            "description": "Describes a sticker to be placed on the TON wallet card of the current user",
+            "args": {
+                "nft_address": {
+                    "description": "Address of an NFT owned by the wallet, which is an upgraded gift; use getTonWalletNfts to get the list of owned NFTs",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "position": {
+                    "description": "Position of the sticker on the card",
+                    "is_optional": false,
+                    "type": "areaPosition"
+                }
+            },
+            "type": "InputTonWalletCardSticker"
         },
         "inputVideo": {
             "description": "A video to be sent",
@@ -18103,6 +18263,11 @@
                     "description": "True, if chat profile information screen must be opened; otherwise, the chat itself must be opened",
                     "is_optional": false,
                     "type": "Bool"
+                },
+                "unpaid_messages_token": {
+                    "description": "Token, which allows the current user to send unpaid messages; may be empty if none.",
+                    "is_optional": true,
+                    "type": "string"
                 }
             },
             "type": "InternalLinkType"
@@ -18336,6 +18501,11 @@
                     "description": "Phone number of the user",
                     "is_optional": false,
                     "type": "string"
+                },
+                "unpaid_messages_token": {
+                    "description": "Token, which allows the current user to send unpaid messages to the user; may be empty if none.",
+                    "is_optional": true,
+                    "type": "string"
                 }
             },
             "type": "InternalLinkType"
@@ -18346,6 +18516,11 @@
                 "token": {
                     "description": "The token",
                     "is_optional": false,
+                    "type": "string"
+                },
+                "unpaid_messages_token": {
+                    "description": "Token, which allows the current user to send unpaid messages to the user; may be empty if none.",
+                    "is_optional": true,
                     "type": "string"
                 }
             },
@@ -20204,7 +20379,7 @@
                     "type": "MessageSender"
                 },
                 "sender_tag": {
-                    "description": "Tag of the sender of the message in the supergroup at the time the message was sent; may be empty if none or unknown. For messages sent in basic groups or by supergroup administrators, the current custom title or tag must be used instead",
+                    "description": "Tag of the sender of the message in the supergroup at the time the message was sent; may be empty if none or unknown.",
                     "is_optional": true,
                     "type": "string"
                 },
@@ -20994,8 +21169,8 @@
                     "type": "string"
                 },
                 "source": {
-                    "description": "For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, information about the source message from which the message was forwarded last time; may be null for other forwards or if unknown",
-                    "is_optional": true,
+                    "description": "For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group,",
+                    "is_optional": false,
                     "type": "forwardSource"
                 }
             },
@@ -21036,6 +21211,11 @@
         "messageGift": {
             "description": "A regular gift was received or sent by the current user, or the current user was notified about a channel gift",
             "args": {
+                "can_be_deleted": {
+                    "description": "True, if the gift can be deleted using deleteGift; only for the receiver of the gift",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "can_be_upgraded": {
                     "description": "True, if the gift can be upgraded to a unique gift; only for the receiver of the gift",
                     "is_optional": false,
@@ -23256,6 +23436,11 @@
             },
             "type": "MessageTopic"
         },
+        "messageUnpaidMessagesAllowedByLink": {
+            "description": "The sender of the message used a link of the other user, which allows sending unpaid messages to the user",
+            "args": {},
+            "type": "MessageContent"
+        },
         "messageUnsupported": {
             "description": "A message content that is not supported in the current TDLib version",
             "args": {},
@@ -24003,6 +24188,11 @@
                     "is_optional": false,
                     "type": "string"
                 },
+                "dapp_client_id": {
+                    "description": "Hex-encoded public X25519 key of the dApp; may be empty if TON wallet access wasn't requested",
+                    "is_optional": true,
+                    "type": "string"
+                },
                 "domain": {
                     "description": "A domain of the URL",
                     "is_optional": false,
@@ -24043,10 +24233,25 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "request_ton_wallet_access": {
+                    "description": "True, if access to the user's TON wallet is requested by the app. If true and the user agrees to give access, then use createTonConnectSession",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "request_write_access": {
                     "description": "True, if the user must be asked for the permission to the bot to send them messages",
                     "is_optional": false,
                     "type": "Bool"
+                },
+                "ton_connect_manifest_url": {
+                    "description": "URL of the TON Connect manifest of the dApp; may be empty if TON wallet access wasn't requested",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "ton_proof_payload": {
+                    "description": "Payload for TON wallet ownership proof; may be empty if TON wallet access wasn't requested",
+                    "is_optional": true,
+                    "type": "string"
                 },
                 "url": {
                     "description": "An HTTP URL where the user authorizes",
@@ -26044,7 +26249,7 @@
                     "type": "Bool"
                 },
                 "allow_sms_retriever_api": {
-                    "description": "For official applications only. True, if the application can use Android SMS Retriever API (requires Google Play Services \u003e= 10.2) to automatically receive the authentication code from the SMS. See https://developers.google.com/identity/sms-retriever/ for more details",
+                    "description": "For official applications only. True, if the application can use Android SMS Retriever API",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -27422,6 +27627,70 @@
             },
             "type": "ProfilePhoto"
         },
+        "profileShareThemeBackdrop": {
+            "description": "Describes a backdrop, which can be used as a background of a theme of the screen for sharing a link to a user or a chat",
+            "args": {
+                "colors": {
+                    "description": "Colors of the backdrop",
+                    "is_optional": false,
+                    "type": "upgradedGiftBackdropColors"
+                },
+                "id": {
+                    "description": "Unique identifier of the backdrop",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "name": {
+                    "description": "Name of the backdrop",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "ProfileShareThemeBackdrop"
+        },
+        "profileShareThemeBackdrops": {
+            "description": "Contains a list of backdrops, which can be used as a background of a theme of the screen for sharing a link to a user or a chat",
+            "args": {
+                "backdrops": {
+                    "description": "The list of backdrops",
+                    "is_optional": false,
+                    "type": "vector\u003cprofileShareThemeBackdrop\u003e"
+                }
+            },
+            "type": "ProfileShareThemeBackdrops"
+        },
+        "profileShareThemeEmoji": {
+            "description": "A theme with emoji placed on a background",
+            "args": {
+                "background_backdrop_id": {
+                    "description": "Identifier of the backdrop used as background; must be ignored if use_default_background is true. Use getProfileShareThemeBackdrops to get details about the backdrop",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "emojis": {
+                    "description": "The emoji; 0-6 regular or custom emoji. If empty, then use_default_background is false",
+                    "is_optional": false,
+                    "type": "vector\u003cEmojiType\u003e"
+                },
+                "use_default_background": {
+                    "description": "True, if the default background is used; otherwise, the backdrop with identifier background_backdrop_id is used as background",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "ProfileShareTheme"
+        },
+        "profileShareThemeUpgradedGift": {
+            "description": "A theme based on an upgraded gift owned by the user or the chat",
+            "args": {
+                "gift": {
+                    "description": "The upgraded gift",
+                    "is_optional": false,
+                    "type": "upgradedGift"
+                }
+            },
+            "type": "ProfileShareTheme"
+        },
         "profileTabFiles": {
             "description": "A tab with documents posted by the channel",
             "args": {},
@@ -27526,6 +27795,22 @@
                 "username": {
                     "description": "Username for logging in; may be empty",
                     "is_optional": true,
+                    "type": "string"
+                }
+            },
+            "type": "ProxyType"
+        },
+        "proxyTypeWeb": {
+            "description": "A web proxy server. MTProto traffic goes through an HTTPS relay page hosted by the application in a hidden web view; see updateWebProxyCarrierOpened.",
+            "args": {
+                "path": {
+                    "description": "Base path of the relay on the server, without leading and trailing slashes; may be empty. Consists of 0-128 characters;",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "secret": {
+                    "description": "The MTProto proxy secret in hexadecimal encoding; must be 16 bytes long, optionally prefixed with the byte 0xdd",
+                    "is_optional": false,
                     "type": "string"
                 }
             },
@@ -28485,6 +28770,11 @@
         "receivedGift": {
             "description": "Represents a gift received by a user or a chat",
             "args": {
+                "can_be_deleted": {
+                    "description": "True, if the gift is a regular gift that can be deleted using deleteGift; only for the receiver of the gift",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "can_be_transferred": {
                     "description": "True, if the gift is an upgraded gift that can be transferred to another owner; only for the receiver of the gift",
                     "is_optional": false,
@@ -29912,7 +30202,7 @@
                     "type": "Bool"
                 },
                 "key_hash": {
-                    "description": "Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 little-endian bytes, which must be split into groups of 2 bits, each denoting a pixel of one of 4 colors FFFFFF, D5E6F3, 2D5775, and 2F99C9.",
+                    "description": "Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 little-endian bytes,",
                     "is_optional": false,
                     "type": "bytes"
                 },
@@ -32601,7 +32891,7 @@
                 "position": {
                     "description": "Position of the area",
                     "is_optional": false,
-                    "type": "storyAreaPosition"
+                    "type": "areaPosition"
                 },
                 "type": {
                     "description": "Type of the area",
@@ -32610,42 +32900,6 @@
                 }
             },
             "type": "StoryArea"
-        },
-        "storyAreaPosition": {
-            "description": "Describes position of a clickable rectangle area on a story media",
-            "args": {
-                "corner_radius_percentage": {
-                    "description": "The radius of the rectangle corner rounding, as a percentage of the media width",
-                    "is_optional": false,
-                    "type": "double"
-                },
-                "height_percentage": {
-                    "description": "The height of the rectangle, as a percentage of the media height",
-                    "is_optional": false,
-                    "type": "double"
-                },
-                "rotation_angle": {
-                    "description": "Clockwise rotation angle of the rectangle, in degrees; 0-360",
-                    "is_optional": false,
-                    "type": "double"
-                },
-                "width_percentage": {
-                    "description": "The width of the rectangle, as a percentage of the media width",
-                    "is_optional": false,
-                    "type": "double"
-                },
-                "x_percentage": {
-                    "description": "The abscissa of the rectangle's center, as a percentage of the media width",
-                    "is_optional": false,
-                    "type": "double"
-                },
-                "y_percentage": {
-                    "description": "The ordinate of the rectangle's center, as a percentage of the media height",
-                    "is_optional": false,
-                    "type": "double"
-                }
-            },
-            "type": "StoryAreaPosition"
         },
         "storyAreaTypeLink": {
             "description": "An area pointing to an HTTP or tg:// link",
@@ -33675,6 +33929,11 @@
                     "is_optional": false,
                     "type": "int32"
                 },
+                "share_theme": {
+                    "description": "Theme of the screen for sharing a link to the supergroup or the channel; may be null if the default theme is used",
+                    "is_optional": true,
+                    "type": "ProfileShareTheme"
+                },
                 "slow_mode_delay": {
                     "description": "Delay between consecutive sent messages for non-administrator supergroup members, in seconds",
                     "is_optional": false,
@@ -34100,7 +34359,7 @@
             "type": "TelegramPaymentPurpose"
         },
         "temporaryPasswordState": {
-            "description": "Returns information about the availability of a temporary password, which can be used for payments",
+            "description": "Contains information about the availability of a temporary password, which can be used for payments and withdrawal of upgraded gifts",
             "args": {
                 "has_password": {
                     "description": "True, if a temporary password is available",
@@ -34404,7 +34663,7 @@
             "description": "A media timestamp",
             "args": {
                 "media_timestamp": {
-                    "description": "Timestamp from which a video/audio/video note/voice note/story playing must start, in seconds. The media can be in the content or the link preview of the current message, or in the same places in the replied message",
+                    "description": "Timestamp from which a video/audio/video note/voice note/story playing must start, in seconds.",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -34509,12 +34768,17 @@
                     "type": "Bool"
                 },
                 "position": {
-                    "description": "Approximate quote position in the original message in UTF-16 code units as specified by the message sender",
+                    "description": "Approximate quote position in the original message in UTF-16 code units as specified by the message sender. For quotes from rich messages,",
                     "is_optional": false,
                     "type": "int32"
                 },
+                "rich_texts": {
+                    "description": "Rich text of the quote if it was chosen from a rich message; empty if the quote wasn't chosen from a rich message.",
+                    "is_optional": false,
+                    "type": "vector\u003cRichText\u003e"
+                },
                 "text": {
-                    "description": "Text of the quote. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities can be present in the text",
+                    "description": "Text of the quote. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities can be present in the text.",
                     "is_optional": false,
                     "type": "formattedText"
                 }
@@ -34790,6 +35054,32 @@
             },
             "type": "TonConnectChallenge"
         },
+        "tonConnectConnectData": {
+            "description": "Contains data required to give access to the TON wallet of the current user in acceptOauthRequest",
+            "args": {
+                "body": {
+                    "description": "Body of the result of the connection request as in sendTonConnectSessionConnectResult",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "challenge_answer": {
+                    "description": "Answer to the challenge received from setTonConnectSessionWalletClientId",
+                    "is_optional": false,
+                    "type": "bytes"
+                },
+                "proof": {
+                    "description": "Proof of the TON wallet ownership for the payload oauthLinkInfo.ton_proof_payload",
+                    "is_optional": false,
+                    "type": "tonWalletOwnershipProof"
+                },
+                "session_id": {
+                    "description": "Unique identifier of the session",
+                    "is_optional": false,
+                    "type": "int64"
+                }
+            },
+            "type": "TonConnectConnectData"
+        },
         "tonConnectConnectItemAddress": {
             "description": "Address of the wallet",
             "args": {
@@ -35053,6 +35343,11 @@
                     "is_optional": true,
                     "type": "JsonValue"
                 },
+                "gift": {
+                    "description": "The upgraded gift corresponding to the NFT; may be null if none. Information about the owner of the gift isn't available.",
+                    "is_optional": true,
+                    "type": "upgradedGift"
+                },
                 "image": {
                     "description": "Image of the NFT; may be null if none",
                     "is_optional": true,
@@ -35281,6 +35576,48 @@
             },
             "type": "TonTransactions"
         },
+        "tonWalletCard": {
+            "description": "Describes a TON wallet card, which is shown on the profile page of a user to everyone",
+            "args": {
+                "address": {
+                    "description": "Address of the wallet",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "background_nft_address": {
+                    "description": "Address of the NFT of one of the stickers, whose colors must be used for the card background; may be empty if the default background must be used",
+                    "is_optional": true,
+                    "type": "string"
+                },
+                "gram_amount": {
+                    "description": "Balance of the wallet, in the smallest units of the cryptocurrency; may be slightly outdated",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "stickers": {
+                    "description": "Stickers placed on the card",
+                    "is_optional": false,
+                    "type": "vector\u003ctonWalletCardSticker\u003e"
+                }
+            },
+            "type": "TonWalletCard"
+        },
+        "tonWalletCardSticker": {
+            "description": "Describes a sticker on a TON wallet card",
+            "args": {
+                "nft": {
+                    "description": "The NFT shown as the sticker. If nft.gift is non-null, then it is enough to draw the sticker and there is no need to download the media of the NFT",
+                    "is_optional": false,
+                    "type": "tonNft"
+                },
+                "position": {
+                    "description": "Position of the sticker on the card",
+                    "is_optional": false,
+                    "type": "areaPosition"
+                }
+            },
+            "type": "TonWalletCardSticker"
+        },
         "tonWalletGaslessTransfersInfo": {
             "description": "Represents state of gasless transfers for the current user",
             "args": {
@@ -35338,6 +35675,17 @@
                 }
             },
             "type": "TonWalletOwnershipProofChallenge"
+        },
+        "tonWalletSecretPhrase": {
+            "description": "Contains the secret phrase of a TON wallet",
+            "args": {
+                "secret_phrase": {
+                    "description": "The secret phrase as a space separated list of words",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "TonWalletSecretPhrase"
         },
         "tonWalletState": {
             "description": "Describes state of the wallet of the current user in the TON blockchain",
@@ -35485,6 +35833,27 @@
                     "description": "Name of the on-ramp provider",
                     "is_optional": false,
                     "type": "string"
+                }
+            },
+            "type": "TonWalletTransactionType"
+        },
+        "tonWalletTransactionTypeTelegramGiftTransfer": {
+            "description": "A Telegram gift was minted as a TON NFT or was transferred from Telegram to the wallet or back; peer details aren't available for the transaction",
+            "args": {
+                "is_outgoing": {
+                    "description": "True, if the transfer is from the wallet to Telegram",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_saved": {
+                    "description": "True, if the gift was displayed on the current user's profile page before or after the transfer",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "nft": {
+                    "description": "The minted or transferred NFT",
+                    "is_optional": false,
+                    "type": "tonNft"
                 }
             },
             "type": "TonWalletTransactionType"
@@ -35761,6 +36130,11 @@
                     "is_optional": false,
                     "type": "upgradedGiftBackdrop"
                 },
+                "can_be_ton_wallet_card_background": {
+                    "description": "True, if the gift NFT can be used as background_nft_address in setTonWalletCardStickers",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "can_send_purchase_offer": {
                     "description": "True, if an offer to purchase the gift can be sent using sendGiftPurchaseOffer",
                     "is_optional": false,
@@ -36036,6 +36410,17 @@
             },
             "type": "UpgradedGiftBackdropCount"
         },
+        "upgradedGiftCollectionNames": {
+            "description": "Contains a list of names of upgraded gift collections. The name of the collection of an upgraded gift is the part of upgradedGift.name before the last \"-\"",
+            "args": {
+                "names": {
+                    "description": "The names",
+                    "is_optional": false,
+                    "type": "vector\u003cstring\u003e"
+                }
+            },
+            "type": "UpgradedGiftCollectionNames"
+        },
         "upgradedGiftColors": {
             "description": "Contains information about color scheme for user's name, background of empty chat photo, replies to messages and link previews",
             "args": {
@@ -36076,6 +36461,27 @@
                 }
             },
             "type": "UpgradedGiftColors"
+        },
+        "upgradedGiftDepositInfo": {
+            "description": "Contains information needed to deposit an upgraded gift from the TON wallet of the current user to a Telegram account.",
+            "args": {
+                "gram_amount": {
+                    "description": "The amount of TON Grams that must be attached to the message to cover fees, in the smallest units of the cryptocurrency; excess amount will be returned to the wallet",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "nft_address": {
+                    "description": "Address in TON blockchain to which the message must be sent",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "payload": {
+                    "description": "Body of the NFT transfer message",
+                    "is_optional": false,
+                    "type": "bytes"
+                }
+            },
+            "type": "UpgradedGiftDepositInfo"
         },
         "upgradedGiftModel": {
             "description": "Describes a model of an upgraded gift",
@@ -36636,10 +37042,20 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
+                "share_theme": {
+                    "description": "Theme of the screen for sharing a link to the user; may be null if the default theme is used",
+                    "is_optional": true,
+                    "type": "ProfileShareTheme"
+                },
                 "supports_video_calls": {
                     "description": "True, if a video call can be created with the user",
                     "is_optional": false,
                     "type": "Bool"
+                },
+                "ton_wallet_card": {
+                    "description": "TON wallet card of the user; may be null if none",
+                    "is_optional": true,
+                    "type": "tonWalletCard"
                 },
                 "uses_unofficial_app": {
                     "description": "True, if the user uses an unofficial application that poses a security risk",
@@ -36652,8 +37068,13 @@
         "userLink": {
             "description": "Contains an HTTPS URL, which can be used to get information about a user",
             "args": {
+                "can_get_permanent_link": {
+                    "description": "True, if a permanent link to the current user can be received; false if all links to the current user expire",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
                 "expires_in": {
-                    "description": "Left time for which the link is valid, in seconds; 0 if the link is a public username link",
+                    "description": "Left time for which the link is valid, in seconds; 0 if the link is permanent",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -37061,7 +37482,7 @@
             "type": "UserType"
         },
         "userTypeUnknown": {
-            "description": "No information on the user besides the user identifier is available, yet this user has not been deleted. This object is extremely rare and must be handled like a deleted user. It is not possible to perform any actions on users of this type",
+            "description": "No information on the user besides the user identifier is available, yet this user has not been deleted.",
             "args": {},
             "type": "UserType"
         },
@@ -37677,6 +38098,100 @@
             },
             "type": "WebPageInstantView"
         },
+        "webProxyCarrier": {
+            "description": "Describes a web proxy carrier: an HTTPS relay page, which carries traffic of a web proxy and must be loaded by the application as the top-level document of a hidden web view.",
+            "args": {
+                "bridge_object_name": {
+                    "description": "Name of the object to define in the top-level document; currently, always \"TelegramWebProxy\"",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Unique identifier of the carrier",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "is_temporary": {
+                    "description": "True, if the carrier is needed only to test the proxy and will be closed after the test.",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "origin": {
+                    "description": "Origin of the relay page, for example, \"https://proxy.example.com\". The web view must not be allowed to navigate to another origin",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "path_prefix": {
+                    "description": "The only path prefix on carrier.origin from which the page may load resources or to which it may send requests, for example, \"/\" or \"/relay/\"",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "proxy_id": {
+                    "description": "Identifier of the added proxy that uses the carrier; 0 if the carrier is used by pingProxy or testProxy",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "url": {
+                    "description": "The HTTPS URL to load. The URL contains the capability for the proxy and a fragment, which must be kept; the URL must never be logged or shown to the user",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "WebProxyCarrier"
+        },
+        "webProxyCarrierErrorLoadFailed": {
+            "description": "The page failed to load: a network, TLS, or HTTP error, or a forbidden navigation",
+            "args": {
+                "message": {
+                    "description": "The error to be logged; must not contain the URL",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "WebProxyCarrierError"
+        },
+        "webProxyCarrierErrorPaused": {
+            "description": "The application can't open the carrier now, for example, because it is in the background; TDLib will request it again after the next call to setNetworkType or after a delay",
+            "args": {},
+            "type": "WebProxyCarrierError"
+        },
+        "webProxyCarrierErrorRefused": {
+            "description": "The application refused to open a temporary carrier",
+            "args": {},
+            "type": "WebProxyCarrierError"
+        },
+        "webProxyCarrierErrorTerminated": {
+            "description": "The web view or its renderer process was terminated, or passing data between the application and the page failed",
+            "args": {},
+            "type": "WebProxyCarrierError"
+        },
+        "webProxyCarrierErrorUnsupported": {
+            "description": "The application can't open the carrier, because the platform can't create hidden web views or define the bridge object; TDLib will not retry until the proxy is enabled again",
+            "args": {},
+            "type": "WebProxyCarrierError"
+        },
+        "webProxyCarrierMessageBinary": {
+            "description": "A binary message, passed as an ArrayBuffer or a typed array",
+            "args": {
+                "data": {
+                    "description": "Data of the message",
+                    "is_optional": false,
+                    "type": "bytes"
+                }
+            },
+            "type": "WebProxyCarrierMessage"
+        },
+        "webProxyCarrierMessageText": {
+            "description": "A string message",
+            "args": {
+                "text": {
+                    "description": "The string",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "WebProxyCarrierMessage"
+        },
         "welcomeMessage": {
             "description": "Describes a set up welcome message",
             "args": {
@@ -37745,7 +38260,7 @@
             "type": "Update"
         },
         "updateActiveNotifications": {
-            "description": "Contains active notifications that were shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update",
+            "description": "Contains active notifications that were shown on previous application launches. This update is sent only",
             "args": {
                 "groups": {
                     "description": "Lists of active notification groups",
@@ -41104,6 +41619,44 @@
             },
             "type": "Update"
         },
+        "updateWebProxyCarrierClosed": {
+            "description": "A web proxy carrier must be closed. If the page has passed any message to the bridge object, then the application must deliver the string {\"t\":\"close\"} to the page,",
+            "args": {
+                "carrier_id": {
+                    "description": "Identifier of the carrier",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "Update"
+        },
+        "updateWebProxyCarrierData": {
+            "description": "Data must be delivered as an ArrayBuffer to the page of a web proxy carrier through the onmessage function of the bridge object, in the order of the updates",
+            "args": {
+                "carrier_id": {
+                    "description": "Identifier of the carrier",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "data": {
+                    "description": "The data to deliver",
+                    "is_optional": false,
+                    "type": "bytes"
+                }
+            },
+            "type": "Update"
+        },
+        "updateWebProxyCarrierOpened": {
+            "description": "A web proxy carrier must be opened as described in webProxyCarrier. Messages passed by the page to the bridge object must be passed to processWebProxyCarrierMessage.",
+            "args": {
+                "carrier": {
+                    "description": "The carrier",
+                    "is_optional": false,
+                    "type": "webProxyCarrier"
+                }
+            },
+            "type": "Update"
+        },
         "updates": {
             "description": "Contains a list of updates",
             "args": {
@@ -41151,6 +41704,11 @@
                     "is_optional": false,
                     "type": "string"
                 },
+                "ton_connect_connect_data": {
+                    "description": "Pass data required to access the user's TON wallet via TON Connect if the current user allowed this; pass null if the access wasn't requested or the user declined access",
+                    "is_optional": true,
+                    "type": "tonConnectConnectData"
+                },
                 "url": {
                     "description": "URL of the OAuth deep link",
                     "is_optional": false,
@@ -41176,7 +41734,7 @@
             "type": "Ok"
         },
         "addBotMediaPreview": {
-            "description": "Adds a new media preview to the beginning of the list of media previews of a bot. Returns the added preview after addition is completed server-side. The total number of previews must not exceed getOption(\"bot_media_preview_count_max\") for the given language",
+            "description": "Adds a new media preview to the beginning of the list of media previews of a bot. Returns the added preview",
             "args": {
                 "bot_user_id": {
                     "description": "Identifier of the target bot. The bot must be owned and must have the main Web App",
@@ -42057,6 +42615,22 @@
             },
             "type": "Ok"
         },
+        "applyUnpaidMessagesToken": {
+            "description": "Allows the current user to send unpaid messages to the given user, which requires payment for incoming messages, using a token from an internal link",
+            "args": {
+                "token": {
+                    "description": "Token from the link",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "user_id": {
+                    "description": "Identifier of the user",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "Ok"
+        },
         "approveSuggestedPost": {
             "description": "Approves a suggested post in a channel direct messages chat",
             "args": {
@@ -42095,10 +42669,10 @@
             "type": "Ok"
         },
         "banChatMember": {
-            "description": "Bans a member in a chat; requires can_restrict_members administrator right. Members can't be banned in private or secret chats. In supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless unbanned first",
+            "description": "Bans a member in a chat; requires can_restrict_members administrator right. Members can't be banned in private or secret chats.",
             "args": {
                 "banned_until_date": {
-                    "description": "Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Ignored in basic groups and if a chat is banned",
+                    "description": "Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -42350,7 +42924,7 @@
             "type": "Ok"
         },
         "checkAuthenticationBotToken": {
-            "description": "Checks the authentication token of a bot; to log in as a bot. Works only when the current authorization state is authorizationStateWaitPhoneNumber. Can be used instead of setAuthenticationPhoneNumber and checkAuthenticationCode to log in",
+            "description": "Checks the authentication token of a bot; to log in as a bot.",
             "args": {
                 "token": {
                     "description": "The bot token",
@@ -42527,7 +43101,7 @@
             "type": "CheckChatUsernameResult"
         },
         "checkCreatedPublicChatsLimit": {
-            "description": "Checks whether the maximum number of owned public chats has been reached. Returns corresponding error if the limit was reached. The limit can be increased with Telegram Premium",
+            "description": "Checks whether the maximum number of owned public chats has been reached. Returns corresponding error if the limit was reached.",
             "args": {
                 "type": {
                     "description": "Type of the public chats, for which to check the limit",
@@ -43217,7 +43791,7 @@
                     "type": "int53"
                 },
                 "icon": {
-                    "description": "Icon of the topic. Icon color must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F. Telegram Premium users can use any custom emoji as topic icon, other users can use only a custom emoji returned by getForumTopicDefaultIcons",
+                    "description": "Icon of the topic. Icon color must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F.",
                     "is_optional": false,
                     "type": "forumTopicIcon"
                 },
@@ -43543,7 +44117,7 @@
             "type": "Chat"
         },
         "createTemporaryPassword": {
-            "description": "Creates a new temporary password for processing payments",
+            "description": "Creates a new temporary password for processing payments and withdrawal of upgraded gifts",
             "args": {
                 "password": {
                     "description": "The 2-step verification password of the current user",
@@ -44149,6 +44723,22 @@
             },
             "type": "Ok"
         },
+        "deleteGift": {
+            "description": "Deletes a gift without receiving Telegram Stars for it. Use receivedGift.can_be_deleted or messageGift.can_be_deleted to check whether the gift can be deleted",
+            "args": {
+                "business_connection_id": {
+                    "description": "Unique identifier of business connection on behalf of which to send the request; for bots only",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "received_gift_id": {
+                    "description": "Identifier of the gift",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "Ok"
+        },
         "deleteGiftCollection": {
             "description": "Deletes a gift collection. If the collection is owned by a channel chat, then requires can_post_messages administrator right in the channel chat",
             "args": {
@@ -44607,6 +45197,22 @@
             },
             "type": "Ok"
         },
+        "displayUpgradedGift": {
+            "description": "Shows an upgraded gift from the TON wallet of the current user on a profile page or hides it from all profile pages; the gift remains in the wallet",
+            "args": {
+                "name": {
+                    "description": "Unique name of the upgraded gift",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "owner_id": {
+                    "description": "Identifier of the current user or a channel chat owned by the current user on whose profile page the gift will be shown; pass null to hide the gift from all profile pages",
+                    "is_optional": true,
+                    "type": "MessageSender"
+                }
+            },
+            "type": "Ok"
+        },
         "downloadFile": {
             "description": "Downloads a file from the cloud. Download progress and completion of the download will be notified through updateFile updates",
             "args": {
@@ -44631,7 +45237,7 @@
                     "type": "int32"
                 },
                 "synchronous": {
-                    "description": "Pass true to return response only after the file download has succeeded, has failed, has been canceled, or a new downloadFile request with different offset/limit parameters was sent; pass false to return file state immediately, just after the download has been started",
+                    "description": "Pass true to return response only after the file download has succeeded, has failed, has been canceled, or a new downloadFile request",
                     "is_optional": false,
                     "type": "Bool"
                 }
@@ -45135,7 +45741,7 @@
                     "type": "int32"
                 },
                 "icon_custom_emoji_id": {
-                    "description": "Identifier of the new custom emoji for topic icon; pass 0 to remove the custom emoji. Ignored if edit_icon_custom_emoji is false. Telegram Premium users can use any custom emoji, other users can use only a custom emoji returned by getForumTopicDefaultIcons",
+                    "description": "Identifier of the new custom emoji for topic icon; pass 0 to remove the custom emoji. Ignored if edit_icon_custom_emoji is false.",
                     "is_optional": false,
                     "type": "int64"
                 },
@@ -45459,7 +46065,7 @@
             "description": "Asynchronously edits the text, media, or caption of a quick reply message. Use quickReplyMessage.can_be_edited to check whether a message can be edited.",
             "args": {
                 "input_message_content": {
-                    "description": "New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageChecklist, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageText, or inputMessageVideo",
+                    "description": "New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio,",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 },
@@ -46349,7 +46955,7 @@
             "type": "FoundChatBoosts"
         },
         "getChatEventLog": {
-            "description": "Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing event_id)",
+            "description": "Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels.",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
@@ -46650,7 +47256,7 @@
             "type": "Message"
         },
         "getChatMessageCalendar": {
-            "description": "Returns information about the next messages of the specified type in the chat split by days. Returns the results in reverse chronological order. Can return partial result for the last returned day. Behavior of this method depends on the value of the option \"utc_time_offset\"",
+            "description": "Returns information about the next messages of the specified type in the chat split by days.",
             "args": {
                 "chat_id": {
                     "description": "Identifier of the chat in which to return information about messages",
@@ -47153,7 +47759,7 @@
             "type": "CurrencyExchangeRates"
         },
         "getCurrentState": {
-            "description": "Returns all updates needed to restore current TDLib state, i.e. all actual updateAuthorizationState/updateUser/updateNewChat and others. This is especially useful if TDLib is run in a separate process. Can be called before initialization",
+            "description": "Returns all updates needed to restore current TDLib state, i.e. all actual updateAuthorizationState/updateUser/updateNewChat and others.",
             "args": {},
             "type": "Updates"
         },
@@ -47826,7 +48432,7 @@
             "type": "Count"
         },
         "getInactiveSupergroupChats": {
-            "description": "Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives the error \"CHANNELS_TOO_MUCH\". Also, the limit can be increased with Telegram Premium",
+            "description": "Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels",
             "args": {},
             "type": "Chats"
         },
@@ -48516,7 +49122,7 @@
             "type": "MessageProperties"
         },
         "getMessagePublicForwards": {
-            "description": "Returns forwarded copies of a channel message to different public channels and public reposts as a story. Can be used only if messageProperties.can_get_statistics == true. For optimal performance, the number of returned messages and stories is chosen by TDLib",
+            "description": "Returns forwarded copies of a channel message to different public channels and public reposts as a story. Can be used only",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier of the message",
@@ -48626,7 +49232,7 @@
             "type": "Messages"
         },
         "getMessageViewers": {
-            "description": "Returns viewers of a recent outgoing message in a basic group or a supergroup chat. For video notes and voice notes only users, opened content of the message, are returned. The method can be called if messageProperties.can_get_viewers == true",
+            "description": "Returns viewers of a recent outgoing message in a basic group or a supergroup chat. For video notes and voice notes only users,",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
@@ -48970,7 +49576,7 @@
             "type": "PhoneNumberInfo"
         },
         "getPhoneNumberInfoSync": {
-            "description": "Returns information about a phone number by its prefix synchronously. getCountries must be called at least once after changing localization to the specified language if properly localized country information is expected. Can be called synchronously",
+            "description": "Returns information about a phone number by its prefix synchronously. getCountries must be called at least once after changing",
             "args": {
                 "language_code": {
                     "description": "A two-letter ISO 639-1 language code for country information localization",
@@ -49036,7 +49642,7 @@
                     "type": "int53"
                 },
                 "limit": {
-                    "description": "The maximum number of voters to be returned; must be positive and can't be greater than 50. For optimal performance, the number of returned voters is chosen by TDLib and can be smaller than the specified limit, even if the end of the voter list has not been reached",
+                    "description": "The maximum number of voters to be returned; must be positive and can't be greater than 50. For optimal performance,",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -49059,7 +49665,7 @@
             "type": "PollVoters"
         },
         "getPreferredCountryLanguage": {
-            "description": "Returns an IETF language tag of the language preferred in the country, which must be used to fill native fields in Telegram Passport personal details. Returns a 404 error if unknown",
+            "description": "Returns an IETF language tag of the language preferred in the country, which must be used to fill native fields in Telegram Passport personal details.",
             "args": {
                 "country_code": {
                     "description": "A two-letter ISO 3166-1 alpha-2 country code",
@@ -49170,6 +49776,11 @@
                 }
             },
             "type": "KeyboardButton"
+        },
+        "getProfileShareThemeBackdrops": {
+            "description": "Returns the list of backdrops, which can be used as a background of a theme of the screen for sharing a link to a user or a chat",
+            "args": {},
+            "type": "ProfileShareThemeBackdrops"
         },
         "getProxies": {
             "description": "Returns the list of proxies that are currently set up. Can be called before authorization",
@@ -49355,7 +49966,7 @@
             "type": "RecoveryEmailAddress"
         },
         "getRemoteFile": {
-            "description": "Returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even if the request succeeds, the file can be used only if it is still accessible to the user.",
+            "description": "Returns information about a file by its remote identifier. This is an offline method.",
             "args": {
                 "file_type": {
                     "description": "File type; pass null if unknown",
@@ -49761,7 +50372,7 @@
             "description": "Returns storage usage statistics. Can be called before authorization",
             "args": {
                 "chat_limit": {
-                    "description": "The maximum number of chats with the largest storage usage for which separate statistics need to be returned. All other chats will be grouped in entries with chat_id == 0. If the chat info database is not used, the chat_limit is ignored and is always set to 0",
+                    "description": "The maximum number of chats with the largest storage usage for which separate statistics need to be returned. All other chats will be grouped in entries with chat_id == 0.",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -50141,6 +50752,11 @@
             },
             "type": "TonTransactions"
         },
+        "getTonWalletCardBackgroundGiftCollectionNames": {
+            "description": "Returns names of upgraded gift collections whose NFTs can be used as background_nft_address in setTonWalletCardStickers; can be used only if getOption(\"can_use_ton_wallet\")",
+            "args": {},
+            "type": "UpgradedGiftCollectionNames"
+        },
         "getTonWalletNfts": {
             "description": "Returns NFTs stored on the TON wallet of the user; can be used only if getOption(\"can_use_ton_wallet\")",
             "args": {
@@ -50163,7 +50779,7 @@
             "type": "TonWalletOwnershipProofChallenge"
         },
         "getTonWalletSecretPhrase": {
-            "description": "Returns the secret phrase of the user's TON wallet as a space separated list of words. Works only if tonWalletState.can_export_phrase is true",
+            "description": "Returns the secret phrase of the user's TON wallet. Works only if tonWalletState.can_export_phrase is true",
             "args": {
                 "password": {
                     "description": "Password of the current user; pass an empty string unless receive an error with a message \"PASSWORD_MISSING\" for a passwordless request",
@@ -50171,7 +50787,7 @@
                     "type": "string"
                 }
             },
-            "type": "Text"
+            "type": "TonWalletSecretPhrase"
         },
         "getTonWalletTransaction": {
             "description": "Returns a TON wallet transaction by its identifier",
@@ -50264,6 +50880,27 @@
             },
             "type": "UpgradedGift"
         },
+        "getUpgradedGiftDepositInfo": {
+            "description": "Returns information needed to deposit an upgraded gift from the TON wallet of the current user to a Telegram account. Use sendTonWalletTransfer to complete transfer of the gift.",
+            "args": {
+                "hide_sender": {
+                    "description": "Pass true to hide the sender of the gift in the message received by the new owner",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "name": {
+                    "description": "Unique name of the upgraded gift",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "owner_id": {
+                    "description": "Identifier of the user or the channel chat that will receive the gift",
+                    "is_optional": false,
+                    "type": "MessageSender"
+                }
+            },
+            "type": "UpgradedGiftDepositInfo"
+        },
         "getUpgradedGiftEmojiStatuses": {
             "description": "Returns available upgraded gift emoji statuses for self status",
             "args": {},
@@ -50302,13 +50939,8 @@
             "type": "GiftUpgradeVariants"
         },
         "getUpgradedGiftWithdrawalUrl": {
-            "description": "Returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat",
+            "description": "Returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat.",
             "args": {
-                "password": {
-                    "description": "The 2-step verification password of the current user",
-                    "is_optional": false,
-                    "type": "string"
-                },
                 "received_gift_id": {
                     "description": "Identifier of the gift",
                     "is_optional": false,
@@ -50362,7 +50994,23 @@
         },
         "getUserLink": {
             "description": "Returns an HTTPS link, which can be used to get information about the current user",
-            "args": {},
+            "args": {
+                "remove_messages_fee": {
+                    "description": "Pass true to get a link, which allows other users to send unpaid messages to the current user. By default, a temporary link is returned in this case",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "return_permanent_link": {
+                    "description": "Pass true to get a permanent link; ignored if remove_messages_fee is false. Can be used only if can_get_permanent_link is true in a previously received userLink",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "revoke_previous_links": {
+                    "description": "Pass true to revoke previously created links, which allow other users to send unpaid messages to the current user;",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
             "type": "UserLink"
         },
         "getUserPrivacySettingRules": {
@@ -50888,7 +51536,7 @@
             "type": "Ok"
         },
         "loadChats": {
-            "description": "Loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chatPosition.order, chat.id) in descending order. Returns a 404 error if all chats have been loaded",
+            "description": "Loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates.",
             "args": {
                 "chat_list": {
                     "description": "The chat list in which to load chats; pass null to load chats from the main chat list",
@@ -51465,6 +52113,22 @@
             },
             "type": "Ok"
         },
+        "processWebProxyCarrierMessage": {
+            "description": "Passes a message, which the page of a web proxy carrier passed to postMessage of the bridge object, to TDLib. Must be called in the order in which the messages were passed.",
+            "args": {
+                "carrier_id": {
+                    "description": "Identifier of the carrier",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "message": {
+                    "description": "The received message",
+                    "is_optional": false,
+                    "type": "WebProxyCarrierMessage"
+                }
+            },
+            "type": "Ok"
+        },
         "rateSpeechRecognition": {
             "description": "Rates recognized speech in a video note or a voice note message",
             "args": {
@@ -51616,7 +52280,7 @@
             "type": "Ok"
         },
         "readFilePart": {
-            "description": "Reads a part of a file from the TDLib file cache and returns read bytes. This method is intended to be used only if the application has no direct access to TDLib's file system, because it is usually slower than a direct read from the file",
+            "description": "Reads a part of a file from the TDLib file cache and returns read bytes. This method is intended to be used only",
             "args": {
                 "count": {
                     "description": "Number of bytes to read. An error will be returned if there are not enough bytes available in the file from the specified position. Pass 0 to read all available data from the specified position",
@@ -51637,7 +52301,7 @@
             "type": "Data"
         },
         "readdQuickReplyShortcutMessages": {
-            "description": "Re-adds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.can_retry is true and after specified in messageSendingStateFailed.retry_after time passed.",
+            "description": "Re-adds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.can_retry is true",
             "args": {
                 "message_ids": {
                     "description": "Identifiers of the quick reply messages to re-add. Message identifiers must be in a strictly increasing order",
@@ -52649,6 +53313,22 @@
             },
             "type": "ReportSponsoredResult"
         },
+        "reportWebProxyCarrierError": {
+            "description": "Reports that a web proxy carrier failed. TDLib closes the carrier and decides whether and when to request a new one. Can be called before authorization",
+            "args": {
+                "carrier_id": {
+                    "description": "Identifier of the carrier",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "error": {
+                    "description": "The error",
+                    "is_optional": false,
+                    "type": "WebProxyCarrierError"
+                }
+            },
+            "type": "Ok"
+        },
         "requestAuthenticationPasswordRecovery": {
             "description": "Requests to send a 2-step verification password recovery code to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword",
             "args": {},
@@ -52692,7 +53372,7 @@
             "type": "EmailAddressAuthenticationCodeInfo"
         },
         "resendMessages": {
-            "description": "Resends messages which failed to send. Can be called only for messages for which messageSendingStateFailed.can_retry is true and after specified in messageSendingStateFailed.retry_after time passed.",
+            "description": "Resends messages which failed to send. Can be called only for messages for which messageSendingStateFailed.can_retry is true",
             "args": {
                 "chat_id": {
                     "description": "Identifier of the chat to send messages",
@@ -53682,7 +54362,7 @@
             "type": "Ok"
         },
         "sendAuthenticationFirebaseSms": {
-            "description": "Sends Firebase Authentication SMS to the phone number of the user. Works only when the current authorization state is authorizationStateWaitCode and the server returned code of the type authenticationCodeTypeFirebaseAndroid or authenticationCodeTypeFirebaseIos",
+            "description": "Sends Firebase Authentication SMS to the phone number of the user. Works only when the current authorization state is",
             "args": {
                 "token": {
                     "description": "Play Integrity API or SafetyNet Attestation API token for the Android application, or secret from push notification for the iOS application",
@@ -55100,7 +55780,7 @@
                     "type": "int32"
                 },
                 "only_for_self": {
-                    "description": "Pass true to set background only for self; pass false to set background for all chat users. Always false for backgrounds set in boosted chats. Background can be set for both users only by Telegram Premium users and if set background isn't of the type inputBackgroundPrevious",
+                    "description": "Pass true to set background only for self; pass false to set background for all chat users. Always false for backgrounds set in boosted chats.",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -56388,6 +57068,22 @@
             },
             "type": "Ok"
         },
+        "setProfileShareTheme": {
+            "description": "Changes the theme of the screen for sharing a link to the current user or a chat. The chat must have a username.",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the chat with the current user, or identifier of a supergroup or a channel chat",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "theme": {
+                    "description": "The new theme; pass null to use the default theme",
+                    "is_optional": true,
+                    "type": "InputProfileShareTheme"
+                }
+            },
+            "type": "Ok"
+        },
         "setQuickReplyShortcutName": {
             "description": "Changes name of a quick reply shortcut",
             "args": {
@@ -56800,7 +57496,7 @@
             "type": "Ok"
         },
         "setTonConnectSessionWalletClientId": {
-            "description": "Sets wallet_client_id for a pending TON Connect session. Then, sendTonConnectSessionConnectResult must be used to accept or reject the session",
+            "description": "Sets wallet_client_id for a pending TON Connect session. Then, sendTonConnectSessionConnectResult must be used to accept or reject the session.",
             "args": {
                 "session_id": {
                     "description": "Unique identifier of the session",
@@ -56814,6 +57510,22 @@
                 }
             },
             "type": "TonConnectChallenge"
+        },
+        "setTonWalletCardStickers": {
+            "description": "Changes the list of stickers on the TON wallet card of the current user; can be used only if getOption(\"can_use_ton_wallet\").",
+            "args": {
+                "background_nft_address": {
+                    "description": "Address of the NFT from the new list of stickers, whose colors will be used for the card background; pass an empty string to use the default background.",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "stickers": {
+                    "description": "The new list of stickers; pass an empty list to remove all stickers. Up to 10 stickers can be added. Each NFT can be used only once",
+                    "is_optional": false,
+                    "type": "vector\u003cinputTonWalletCardSticker\u003e"
+                }
+            },
+            "type": "TonWalletCard"
         },
         "setUpgradedGiftColors": {
             "description": "Changes color scheme for the current user based on an owned or a hosted upgraded gift; for Telegram Premium users only",
@@ -57549,7 +58261,7 @@
             "type": "Ok"
         },
         "toggleChatIsPinned": {
-            "description": "Changes the pinned state of a chat. There can be up to getOption(\"pinned_chat_count_max\")/getOption(\"pinned_archived_chat_count_max\") pinned non-secret chats and the same number of secret chats in the main/archive chat list. The limit can be increased with Telegram Premium",
+            "description": "Changes the pinned state of a chat. There can be up to getOption(\"pinned_chat_count_max\")/getOption(\"pinned_archived_chat_count_max\")",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
@@ -57904,7 +58616,7 @@
             "type": "Ok"
         },
         "toggleSupergroupCanHaveSponsoredMessages": {
-            "description": "Toggles whether sponsored messages are shown in the channel chat; requires owner privileges in the channel. The chat must have at least chatBoostFeatures.min_sponsored_message_disable_boost_level boost level to disable sponsored messages",
+            "description": "Toggles whether sponsored messages are shown in the channel chat; requires owner privileges in the channel.",
             "args": {
                 "can_have_sponsored_messages": {
                     "description": "The new value of can_have_sponsored_messages",
@@ -58364,7 +59076,7 @@
             "type": "Ok"
         },
         "upgradeBasicGroupChatToSupergroupChat": {
-            "description": "Creates a new supergroup from an existing basic group and sends a corresponding messageChatUpgradeTo and messageChatUpgradeFrom; requires owner privileges. Deactivates the original basic group",
+            "description": "Creates a new supergroup from an existing basic group and sends a corresponding messageChatUpgradeTo and messageChatUpgradeFrom; requires owner privileges.",
             "args": {
                 "chat_id": {
                     "description": "Identifier of the chat to upgrade",
@@ -58508,6 +59220,22 @@
                     "description": "Unique identifier of the advertisement",
                     "is_optional": false,
                     "type": "int53"
+                }
+            },
+            "type": "Ok"
+        },
+        "withdrawUpgradedGift": {
+            "description": "Withdraws an upgraded gift to the TON blockchain as an NFT directly to the TON wallet of the current user, which is created automatically if the user has no wallet yet;",
+            "args": {
+                "keep_on_profile": {
+                    "description": "Pass true to keep the gift displayed on the user's or the chat's profile page after withdrawal",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "received_gift_id": {
+                    "description": "Identifier of the gift",
+                    "is_optional": false,
+                    "type": "string"
                 }
             },
             "type": "Ok"
