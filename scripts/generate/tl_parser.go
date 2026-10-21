@@ -56,6 +56,10 @@ func parseTLFromReader(r io.Reader) (*TDLibJSON, error) {
 	var isFunctionsSection bool
 	var start bool
 
+	var lastTarget string // "class", "description", or "param"
+	var lastClass string
+	var lastParam string
+
 	scanner := bufio.NewScanner(r)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
@@ -88,6 +92,8 @@ func parseTLFromReader(r io.Reader) (*TDLibJSON, error) {
 						switch tagName {
 						case "class":
 							currentClass = tagText
+							lastClass = tagText
+							lastTarget = "class"
 						case "description":
 							if currentClass != "" {
 								data.Classes[currentClass] = &ClassDef{
@@ -95,6 +101,8 @@ func parseTLFromReader(r io.Reader) (*TDLibJSON, error) {
 									Types:       []string{},
 									Functions:   []string{},
 								}
+								lastClass = currentClass
+								lastTarget = "class"
 								currentClass = ""
 							} else {
 								if currentDescription != "" {
@@ -102,6 +110,7 @@ func parseTLFromReader(r io.Reader) (*TDLibJSON, error) {
 								} else {
 									currentDescription = tagText
 								}
+								lastTarget = "description"
 							}
 						default:
 							cleanName := strings.TrimPrefix(tagName, "param_")
@@ -110,6 +119,44 @@ func parseTLFromReader(r io.Reader) (*TDLibJSON, error) {
 							} else {
 								currentParams[cleanName] = tagText
 							}
+							lastParam = cleanName
+							lastTarget = "param"
+						}
+					}
+				}
+			} else {
+				var contText string
+				if strings.HasPrefix(line, "//-") {
+					contText = strings.TrimSpace(strings.TrimPrefix(line, "//-"))
+				} else {
+					contText = strings.TrimSpace(strings.TrimPrefix(line, "//"))
+				}
+
+				if contText != "" {
+					switch lastTarget {
+					case "class":
+						if lastClass != "" {
+							if cls, ok := data.Classes[lastClass]; ok {
+								if cls.Description != "" {
+									cls.Description += " " + contText
+								} else {
+									cls.Description = contText
+								}
+							}
+						}
+					case "param":
+						if lastParam != "" {
+							if existing, ok := currentParams[lastParam]; ok && existing != "" {
+								currentParams[lastParam] = existing + " " + contText
+							} else {
+								currentParams[lastParam] = contText
+							}
+						}
+					case "description":
+						if currentDescription != "" {
+							currentDescription += " " + contText
+						} else {
+							currentDescription = contText
 						}
 					}
 				}
@@ -168,6 +215,9 @@ func parseTLFromReader(r io.Reader) (*TDLibJSON, error) {
 				// Reset
 				currentDescription = ""
 				currentParams = make(map[string]string)
+				lastTarget = ""
+				lastClass = ""
+				lastParam = ""
 			}
 		}
 	}
