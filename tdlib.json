@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
     "version": "1.8.69",
-    "commit": "https://github.com/tdlib/td/commit/9d92b49bc5d0d2e29fe518239af647a88f8680e6",
+    "commit": "https://github.com/tdlib/td/commit/4c6377aa7386c39217878a9a56d581922ad37ca4",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -59403,6 +59403,11 @@
             "writable": false,
             "description": "Since TDLib 1.8.24. If true, then the current user can use text entities in story captions"
         },
+        "can_use_ton_wallet": {
+            "type": "Bool",
+            "writable": false,
+            "description": "Since TDLib 1.8.68. If true, then the current user can use TON Wallet"
+        },
         "can_withdraw_chat_revenue": {
             "type": "Bool",
             "writable": false,
@@ -59943,6 +59948,11 @@
             "writable": false,
             "description": "Since TDLib 1.8.65. The maximum length of a rich message text"
         },
+        "secondary_bot_username_count_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.68. The maximum number of bots with a secondary username that can be owned by a Premium user"
+        },
         "show_message_edit_date_by_default": {
             "type": "Bool",
             "writable": false,
@@ -59957,6 +59967,11 @@
             "type": "int64",
             "writable": false,
             "description": "Since TDLib 1.8.60. The minimum amount of TON Grams that can be staked for a roll in nanograms"
+        },
+        "star_top_up_disabled": {
+            "type": "Bool",
+            "writable": false,
+            "description": "Since TDLib 1.8.68. If true, then direct purchase of Telegram Stars for payments towards specific bots or chats isn't allowed"
         },
         "star_withdrawal_count_max": {
             "type": "int64",
@@ -60142,6 +60157,21 @@
             "type": "string",
             "writable": false,
             "description": "Since TDLib 1.8.45. A prefix of the URL that can be used to get information about a TON blockchain address"
+        },
+        "ton_wallet_gasless_transfer_amount_min": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.68. The minimum amount of TON Grams that can be transfered in a gasless transfer in nanograms"
+        },
+        "ton_wallet_gasless_transfer_daily_count_max": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.68. The maximum number of allowed gasless transfers per day"
+        },
+        "ton_wallet_transfer_amount_min": {
+            "type": "int64",
+            "writable": false,
+            "description": "Since TDLib 1.8.68. The minimum amount of TON Grams that can be transfered in a regular transfer in nanograms"
         },
         "toncoin_top_up_url": {
             "type": "string",
