@@ -60243,6 +60243,11 @@
             "writable": false,
             "description": "Since TDLib 1.8.24. User identifier of the Telegram Anti-Spam bot"
         },
+        "audio_search_bot_username": {
+            "type": "string",
+            "writable": false,
+            "description": "Since TDLib 1.8.70. Username of a bot which can be used in inline mode for audios search"
+        },
         "authentication_token": {
             "type": "string",
             "writable": false,
@@ -61152,11 +61157,6 @@
             "type": "int64",
             "writable": true,
             "description": "A UTC time offset used for splitting messages by days. The option is reset automatically on each TDLib instance launch, so it needs to be set manually only if the time offset is changed during execution."
-        },
-        "venue_search_bot_username": {
-            "type": "string",
-            "writable": false,
-            "description": "Username of a bot which can be used in inline mode for venues search"
         },
         "verification_codes_bot_chat_id": {
             "type": "int64",
