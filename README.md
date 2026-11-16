@@ -13,6 +13,7 @@ An automated workflow to build [TDLib](https://github.com/tdlib/td) (Telegram Da
     *   Parses it into a JSON format compatible with `tdlib-json` wrappers.
 *   **Cross-Platform Builds**:
     *   **Linux** (x86_64, arm64) - Built with `cmake`, `gperf`, `zlib`, `openssl`.
+    *   **Alpine Linux** (x86_64, arm64) - Native musl builds published as `TDLib-tdjson-muslinux-<arch>-{shared,static}.tar.gz`.
     *   **macOS** (x86_64, arm64) - Built with `brew` dependencies.
     *   **Windows** (x64, arm64) - Built with `vcpkg` dependencies.
     *   **Android** (x86_64, aarch64) - Built with Android NDK, `openssl`.

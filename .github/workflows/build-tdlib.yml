@@ -142,6 +142,76 @@ jobs:
             TDLib-tdjson-linux-${{ matrix.arch }}-shared.tar.gz
             TDLib-tdjson-linux-${{ matrix.arch }}-static.tar.gz
 
+  build-alpine:
+    name: Alpine (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - name: Checkout TDLib
+        uses: actions/checkout@v4
+        with:
+          repository: tdlib/td
+          fetch-depth: 1
+          path: td
+
+      - name: Get TDLib Version
+        id: vars
+        run: |
+          cd td
+          COMMIT_HASH=$(git log -1 --pretty=%H)
+          COMMIT_URL="https://github.com/tdlib/td/commit/$COMMIT_HASH"
+          VERSION=$(grep -oE 'project\(TDLib VERSION [0-9.]+' CMakeLists.txt | awk '{print $3}')
+          echo "commit_url=$COMMIT_URL" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build and package TDLib on Alpine
+        env:
+          TARGET_ARCH: ${{ matrix.arch }}
+        run: |
+          docker run --rm -i \
+            -v "$GITHUB_WORKSPACE:/work" \
+            -w /work \
+            -e TARGET_ARCH \
+            alpine:3.23 sh -eu <<'SH'
+          apk add --no-cache build-base cmake gperf linux-headers openssl-dev zlib-dev
+
+          case "$TARGET_ARCH:$(apk --print-arch)" in
+            x86_64:x86_64|arm64:aarch64) ;;
+            *) echo "Runner architecture does not match $TARGET_ARCH" >&2; exit 1 ;;
+          esac
+
+          cmake -S td -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target tdjson tdjson_static --parallel 4
+
+          mkdir -p out-shared out-static
+          find build -type f -name 'libtdjson.so*' -exec cp {} out-shared/ \;
+          find build -type f -name 'libtdjson_static.a' -exec cp {} out-static/ \;
+          test -n "$(find out-shared -type f -name 'libtdjson.so*' -print -quit)"
+          test -s out-static/libtdjson_static.a
+
+          (cd out-shared && tar -czf "../TDLib-tdjson-muslinux-${TARGET_ARCH}-shared.tar.gz" *)
+          (cd out-static && tar -czf "../TDLib-tdjson-muslinux-${TARGET_ARCH}-static.tar.gz" *)
+          SH
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.vars.outputs.version }}
+          name: TDLib v${{ steps.vars.outputs.version }}
+          body: |
+            TDLib Version: ${{ steps.vars.outputs.version }}
+            Commit: ${{ steps.vars.outputs.commit_url }}
+          files: |
+            TDLib-tdjson-muslinux-${{ matrix.arch }}-shared.tar.gz
+            TDLib-tdjson-muslinux-${{ matrix.arch }}-static.tar.gz
+
   build-macos:
     name: macOS (${{ matrix.arch }})
     runs-on: macos-14
