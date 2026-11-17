@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API",
     "version": "1.8.70",
-    "commit": "https://github.com/tdlib/td/commit/c8828d50f5eac2fc7089ce1089d7ce9095c61b5e",
+    "commit": "https://github.com/tdlib/td/commit/03220f6b3043c6fd7785fbf0901d63f19ad19974",
     "classes": {
         "ActiveStoryState": {
             "description": "Describes state of active stories posted by a chat",
@@ -21432,7 +21432,7 @@
                     "type": "MessageSender"
                 },
                 "sell_star_count": {
-                    "description": "Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the receiver",
+                    "description": "Number of Telegram Stars that can be claimed by the receiver instead of the regular gift within getOption(\"gift_sell_period\") seconds from its sending; 0 if the gift can't be sold by the receiver",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -29082,7 +29082,7 @@
                     "type": "string"
                 },
                 "sell_star_count": {
-                    "description": "Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the current user",
+                    "description": "Number of Telegram Stars that can be claimed by the receiver instead of the regular gift within getOption(\"gift_sell_period\") seconds from its sending; 0 if the gift can't be sold by the receiver",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -45290,7 +45290,7 @@
             "type": "Ok"
         },
         "deleteGift": {
-            "description": "Deletes a gift without receiving Telegram Stars for it. Use receivedGift.can_be_deleted or messageGift.can_be_deleted to check whether the gift can be deleted",
+            "description": "Deletes a gift without receiving Telegram Stars for it. Use receivedGift.can_be_deleted or messageGift.can_be_deleted to check whether the gift can be deleted. The gift may be deleted even it can still be sold using sellGift",
             "args": {
                 "business_connection_id": {
                     "description": "Unique identifier of business connection on behalf of which to send the request; for bots only",
@@ -55228,7 +55228,7 @@
             "type": "FoundWebApp"
         },
         "sellGift": {
-            "description": "Sells a gift for Telegram Stars; requires owner privileges for gifts owned by a chat",
+            "description": "Sells a gift for Telegram Stars. Use receivedGift.sell_star_count or messageGift.sell_star_count to check whether the gift is soldable. A gift can be sold if it is soldable and not more than getOption(\"gift_sell_period\") seconds passed since gift sending",
             "args": {
                 "business_connection_id": {
                     "description": "Unique identifier of business connection on behalf of which to send the request; for bots only",
